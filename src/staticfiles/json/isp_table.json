@@ -1,0 +1,41 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "avatar": "1.png",
+      "name": "OVH"
+    },
+    {
+      "id": 2,
+      "avatar": "2.png",
+      "name": "Hetzner"
+    },
+    {
+      "id": 3,
+      "avatar": "3.png",
+      "name": "DigitalOcean"
+    },
+    {
+      "id": 4,
+      "avatar": "4.png",
+      "name": "Clouvider"
+    },
+    {
+      "id": 5,
+      "avatar": "5.png",
+      "name": "M247"
+    },
+    {
+      "id": 6,
+      "avatar": "6.png",
+      "name": "G-Core"
+    },
+    {
+      "id": 7,
+      "avatar": "7.png",
+      "name": "Scaleway"
+    }
+  ]
+}
+
+

@@ -1,0 +1,738 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}ارائه دهندگان{% endblock %}
+
+{% block vendor_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'vendor/libs/apex-charts/apex-charts.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/swiper/swiper.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-bs5/datatables.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'vendor/libs/select2/select2.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/tagify/tagify.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-select/bootstrap-select.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/typeahead-js/typeahead.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/apex-charts/apex-charts.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'vendor/libs/select2/select2.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/tagify/tagify.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-select/bootstrap-select.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/typeahead-js/typeahead.css' %}" />
+
+{% endblock vendor_css %}
+
+{% block vendor_js %}
+  {{ block.super }}
+  <script src="{% static 'vendor/libs/apex-charts/apexcharts.js' %}"></script>
+  <script src="{% static 'vendor/libs/swiper/swiper.js' %}"></script>
+  <script src="{% static 'vendor/libs/datatables-bs5/datatables-bootstrap5.js' %}"></script>
+  <script src="{% static 'vendor/libs/apex-charts/apexcharts.js' %}"></script>
+
+  <script src="{% static 'amcharts5/index.js' %} "></script>
+  <script src="{% static 'amcharts5/hierarchy.js' %}  "></script>
+  <script src="{% static 'amcharts5/themes/Animated.js' %}  "></script>
+  <script src="{% static 'amcharts5/plugins/exporting.js' %} "></script>
+
+  <script src="{% static 'vendor/libs/select2/select2.js' %}"></script>
+  <script src="{% static 'libs/select2/i18n/fa.js' %}"></script>
+  <script src="{% static 'vendor/libs/tagify/tagify.js' %}"></script>
+  <script src="{% static 'vendor/libs/bootstrap-select/bootstrap-select.js' %}"></script>
+  <script src="{% static 'libs/bootstrap-select/i18n/defaults-fa_IR.js' %}"></script>
+  <script src="{% static 'vendor/libs/typeahead-js/typeahead.js' %}"></script>
+  <script src="{% static 'vendor/libs/bloodhound/bloodhound.js' %}"></script>
+
+  <script src="{% static 'js/forms-selects.js' %}"></script>
+  <script src="{% static 'js/forms-tagify.js' %}"></script>
+  <script src="{% static 'js/forms-typeahead.js' %}"></script>
+  <script src="{% static 'js/loading.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block page_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'vendor/css/pages/cards-advance.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/swiper/swiper.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/css/pages/ui-carousel.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'vendor/libs/flatpickr/flatpickr.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/jquery-timepicker/jquery-timepicker.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/pickr/pickr-themes.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/spinkit/spinkit.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-bs5/datatables.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/flatpickr/flatpickr.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/@form-validation/umd/styles/index.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/css/pages/page-profile.css' %}" />
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    #chartdiv {
+      direction: ltr;
+      width: 100%;
+      height: 500px;
+    }
+
+    .mzloading {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 5500;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 75%;
+    }
+  </style>
+  <style>
+    .dt-buttons {
+      display: none;
+    }
+
+    th {
+      text-align: center !important;
+    }
+
+    td {
+      text-align: center;
+    }
+
+    tr {
+      transition: all .2s;
+    }
+
+    tr:hover {
+      background: #eee !important;
+    }
+
+    td a {
+      color: #666 !important;
+    }
+
+    .number_dy {
+      transition: all .3s;
+    }
+
+    .number_dy:hover {
+      background: #eee;
+    }
+
+    .number_dy h1 {
+      font-size: 50px;
+    }
+
+    h5 {
+      font-size: 15px !important;
+    }
+
+    #isp_number {
+      border-bottom: 8px solid #df2b2b;
+    }
+
+    #isp_number h1 {
+      color: #df2b2b;
+    }
+
+    #ip_number {
+      border-bottom: 8px solid #f16b08;
+    }
+
+    #ip_number h1 {
+      color: #f16b08;
+    }
+
+    #server_number {
+      border-bottom: 8px solid #ec18bb;
+    }
+
+    #server_number h1 {
+      color: #ec18bb;
+    }
+
+    #cuntry_number {
+      border-bottom: 8px solid #4620ed;
+    }
+
+    #cuntry_number h1 {
+      color: #4620ed;
+    }
+
+    tbody .control {
+      font-size: 0px;
+    }
+
+    .card {
+    }
+  </style>
+{% endblock page_css %}
+
+{% block page_js %}
+  {{ block.super }}
+  <script src="{% static 'focus/index.min.js' %}"></script>
+  <script src="{% static 'js/report-dashboard.js' %}"></script>
+  <script src="{% static 'js/forms-selects.js' %}"></script>
+  <script src="{% static 'js/forms-tagify.js' %}"></script>
+  <script src="{% static 'js/forms-typeahead.js' %}"></script>
+  <script src="{% static 'vendor/libs/swiper/swiper.js' %}"></script>
+  <script src="{% static 'js/ui-carousel.js' %}"></script>
+  <script src="{% static 'js/donut-chart.js' %}"></script>
+
+  <script src="{% static 'vendor/libs/moment/moment.js' %}"></script>
+  <script src="{% static 'libs/jdate/jdate.min.js' %}"></script>
+  <script src="{% static 'vendor/libs/flatpickr/flatpickr.js' %}"></script>
+  <script src="{% static 'libs/flatpickr/flatpickr-jdate.js' %}"></script>
+  <script src="{% static 'libs/flatpickr-jalali/dist/l10n/fa.js' %}"></script>
+  <script src="{% static 'vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js' %}"></script>
+  <script src="{% static 'vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js' %}"></script>
+  <script src="{% static 'vendor/libs/jquery-timepicker/jquery-timepicker.js' %}"></script>
+  <script src="{% static 'vendor/libs/pickr/pickr.js' %}"></script>
+
+  <script src="{% static 'vendor/libs/datatables-bs5/datatables-bootstrap5.js' %}"></script>
+  <script src="{% static 'vendor/libs/moment/moment.js' %}"></script>
+  <script src="{% static 'libs/jdate/jdate.min.js' %}"></script>
+  <script src="{% static 'vendor/libs/flatpickr/flatpickr.js' %}"></script>
+  <script src="{% static 'libs/flatpickr/flatpickr-jdate.js' %}"></script>
+  <script src="{% static 'libs/flatpickr-jalali/dist/l10n/fa.js' %}"></script>
+  <script src="{% static 'vendor/libs/@form-validation/umd/bundle/popular.min.js' %}"></script>
+  <script src="{% static 'vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js' %}"></script>
+  <script src="{% static 'vendor/libs/@form-validation/umd/plugin-auto-t' %}"></script>
+
+
+  <script>
+    /**
+     * ---------------------------------------
+     * This demo was created using amCharts 5.
+     *
+     * For more information visit:
+     * https://www.amcharts.com/
+     *
+     * Documentation is available at:
+     * https://www.amcharts.com/docs/v5/
+     * ---------------------------------------
+     */
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+    var root = am5.Root.new('chartdiv');
+
+    const myTheme = am5.Theme.new(root);
+
+    myTheme.rule('RoundedRectangle', ['hierarchy', 'node', 'shape', 'depth1']).setAll({
+      strokeWidth: 2
+    });
+
+    myTheme.rule('RoundedRectangle', ['hierarchy', 'node', 'shape', 'depth2']).setAll({
+      fillOpacity: 0,
+      strokeWidth: 1,
+      strokeOpacity: 0.2
+    });
+
+    myTheme.rule('Label', ['node', 'depth1']).setAll({
+      forceHidden: true
+    });
+
+    myTheme.rule('Label', ['node', 'depth2']).setAll({
+      fontSize: 10
+    });
+
+    root.setThemes([
+      am5themes_Animated.new(root),
+      myTheme
+    ]);
+
+    var zoomableContainer = root.container.children.push(
+      am5.ZoomableContainer.new(root, {
+        width: am5.p100,
+        height: am5.p100,
+        wheelable: true,
+        pinchZoom: true
+      })
+    );
+
+    var zoomTools = zoomableContainer.children.push(am5.ZoomTools.new(root, {
+      target: zoomableContainer
+    }));
+
+    // Create series
+    // https://www.amcharts.com/docs/v5/charts/hierarchy/#Adding
+    var series = zoomableContainer.contents.children.push(
+      am5hierarchy.Treemap.new(root, {
+        maskContent: false, //!important with zoomable containers
+        sort: 'descending',
+        singleBranchOnly: false,
+        downDepth: 2,
+        upDepth: 0,
+        initialDepth: 2,
+        valueField: 'value',
+        categoryField: 'name',
+        childDataField: 'children',
+        nodePaddingOuter: 0,
+        nodePaddingInner: 0
+      })
+    );
+
+    series.nodes.template.events.on('click', function(ev) {
+      var depth = ev.target.dataItem.get('depth');
+      if (depth == 2) {
+        series.selectDataItem(ev.target.dataItem.get('parent'));
+      }
+    });
+
+    series.labels.template.set('minScale', 0);
+    series.get('colors').set('step', 1);
+
+    // Generate and set data
+    // https://www.amcharts.com/docs/v5/charts/hierarchy/#Setting_data
+
+
+    var data = {
+      {% for isp, countries in data.items %}
+        "{{ isp }}": {
+          {% for country, count in countries.items %}
+            "{{ country }}": {{ count }} {% if not forloop.last %},{% endif %}
+          {% endfor %}
+        }{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    };
+
+    function processData(data) {
+      var treeData = [];
+
+      var smallBrands = { name: 'Other', children: [] };
+
+      am5.object.eachOrdered(
+        data,
+        (brand) => {
+          var brandData = { name: brand, children: [] };
+          var brandTotal = 0;
+          for (var model in data[brand]) {
+            brandTotal += data[brand][model];
+          }
+
+          for (var model in data[brand]) {
+            // do not add very small
+            if (data[brand][model] > 100) {
+              brandData.children.push({ name: model, value: data[brand][model] });
+            }
+          }
+
+          // only bigger brands
+          if (brandTotal > 450) {
+            treeData.push(brandData);
+          }
+        },
+        (a, b) => {
+          let aval = 0;
+          let bval = 0;
+          am5.object.each(data[a], (key, val) => (aval += val));
+          am5.object.each(data[b], (key, val) => (bval += val));
+          if (aval > bval) return -1;
+          if (aval < bval) return 1;
+          return 0;
+        }
+      );
+
+      return [{
+        name: 'Root',
+        children: treeData
+      }];
+    }
+
+    series.data.setAll(processData(data));
+    series.set('selectedDataItem', series.dataItems[0]);
+
+    var exporting = am5plugins_exporting.Exporting.new(root, {
+      menu: am5plugins_exporting.ExportingMenu.new(root, {})
+    });
+
+    series.bullets.push(function(root, series, dataItem) {
+      var depth = dataItem.get('depth');
+
+      if (depth == 1) {
+        console.log('>', dataItem.dataContext.name);
+        var imagePath = "{% static 'img/ispLogo/BW/' %}" + dataItem.dataContext.name + '.png';
+        console.log('>>', imagePath);
+        var picture = am5.Picture.new(root, {
+          src: imagePath,
+          centerX: am5.p50,
+          centerY: am5.p50,
+          width: am5.percent(30),
+          isMeasured: true
+        });
+
+        picture.states.lookup('default').setAll({ opacity: 0.55 });
+
+        return am5.Bullet.new(root, { sprite: picture });
+      }
+    });
+
+
+  </script>
+
+
+  <script>
+    (function($) {
+      $.fn.count = function(options) {
+        var $this = $(this);
+        var settings = $.extend({
+          startValue: 0,
+          endValue: 300,
+          durationValue: 2000
+        }, options);
+        $this.html(settings.startValue).attr('data-count', settings.endValue);
+        var countTo = $this.attr('data-count');
+        $({ countNum: $this.html() }).animate({
+            countNum: countTo
+          },
+          {
+            duration: settings.durationValue,
+            easing: 'swing',
+            step: function() {
+              $this.text(Math.floor(this.countNum));
+            },
+            complete: function() {
+              $this.text(this.countNum);
+              console.log('done.');
+            }
+          });
+        return this;
+      };
+    }(jQuery));
+
+    $('#cuntry_number h1').count({
+      startValue: 0,
+      endValue: 30,
+      durationValue: 1800
+    });
+    $('#server_number h1').count({
+      startValue: 0,
+      endValue: 5,
+      durationValue: 1800
+    });
+    $('#isp_number h1').count({
+      startValue: 0,
+      endValue: 18,
+      durationValue: 1800
+    });
+    $('#ip_number h1').count({
+      startValue: 0,
+      endValue: 80,
+      durationValue: 1800
+    });
+  </script>
+
+  <script src="{% static 'js/forms-pickers-jalali.js' %}"></script>
+  <script src="{% static 'js/table-isp.js' %}"></script>
+
+{% endblock page_js %}
+
+{% block content %}
+  <div class="container-fluid h-100 mzloading">
+    <div class="sk-chase sk-primary">
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12  mb-4">
+      <div class="card h-100 p-4">
+        <div class="row">
+          <form class="row g-3" action="{{ vpn.id }}" method="get">
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic">سال:</label>
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic"
+                      name="selected_date">
+                <option label="نمایش همگانی" value="0">نمایش همگانی</option>
+                <option label="1401" value="14010101">1401</option>
+                <option label="1402" value="14020101">1402</option>
+                <option label="1403" value="14030101">1403</option>
+
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="select2Success">اپراتور</label>
+              <div class="select2-success">
+                <select class="select2 form-select" id="select2Success" multiple disabled>
+                  <option value="1" selected>ایرانسل</option>
+                  <option value="2" selected>همراه اول</option>
+                  <option value="3" selected>رایتل</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic">نام ابزار گریز:</label>
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" name="vpn">
+                <option label="singapore" value="0">نمایش همگانی</option>
+                {% for item in vpn %}
+                  <option label="{{ item.name }}" value="{{ item.id }}"
+                          {% if selected_vpn == item.id|stringformat:"s" %}selected{% endif %}>{{ item.name }}</option>
+                {% endfor %}
+              </select>
+
+            </div>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic2">کشور ابزار گریز:</label>
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic2"
+                      name="country">
+                <option label="singapore" value="0">نمایش همگانی</option>
+                {% for item in country %}
+                  <option label="{{ item.name }}" value="{{ item.id }}"
+                          {% if selected_country == item.id|stringformat:"s" %}selected{% endif %}>{{ item.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic3">کشور سرور:</label>
+
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3"
+                      name="server_country">
+                <option label="singapore" value="0">نمایش همگانی</option>
+                {% for item in country_server %}
+                  <option label="{{ item.name }}" value="{{ item.id }}"
+                          {% if selected_country_server == item.id|stringformat:"s" %}selected{% endif %}>{{ item.name }}</option>
+                {% endfor %}
+              </select>
+
+            </div>
+            <div class="col-md-1">
+              <label class="form-label" for="select2Basic3">.</label>
+              <br>
+              <button class="btn btn-primary" type="submit" id="applyFilter">اعمال فیلتر</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-lg-12">
+    <h6 class="text-muted">آی.اس.پی های حامی ابزار گریز</h6>
+    <div class="nav-align-top mb-4">
+      <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+        <li class="nav-item">
+          <button aria-controls="navs-pills-justified-home" aria-selected="true" class="nav-link active"
+                  data-bs-target="#navs-pills-justified-home" data-bs-toggle="tab" role="tab" type="button">
+            <i class="tf-icons ti ti-table-alias ti-xs me-1"></i>
+            نمودار پراکندگی
+          </button>
+        </li>
+        <li class="nav-item">
+          <button aria-controls="navs-pills-justified-profile" aria-selected="false" class="nav-link"
+                  data-bs-target="#navs-pills-justified-profile" data-bs-toggle="tab" role="tab" type="button">
+            <i class="tf-icons ti ti-checklist ti-xs me-1"></i>
+            لیست
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+          <div class="ps-3 pe-3">
+            <div id="chartdiv"></div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
+
+
+          <div class="row">
+            <div class="col-lg-4 col-md-12">
+              <!-- DataTable with Buttons -->
+              <div class="card">
+                <div class="card-datatable table-responsive pt-0">
+                  <table class="datatables-basic table">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>لوگو ها</th>
+                      <th>نام آی.آس.پی</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!--/ DataTable with Buttons -->
+            </div>
+            <div class="col-lg-8 col-md-12">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card mb-4">
+                    <div class="user-profile-header-banner">
+                      <img width="100%" src="{% static 'img/pages/profile-banner2.png' %}" alt="Banner image"
+                           class="rounded-top">
+                    </div>
+                    <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
+                      <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
+                        <img src="{% static 'img/ispLogo/RGB/1.png' %}" alt="user image"
+                             class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img">
+
+                      </div>
+                      <div class="flex-grow-1 mt-3 mt-sm-5">
+                        <div
+                          class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
+                          <div class="user-profile-info">
+                            <h4>OVH</h4>
+                            <ul
+                              class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
+                              <li class="list-inline-item d-flex gap-1">
+                                <i class='ti ti-building-factory-2'></i> OVH CLoud
+                              </li>
+                              <li class="list-inline-item d-flex gap-1">
+                                <i class='ti ti-map-pin'></i>United States
+                              </li>
+                            </ul>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-4">
+                <div class="col-xl-3 col-lg-6 col-md-6 ">
+                  <div class="card number_dy" id="cuntry_number">
+                    <div class="card-body text-center">
+                      <div class="dropdown btn-pinned">
+                        <button aria-expanded="false" class="btn dropdown-toggle hide-arrow p-0"
+                                data-bs-toggle="dropdown"
+                                type="button">
+                          <i class="ti ti-dots-vertical text-muted"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a class="dropdown-item" href="javascript:void(0);">اطلاعات بیشتر</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <br>
+                      <br><br>
+                      <div class="mx-auto my-3">
+                        <h1></h1>
+                      </div>
+                      <br>
+                      <br>
+                      <br>
+                      <h5>تعداد آی.پی های شناسایی شده</h5>
+                      <br>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                  <div class="card number_dy" id="server_number">
+                    <div class="card-body text-center">
+                      <div class="dropdown btn-pinned">
+                        <button aria-expanded="false" class="btn dropdown-toggle hide-arrow p-0"
+                                data-bs-toggle="dropdown"
+                                type="button">
+                          <i class="ti ti-dots-vertical text-muted"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a class="dropdown-item" href="javascript:void(0);">اطلاعات بیشتر</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <br>
+                      <br><br>
+                      <div class="mx-auto my-3">
+                        <h1></h1>
+                      </div>
+                      <br>
+                      <br>
+                      <br>
+                      <h5>کشور های شناسایی شده</h5>
+                      <br>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                  <div class="card number_dy" id="isp_number">
+                    <div class="card-body text-center">
+                      <div class="dropdown btn-pinned">
+                        <button aria-expanded="false" class="btn dropdown-toggle hide-arrow p-0"
+                                data-bs-toggle="dropdown"
+                                type="button">
+                          <i class="ti ti-dots-vertical text-muted"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a class="dropdown-item" href="javascript:void(0);">اطلاعات بیشتر</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <br>
+                      <br><br>
+                      <div class="mx-auto my-3">
+                        <h1></h1>
+                      </div>
+                      <br>
+                      <br>
+                      <br>
+                      <h5>تعداد ابزار گریز های جمایت شده</h5>
+                      <br>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                  <div class="card number_dy" id="ip_number">
+                    <div class="card-body text-center">
+                      <div class="dropdown btn-pinned">
+                        <button aria-expanded="false" class="btn dropdown-toggle hide-arrow p-0"
+                                data-bs-toggle="dropdown"
+                                type="button">
+                          <i class="ti ti-dots-vertical text-muted"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <a class="dropdown-item" href="javascript:void(0);">اطلاعات بیشتر</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <br>
+                      <br><br>
+                      <div class="mx-auto my-3">
+                        <h1></h1>
+                      </div>
+                      <br>
+                      <br>
+                      <br>
+                      <h5>کیفیت سرویس دهی</h5>
+                      <br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+{% endblock content %}
+

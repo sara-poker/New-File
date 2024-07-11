@@ -1,0 +1,36 @@
+{
+  "menu": [
+    {
+      "name": "Dashboards",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "slug": "dashboard",
+      "submenu": [
+        {
+          "url": "index",
+          "name": "Analytics",
+          "slug": "dashboard-analytics"
+        },
+        {
+          "url": "liner_chart",
+          "name": "Analytics",
+          "slug": "dashboard-analytics"
+        },
+        {
+          "url": "vpn",
+          "name": "Analytics",
+          "slug": "dashboard-analytics"
+        },
+        {
+          "url": "vpn_ctreator",
+          "name": "Analytics",
+          "slug": "dashboard-analytics"
+        },
+        {
+          "url": "isp",
+          "name": "Analytics",
+          "slug": "dashboard-analytics"
+        }
+      ]
+    }
+  ]
+}

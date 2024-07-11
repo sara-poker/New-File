@@ -1,0 +1,30 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}صفحات - خطا{% endblock %}
+
+{% block page_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'vendor/css/pages/page-misc.css' %}" />
+{% endblock page_css %}
+
+
+{% block content %}
+<!-- Error -->
+<div class="container-xxl container-p-y">
+  <div class="misc-wrapper">
+    <h2 class="mb-3 mt-4">صفحه یافت نشد :(</h2>
+    <p class="mb-4 mx-2">اوه! 😖 URL درخواست شده در این سرور یافت نشد.</p>
+    <a href="{% url 'index' %}" class="btn btn-primary mb-4">بازگشت به خانه</a>
+    <div class="mt-4">
+      <img src="{% static 'img/illustrations/page-misc-error.png' %}" alt="page-misc-error" width="225" class="img-fluid">
+    </div>
+  </div>
+</div>
+<div class="container-fluid misc-bg-wrapper">
+  <img src="{% static 'img/illustrations/bg-shape-image-' %}{{ COOKIES.style|default:style }}.png" alt="page-misc-error" data-app-light-img="illustrations/bg-shape-image-light.png" data-app-dark-img="illustrations/bg-shape-image-dark.png">
+</div>
+<!-- /Error -->
+{% endblock %}

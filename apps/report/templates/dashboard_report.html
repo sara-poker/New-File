@@ -1,0 +1,728 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}نمای کلی{% endblock %}
+
+{% block vendor_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'vendor/libs/apex-charts/apex-charts.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/swiper/swiper.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-bs5/datatables.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css' %}" />
+{% endblock vendor_css %}
+
+{% block vendor_js %}
+  {{ block.super }}
+  <script src="{% static 'vendor/libs/apex-charts/apexcharts.js' %}"></script>
+  <script src="{% static 'vendor/libs/swiper/swiper.js' %}"></script>
+  <script src="{% static 'vendor/libs/datatables-bs5/datatables-bootstrap5.js' %}"></script>
+
+  <script src="{% static 'amcharts5/index.js' %}"></script>
+  <script src="{% static 'amcharts5/xy.js' %}"></script>
+  <script src="{% static 'amcharts5/radar.js' %}"></script>
+  <script src="{% static 'amcharts5/plugins/exporting.js' %}"></script>
+  <script src="{% static 'amcharts5/themes/Animated.js' %}"></script>
+  <script src="{% static 'amcharts5/wc.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block page_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'vendor/css/pages/cards-advance.css' %}" />
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    h5 {
+      color: #555 !important;
+    }
+
+    #chartdiv2 {
+      margin: 0 auto;
+      width: 95%;
+      height: 350px;
+    }
+
+    #chartdiv {
+      margin: 0 auto;
+      width: 100%;
+      height: 400px;
+      direction: ltr;
+    }
+
+    td a {
+      color: #666 !important;
+      transition: all .3s;
+    }
+
+    td a:hover {
+      color: #000 !important;
+      font-weight: bold !important;
+    }
+
+    td img {
+      transition: all .3s;
+    }
+
+    td img:hover {
+      opacity: .7;
+    }
+
+    .card-header-mz {
+      padding: 15px 15px 0;
+    }
+
+    .card-header-mz h5 {
+      margin: 0;
+    }
+
+    .carousel-control-prev-icon {
+      background: #555 url("data:image/svg+xml,%3Csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.25 4.5L6.75 9L11.25 13.5' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M11.25 4.5L6.75 9L11.25 13.5' stroke='white' stroke-opacity='0.2' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A") center center no-repeat !important;
+    }
+
+    .carousel-control-next-icon {
+      background: #555 url("data:image/svg+xml,%3Csvg width='19' height='18' viewBox='0 0 19 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.25 4.5L11.75 9L7.25 13.5' stroke='%23fff' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M7.25 4.5L11.75 9L7.25 13.5' stroke='white' stroke-opacity='0.2' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center center no-repeat !important;
+    }
+
+    .item-image-icon {
+      border-radius: 30px;
+    }
+
+
+  </style>
+{% endblock page_css %}
+
+{% block page_js %}
+  {{ block.super }}
+  <script src="{% static 'js/report-dashboard.js' %}"></script>
+
+  <script>
+    /**
+     * ---------------------------------------
+     * This demo was created using amCharts 5.
+     *
+     * For more information visit:
+     * https://www.amcharts.com/
+     *
+     * Documentation is available at:
+     * https://www.amcharts.com/docs/v5/
+     * ---------------------------------------
+     */
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+    var root = am5.Root.new('chartdiv2');
+
+    let array_names = ['مخابرات', 'همراه اول', 'رایتل', 'ایرانسل'];
+    let array_value = [50, 89, 63, 74];
+
+    // Set themes
+    // https://www.amcharts.com/docs/v5/concepts/themes/
+    root.setThemes([
+      am5themes_Animated.new(root)
+    ]);
+
+    // Create chart
+    // https://www.amcharts.com/docs/v5/charts/radar-chart/
+    var chart = root.container.children.push(
+      am5radar.RadarChart.new(root, {
+        panX: false,
+        panY: false,
+        startAngle: 180,
+        endAngle: 360
+      })
+    );
+
+    chart.getNumberFormatter().set('numberFormat', '#\'%\'');
+
+    // Create axis and its renderer
+    // https://www.amcharts.com/docs/v5/charts/radar-chart/gauge-charts/#Axes
+    var axisRenderer = am5radar.AxisRendererCircular.new(root, {
+      innerRadius: -40
+    });
+
+    axisRenderer.grid.template.setAll({
+      stroke: root.interfaceColors.get('background'),
+      visible: true,
+      strokeOpacity: 0.8
+    });
+
+    var xAxis = chart.xAxes.push(
+      am5xy.ValueAxis.new(root, {
+        maxDeviation: 0,
+        min: 0,
+        max: 100,
+        strictMinMax: true,
+        renderer: axisRenderer
+      })
+    );
+
+    // Add clock hand
+    // https://www.amcharts.com/docs/v5/charts/radar-chart/gauge-charts/#Clock_hands
+    var axisDataItem = xAxis.makeDataItem({});
+
+    var clockHand = am5radar.ClockHand.new(root, {
+      pinRadius: 50,
+      radius: am5.percent(100),
+      innerRadius: 50,
+      bottomWidth: 0,
+      topWidth: 0
+    });
+
+    clockHand.pin.setAll({
+      fillOpacity: 0,
+      strokeOpacity: 0.5,
+      stroke: am5.color(0x000000),
+      strokeWidth: 1,
+      strokeDasharray: [2, 2]
+    });
+    clockHand.hand.setAll({
+      fillOpacity: 0,
+      strokeOpacity: 0.5,
+      stroke: am5.color(0x000000),
+      strokeWidth: 0.5
+    });
+
+    var bullet = axisDataItem.set(
+      'bullet',
+      am5xy.AxisBullet.new(root, {
+        sprite: clockHand
+      })
+    );
+
+    xAxis.createAxisRange(axisDataItem);
+
+    var label = chart.radarContainer.children.push(
+      am5.Label.new(root, {
+        centerX: am5.percent(50),
+        textAlign: 'center',
+        centerY: am5.percent(50),
+        fontSize: '1em'
+      })
+    );
+
+    let currentIndex = 0;
+
+    axisDataItem.set('value', array_value[currentIndex]);
+    bullet.get('sprite').on('rotation', function() {
+      var value = axisDataItem.get('value');
+      label.set('text', Math.round(value).toString() + '%' + ' ' + array_names[currentIndex]);
+    });
+
+    setInterval(function() {
+      currentIndex = (currentIndex + 1) % array_value.length;
+      var value = array_value[currentIndex];
+
+      axisDataItem.animate({
+        key: 'value',
+        to: value,
+        duration: 500,
+        easing: am5.ease.out(am5.ease.cubic)
+      });
+
+      axisRange0.animate({
+        key: 'endValue',
+        to: value,
+        duration: 500,
+        easing: am5.ease.out(am5.ease.cubic)
+      });
+
+      axisRange1.animate({
+        key: 'value',
+        to: value,
+        duration: 500,
+        easing: am5.ease.out(am5.ease.cubic)
+      });
+    }, 2000);
+
+    chart.bulletsContainer.set('mask', undefined);
+
+    var colorSet = am5.ColorSet.new(root, {});
+
+    var axisRange0 = xAxis.createAxisRange(
+      xAxis.makeDataItem({
+        above: true,
+        value: 0,
+        endValue: 50
+      })
+    );
+
+    axisRange0.get('axisFill').setAll({
+      visible: true,
+      fill: colorSet.getIndex(0)
+    });
+
+    axisRange0.get('label').setAll({
+      forceHidden: true
+    });
+
+    var axisRange1 = xAxis.createAxisRange(
+      xAxis.makeDataItem({
+        above: true,
+        value: 50,
+        endValue: 100
+      })
+    );
+
+    axisRange1.get('axisFill').setAll({
+      visible: true,
+      fill: colorSet.getIndex(4)
+    });
+
+    axisRange1.get('label').setAll({
+      forceHidden: true
+    });
+
+    // Make stuff animate on load
+    chart.appear(1000, 100);
+  </script>
+
+  <script>
+    am5.ready(function() {
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+      var root = am5.Root.new('chartdiv');
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+      root.setThemes([
+        am5themes_Animated.new(root)
+      ]);
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/word-cloud/
+      var series = root.container.children.push(am5wc.WordCloud.new(root, {
+        categoryField: 'tag',
+        valueField: 'weight',
+        maxFontSize: am5.percent(15)
+      }));
+
+// Configure labels
+      series.labels.template.setAll({
+        fontFamily: 'Courier New'
+      });
+
+
+      setInterval(function() {
+        am5.array.each(series.dataItems, function(dataItem) {
+          var value = Math.random() * 65;
+          value = value - Math.random() * value;
+          dataItem.set('value', value);
+          dataItem.set('valueWorking', value);
+        });
+      }, 5000);
+
+
+// Data from:
+// https://insights.stackoverflow.com/survey/2021#section-most-popular-technologies-programming-scripting-and-markup-languages
+      series.data.setAll([
+        { tag: 'OVH', weight: 94.96 },
+        { tag: 'DigitalOcean', weight: 56.07 },
+        { tag: 'Constant', weight: 48.24 },
+        { tag: 'Hurricane', weight: 47.08 },
+        { tag: 'GTHost', weight: 35.35 },
+        { tag: 'SCALEWAY', weight: 33.91 },
+        { tag: 'Hetzner', weight: 86.19 },
+        { tag: 'WorldStream', weight: 27.86 },
+        { tag: 'BlueVPS', weight: 27.13 },
+        { tag: 'Contabo', weight: 24.31 },
+        { tag: 'Ipxo', weight: 21.98 },
+        { tag: 'Catalyst', weight: 21.01 },
+        { tag: 'DediPath', weight: 10.75 },
+        { tag: 'GleSYS', weight: 9.55 },
+        { tag: 'Alibaba', weight: 8.32 },
+        { tag: 'Interkvm', weight: 7.03 },
+        { tag: 'Turnkey', weight: 6.75 },
+        { tag: 'Cogent', weight: 6.02 },
+        { tag: 'Peiyes', weight: 5.61 },
+        { tag: 'GlobalTeleHost', weight: 5.1 },
+        { tag: 'Online SAS', weight: 5.07 },
+        { tag: 'Datacamp', weight: 4.66 },
+        { tag: 'Microsoft', weight: 4.66 },
+        { tag: 'Website Hosting', weight: 3.01 },
+        { tag: 'Sharktech', weight: 2.8 },
+        { tag: 'CNBKNS', weight: 2.6 },
+        { tag: 'Perl', weight: 2.46 },
+        { tag: 'CloudHosting', weight: 2.12 },
+        { tag: 'Microsoft Azure', weight: 2.1 },
+        { tag: 'TurnKey', weight: 1.88 },
+        { tag: 'FranTech', weight: 1.74 },
+        { tag: 'Linode', weight: 1.33 },
+        { tag: 'Psychz', weight: 1.29 },
+        { tag: 'AltusHost', weight: 0.97 },
+        { tag: 'Dedipath', weight: 0.79 }
+      ]);
+
+    }); // end am5.ready()
+  </script>
+{% endblock page_js %}
+
+{% block content %}
+  <div class="row">
+    <!-- Website Analytics -->
+    <div class="col-xl-7 col-lg-12 col-md-12 mb-4">
+      <div class="card h-100">
+
+        <h5 class="card-header"> آخرین تست های انجام شده</h5>
+        <div class="card-datatable table-responsive pt-0 w-100">
+          <table class="datatables-direct-basic table">
+            <thead>
+            <tr>
+              <th>آیکون</th>
+              <th>نام</th>
+              <th>اپراتور</th>
+              <th>وضعیت</th>
+              <th>تاریخ</th>
+              <th>ساعت</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in last_test %}
+
+              <tr>
+                <td>
+                  <a href="/report/vpn/{{ item.vpn.id }}"><img alt="User" class="rounded-circle"
+                                                               src="static/img/vpnIcon/{{ item.vpn.name2 }}.png"
+                                                               width="32"></a>
+                </td>
+                <td>
+                  <a href="/report/vpn/{{ item.vpn.id }}">{{ item.vpn.name }}</a>
+                </td>
+                <td>
+                  {% if item.oprator == "Irancell" %}
+                    ایرانسل
+                  {% endif %}
+                  {% if item.oprator == "MCI" %}
+                    همراه اول
+                  {% endif %}
+                  {% if item.oprator == "TCI" %}
+                    مخابرات
+                  {% endif %}
+                  {% if item.oprator == "RighTel" %}
+                    رایتل
+                  {% endif %}
+                </td>
+                <td>
+                  {% if item.status == "Filter" %}
+                    {#                    فیلتر#}
+                    <span class="badge  bg-label-success">فیلتر</span>
+                  {% endif %}
+                  {% if item.status == "Without Filter" %}
+                    {#                    بدون فیلتر#}
+                    <span class="badge  bg-label-danger">بدون فیلتر</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {{ item.date }}
+                </td>
+                <td>
+                  {{ item.time }}
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-xl-5 col-lg-12 mb-4">
+      <div
+        class="swiper-container swiper-container-horizontal swiper swiper-card-advance-bg"
+        id="swiper-with-pagination-cards">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="row">
+              <div class="col-12">
+                <h5 class="text-white mb-1 mt-2">آمار کلی</h5>
+                <small>آماری از تعداد فیلتر شکن های تست شده</small>
+              </div>
+
+              <div class="col-lg-7 col-md-9 col-12 order-2 order-md-1">
+                <h6 class="text-white mt-0 mt-md-3 mb-3">موارد تست </h6>
+                <div class="row">
+                  <div class="col-6">
+                    <ul class="list-unstyled mb-0">
+                      <li class="d-flex mb-4 align-items-center">
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">100</p>
+                        <p class="mb-0">فیلتر شکن</p>
+                      </li>
+                      <li class="d-flex align-items-center mb-2">
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">80</p>
+                        <p class="mb-0">پروکسی تلگرام</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-6">
+                    <ul class="list-unstyled mb-0">
+                      <li class="d-flex mb-4 align-items-center">
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">90%</p>
+                        <p class="mb-0">دقت</p>
+                      </li>
+                      {#                      <li class="d-flex align-items-center mb-2">#}
+                      {#                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">12%</p>#}
+                      {#                        <p class="mb-0">تبدیل ها</p>#}
+                      {#                      </li>#}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5 col-md-3 col-12 order-1 order-md-2 my-4 my-md-0 text-center">
+                <img
+                  src="{% static 'img/illustrations/card-website-analytics-1.png' %}"
+                  alt="تجزیه و تحلیل وب سایت"
+                  width="170"
+                  class="card-website-analytics-img" />
+              </div>
+
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="row">
+              <div class="col-12">
+                <h5 class="text-white mb-1 mt-2">آمار کلی</h5>
+                <small>آمار از استان هایی که تست در آن انجام می شود</small>
+              </div>
+              <div class="col-lg-7 col-md-9 col-12 order-2 order-md-1">
+                <h6 class="text-white mt-0 mt-md-3 mb-3">اطلاعات استان ها</h6>
+                <div class="row">
+                  <div class="col-6">
+                    <ul class="list-unstyled mb-0">
+                      <li class="d-flex mb-4 align-items-center">
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">8</p>
+                        <p class="mb-0">استان</p>
+                      </li>
+                      <li class="d-flex align-items-center mb-2">
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">5</p>
+                        <p class="mb-0">اپراتور</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-6">
+                    <ul class="list-unstyled mb-0">
+                      <li class="d-flex mb-4 align-items-center">
+                        <p class="mb-0 fw-medium me-2 website-analytics-text-bg">95%</p>
+                        <p class="mb-0">دقت</p>
+                      </li>
+                      {#                    <li class="d-flex align-items-center mb-2">#}
+                      {#                      <p class="mb-0 fw-medium me-2 website-analytics-text-bg">2.3K</p>#}
+                      {#                      <p class="mb-0">اقلام</p>#}
+                      {#                    </li>#}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5 col-md-3 col-12 order-1 order-md-2 my-4 my-md-0 text-center">
+                <img
+                  src="{% static 'img/illustrations/card-website-analytics-2.png' %}"
+                  alt="تجزیه و تحلیل وب سایت"
+                  width="170"
+                  class="card-website-analytics-img" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="swiper-pagination"></div>
+
+      </div>
+
+      <div class=" col-12 h-100  mt-3">
+        <div class="card">
+          <div class="card-header-mz">
+            <h5>ارائه دهندگان اینترنتی بررسی شده</h5>
+          </div>
+          <div>
+            <div id="chartdiv"></div>
+          </div>
+        </div>
+      </div>
+      <!--/ Sales Overview -->
+
+      <!-- item - province -->
+
+    </div>
+  </div>
+
+
+
+  <div class="col-md-12 mb-4">
+    <div class="row">
+      <div class="col-xl-4 col-md-12 col-12  mt-3">
+        <div class="carousel slide" data-bs-ride="carousel" id="carouselExample">
+          <div class="carousel-indicators">
+            <button aria-current="true" aria-label="اسلاید 1" class="active" data-bs-slide-to="0"
+                    data-bs-target="#carouselExample" type="button"></button>
+            <button aria-label="اسلاید 2" data-bs-slide-to="1" data-bs-target="#carouselExample" type="button"></button>
+            <button aria-label="اسلاید 3" data-bs-slide-to="2" data-bs-target="#carouselExample" type="button"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="card">
+                <div class="card-body text-center">
+                  <br>
+                  <br>
+                  <div class="badge p-2 mb-2 rounded">
+                    <img class="col-12 item-image-icon" src="static/img/vpnIcon/{{ best_vpn.name }}.png" alt="">
+                  </div>
+                  <h5 class="card-title mb-1 pt-2"><a href="/report/vpn/{{ best_vpn.id }}">{{ best_vpn }}</a></h5>
+                  <p class="mb-2 mt-1"> کمترین میزان فیلترینگ</p>
+                  <div class="pt-1">
+                    <a href="report/operator">
+                      <span class="badge bg-label-secondary">
+                        اطلاعات بیشتر
+                      </span>
+                    </a>
+                  </div>
+                  <br>
+                  <br>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card">
+                <div class="card-body text-center">
+                  <br>
+                  <div class="badge p-2 mb-2 rounded">
+                    <img class="col-12 item-image-icon" src="static/img/ispLogo/RGB/{{ best_isp.server_isp }}.png"
+                         alt="">
+                  </div>
+                  <h5 class="card-title mb-1 pt-2">{{ best_isp.server_isp }}</h5>
+                  <small class="text-muted">بیشترین ارائه دهنده سرور به vpn</small>
+                  <p class="mb-2 mt-1">{{ best_isp.count }} سرور فعال</p>
+                  <div class="pt-1">
+                    <a href="report/isp">
+                      <span class="badge bg-label-secondary">
+                        اطلاعات بیشتر
+                      </span>
+                    </a>
+                  </div>
+                  <br>
+                  <br>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <a class="carousel-control-prev" data-bs-slide="prev" href="#carouselExample" role="button">
+            <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">قبلی</span>
+          </a>
+          <a class="carousel-control-next" data-bs-slide="next" href="#carouselExample" role="button">
+            <span aria-hidden="true" class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">بعد</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-xl-4 col-md-12 col-12  mt-3">
+
+        <div class="card">
+          <div class="card-header-mz">
+            <h5>نمودار درصد فیلترینگ اپراتور ها</h5>
+          </div>
+          <div id="chartdiv2"></div>
+        </div>
+      </div>
+
+      <div class="col-xl-4 col-md-12 col-12  mt-3">
+        <div class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel" id="carouselExampleDark">
+          <div class="carousel-indicators">
+            <button aria-current="true" aria-label="اسلاید 1" class="active" data-bs-slide-to="0"
+                    data-bs-target="#carouselExampleDark" type="button"></button>
+            <button aria-label="اسلاید 2" data-bs-slide-to="1" data-bs-target="#carouselExampleDark"
+                    type="button"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+
+              <div class="card">
+                <div class="card-body text-center">
+                  <br>
+                  <br>
+                  <div class="badge p-2 mb-2 rounded">
+                    <img class="col-12 item-image-icon" src="static/img/flag/{{ best_country }}.png"
+                         alt="">
+                  </div>
+                  <h5 class="card-title mb-1 pt-2">{{ best_country.persian_name }}</h5>
+                  <small class="text-muted">سازنده متصل ترین ابزار گریز</small>
+                  <br>
+                  <div class="pt-1">
+                    <a href="report/vpn-ctreator">
+                      <span class="badge bg-label-secondary">
+                        اطلاعات بیشتر
+                      </span>
+                    </a>
+                  </div>
+                  <br>
+                  <br>
+                  <br>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="carousel-item">
+              <div class="card">
+                <div class="card-body text-center">
+                  <br>
+                  <br>
+                  <div class="badge p-2 mb-2 rounded">
+                    <img class="col-12 item-image-icon" src="static/img/oprator/{{ best_oprator.oprator }}.png"
+                         alt="">
+                  </div>
+                  <h5 class="card-title mb-1 pt-2">
+                    {% if  best_oprator.oprator == "RighTel" %}
+                      رایتل
+                    {% endif %}
+                    {% if  best_oprator.oprator == "MCI" %}
+                      همراه اول
+                    {% endif %}
+                    {% if  best_oprator.oprator == "Irancell" %}
+                      ایرانسل
+                    {% endif %}
+                    {% if  best_oprator.oprator == "TCI" %}
+                      مخابرات
+                    {% endif %}
+                  </h5>
+                  <small class="text-muted">با {{ best_oprator.count }} تست موفق</small>
+                  <br>
+                  <div class="pt-1">
+                    <a href="report/vpn-ctreator">
+                      <span class="badge bg-label-secondary">
+                        اطلاعات بیشتر
+                      </span>
+                    </a>
+                  </div>
+                  <br>
+                  <br>
+                  <br>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" data-bs-slide="prev" href="#carouselExampleDark" role="button">
+            <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">قبلی</span>
+          </a>
+          <a class="carousel-control-next" data-bs-slide="next" href="#carouselExampleDark" role="button">
+            <span aria-hidden="true" class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">بعد</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock content %}
+

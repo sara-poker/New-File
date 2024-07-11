@@ -1,0 +1,662 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}پر اتصال ترین ها{% endblock %}
+
+{% block vendor_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'vendor/libs/apex-charts/apex-charts.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/swiper/swiper.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-bs5/datatables.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'vendor/libs/select2/select2.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/tagify/tagify.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-select/bootstrap-select.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/typeahead-js/typeahead.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/apex-charts/apex-charts.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'vendor/libs/select2/select2.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/tagify/tagify.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-select/bootstrap-select.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/typeahead-js/typeahead.css' %}" />
+
+{% endblock vendor_css %}
+
+{% block vendor_js %}
+  {{ block.super }}
+  <script src="{% static 'vendor/libs/apex-charts/apexcharts.js' %}"></script>
+  <script src="{% static 'vendor/libs/swiper/swiper.js' %}"></script>
+  <script src="{% static 'vendor/libs/datatables-bs5/datatables-bootstrap5.js' %}"></script>
+  <script src="{% static 'vendor/libs/apex-charts/apexcharts.js' %}"></script>
+
+  <script src="{% static 'amcharts5/index.js' %} "></script>
+  <script src="{% static 'amcharts5/hierarchy.js' %}  "></script>
+  <script src="{% static 'amcharts5/themes/Animated.js' %}  "></script>
+  <script src="{% static 'amcharts5/plugins/exporting.js' %} "></script>
+
+  <script src="{% static 'vendor/libs/select2/select2.js' %}"></script>
+  <script src="{% static 'libs/select2/i18n/fa.js' %}"></script>
+  <script src="{% static 'vendor/libs/tagify/tagify.js' %}"></script>
+  <script src="{% static 'vendor/libs/bootstrap-select/bootstrap-select.js' %}"></script>
+  <script src="{% static 'libs/bootstrap-select/i18n/defaults-fa_IR.js' %}"></script>
+  <script src="{% static 'vendor/libs/typeahead-js/typeahead.js' %}"></script>
+  <script src="{% static 'vendor/libs/bloodhound/bloodhound.js' %}"></script>
+
+  <script src="{% static 'js/forms-selects.js' %}"></script>
+  <script src="{% static 'js/forms-tagify.js' %}"></script>
+  <script src="{% static 'js/forms-typeahead.js' %}"></script>
+  <script src="{% static 'js/loading.js' %}"></script>
+  <script src="{% static 'vendor/libs/chartjs/chartjs.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block page_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'vendor/css/pages/cards-advance.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/swiper/swiper.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/css/pages/ui-carousel.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'vendor/libs/flatpickr/flatpickr.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/jquery-timepicker/jquery-timepicker.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/pickr/pickr-themes.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/spinkit/spinkit.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-bs5/datatables.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/flatpickr/flatpickr.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/@form-validation/umd/styles/index.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/css/pages/page-profile.css' %}" />
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    .mzloading {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 5500;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 75%;
+    }
+  </style>
+{% endblock page_css %}
+
+{% block page_js %}
+  {{ block.super }}
+  <script src="{% static 'focus/index.min.js' %}"></script>
+  <script src="{% static 'js/report-dashboard.js' %}"></script>
+  <script src="{% static 'js/forms-selects.js' %}"></script>
+  <script src="{% static 'js/forms-tagify.js' %}"></script>
+  <script src="{% static 'js/forms-typeahead.js' %}"></script>
+  <script src="{% static 'vendor/libs/swiper/swiper.js' %}"></script>
+  <script src="{% static 'js/ui-carousel.js' %}"></script>
+  <script src="{% static 'js/donut-chart.js' %}"></script>
+
+  <script src="{% static 'vendor/libs/moment/moment.js' %}"></script>
+  <script src="{% static 'libs/jdate/jdate.min.js' %}"></script>
+  <script src="{% static 'vendor/libs/flatpickr/flatpickr.js' %}"></script>
+  <script src="{% static 'libs/flatpickr/flatpickr-jdate.js' %}"></script>
+  <script src="{% static 'libs/flatpickr-jalali/dist/l10n/fa.js' %}"></script>
+  <script src="{% static 'vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js' %}"></script>
+  <script src="{% static 'vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js' %}"></script>
+  <script src="{% static 'vendor/libs/jquery-timepicker/jquery-timepicker.js' %}"></script>
+  <script src="{% static 'vendor/libs/pickr/pickr.js' %}"></script>
+
+  <script src="{% static 'vendor/libs/datatables-bs5/datatables-bootstrap5.js' %}"></script>
+  <script src="{% static 'vendor/libs/moment/moment.js' %}"></script>
+  <script src="{% static 'libs/jdate/jdate.min.js' %}"></script>
+  <script src="{% static 'vendor/libs/flatpickr/flatpickr.js' %}"></script>
+  <script src="{% static 'libs/flatpickr/flatpickr-jdate.js' %}"></script>
+  <script src="{% static 'libs/flatpickr-jalali/dist/l10n/fa.js' %}"></script>
+  <script src="{% static 'vendor/libs/@form-validation/umd/bundle/popular.min.js' %}"></script>
+  <script src="{% static 'vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js' %}"></script>
+  <script src="{% static 'vendor/libs/@form-validation/umd/plugin-auto-t' %}"></script>
+
+
+
+  <script src="{% static 'js/forms-pickers-jalali.js' %}"></script>
+  <script src="{% static 'js/table-isp.js' %}"></script>
+
+  <script>
+
+
+    /**
+     * Charts ChartsJS
+     */
+    'use strict';
+
+    (function() {
+      // Color Variables
+      const purpleColor = '#836AF9',
+        yellowColor = '#ffe800',
+        cyanColor = '#28dac6',
+        orangeColor = '#FF8132',
+        orangeLightColor = '#FDAC34',
+        oceanBlueColor = '#299AFF',
+        greyColor = '#4F5D70',
+        greyLightColor = '#EDF1F4',
+        blueColor = '#2B9AFF',
+        blueLightColor = '#84D0FF';
+
+      let cardColor, headingColor, labelColor, borderColor, legendColor;
+
+      if (isDarkStyle) {
+        cardColor = config.colors_dark.cardColor;
+        headingColor = config.colors_dark.headingColor;
+        labelColor = config.colors_dark.textMuted;
+        legendColor = config.colors_dark.bodyColor;
+        borderColor = config.colors_dark.borderColor;
+      } else {
+        cardColor = config.colors.cardColor;
+        headingColor = config.colors.headingColor;
+        labelColor = config.colors.textMuted;
+        legendColor = config.colors.bodyColor;
+        borderColor = config.colors.borderColor;
+      }
+
+      // Set height according to their data-height
+      // --------------------------------------------------------------------
+      const chartList = document.querySelectorAll('.chartjs');
+      chartList.forEach(function(chartListItem) {
+        chartListItem.height = chartListItem.dataset.height;
+      });
+
+      Chart.defaults.font.family = 'font-primary';
+
+      // Horizontal Bar Chart
+      // --------------------------------------------------------------------
+
+
+      const irancellBarChart = document.getElementById('irancellBarChart');
+      if (irancellBarChart) {
+        const irancellBarChartVar = new Chart(irancellBarChart, {
+          type: 'bar',
+          data: {
+            labels: ['VPN PotatoVPN - Free VPN WiFi Proxy', 'VPN by Private Internet Access', 'X-VPN - Free Private VPN Proxy', 'VPN Free - GreenNet Hotspot VPN Private Browser', 'Windscribe VPN', 'Free VPN (VPN Proxy Master)', 'MiniFox - Free VPN'],
+            datasets: [
+              {
+                data: {{ irancell_count }},
+                backgroundColor: '#edb704',
+                borderColor: 'transparent',
+                maxBarThickness: 15
+              }
+            ]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+              duration: 500
+            },
+            elements: {
+              bar: {
+                borderRadius: {
+                  topRight: 15,
+                  bottomRight: 15
+                }
+              }
+            },
+            plugins: {
+              tooltip: {
+                rtl: isRtl,
+                backgroundColor: cardColor,
+                titleColor: headingColor,
+                bodyColor: legendColor,
+                borderWidth: 1,
+                borderColor: borderColor
+              },
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              x: {
+                min: 0,
+                grid: {
+                  color: borderColor,
+                  borderColor: borderColor
+                },
+                ticks: {
+                  color: labelColor
+                }
+              },
+              y: {
+                grid: {
+                  borderColor: borderColor,
+                  display: false,
+                  drawBorder: false
+                },
+                ticks: {
+                  color: labelColor
+                }
+              }
+            }
+          }
+        });
+      }
+
+      const mciBarChart = document.getElementById('mciBarChart');
+      if (mciBarChart) {
+        const mciBarChartVar = new Chart(mciBarChart, {
+          type: 'bar',
+          data: {
+            labels: ['VPN PotatoVPN - Free VPN WiFi Proxy', 'VPN by Private Internet Access', 'X-VPN - Free Private VPN Proxy', 'VPN Free - GreenNet Hotspot VPN Private Browser', 'Windscribe VPN', 'Free VPN (VPN Proxy Master)', 'MiniFox - Free VPN'],
+            datasets: [
+              {
+                data: {{ mci_count }},
+                backgroundColor: '#04e5ed',
+                borderColor: 'transparent',
+                maxBarThickness: 15
+              }
+            ]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+              duration: 500
+            },
+            elements: {
+              bar: {
+                borderRadius: {
+                  topRight: 15,
+                  bottomRight: 15
+                }
+              }
+            },
+            plugins: {
+              tooltip: {
+                rtl: isRtl,
+                backgroundColor: cardColor,
+                titleColor: headingColor,
+                bodyColor: legendColor,
+                borderWidth: 1,
+                borderColor: borderColor
+              },
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              x: {
+                min: 0,
+                grid: {
+                  color: borderColor,
+                  borderColor: borderColor
+                },
+                ticks: {
+                  color: labelColor
+                }
+              },
+              y: {
+                grid: {
+                  borderColor: borderColor,
+                  display: false,
+                  drawBorder: false
+                },
+                ticks: {
+                  color: labelColor
+                }
+              }
+            }
+          }
+        });
+      }
+
+      const rightelBarChart = document.getElementById('rightelBarChart');
+      if (rightelBarChart) {
+        const rightelBarChartVar = new Chart(rightelBarChart, {
+          type: 'bar',
+          data: {
+            labels: ['VPN PotatoVPN - Free VPN WiFi Proxy', 'VPN by Private Internet Access', 'X-VPN - Free Private VPN Proxy', 'VPN Free - GreenNet Hotspot VPN Private Browser', 'Windscribe VPN', 'Free VPN (VPN Proxy Master)', 'MiniFox - Free VPN'],
+            datasets: [
+              {
+                data: {{ rightel_count }},
+                backgroundColor: '#980375',
+                borderColor: 'transparent',
+                maxBarThickness: 15
+              }
+            ]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+              duration: 500
+            },
+            elements: {
+              bar: {
+                borderRadius: {
+                  topRight: 15,
+                  bottomRight: 15
+                }
+              }
+            },
+            plugins: {
+              tooltip: {
+                rtl: isRtl,
+                backgroundColor: cardColor,
+                titleColor: headingColor,
+                bodyColor: legendColor,
+                borderWidth: 1,
+                borderColor: borderColor
+              },
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              x: {
+                min: 0,
+                grid: {
+                  color: borderColor,
+                  borderColor: borderColor
+                },
+                ticks: {
+                  color: labelColor
+                }
+              },
+              y: {
+                grid: {
+                  borderColor: borderColor,
+                  display: false,
+                  drawBorder: false
+                },
+                ticks: {
+                  color: labelColor
+                }
+              }
+            }
+          }
+        });
+      }
+
+      const mokhaberatBarChart = document.getElementById('mokhaberatBarChart');
+      if (mokhaberatBarChart) {
+        const mokhaberatBarChartVar = new Chart(mokhaberatBarChart, {
+          type: 'bar',
+          data: {
+            labels: ['VPN PotatoVPN - Free VPN WiFi Proxy', 'VPN by Private Internet Access', 'X-VPN - Free Private VPN Proxy', 'VPN Free - GreenNet Hotspot VPN Private Browser', 'Windscribe VPN', 'Free VPN (VPN Proxy Master)', 'MiniFox - Free VPN'],
+            datasets: [
+              {
+                data: {{ tci_count }},
+                backgroundColor: '#202020',
+                borderColor: 'transparent',
+                maxBarThickness: 15
+              }
+            ]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+              duration: 500
+            },
+            elements: {
+              bar: {
+                borderRadius: {
+                  topRight: 15,
+                  bottomRight: 15
+                }
+              }
+            },
+            plugins: {
+              tooltip: {
+                rtl: isRtl,
+                backgroundColor: cardColor,
+                titleColor: headingColor,
+                bodyColor: legendColor,
+                borderWidth: 1,
+                borderColor: borderColor
+              },
+              legend: {
+                display: false
+              }
+            },
+            scales: {
+              x: {
+                min: 0,
+                grid: {
+                  color: borderColor,
+                  borderColor: borderColor
+                },
+                ticks: {
+                  color: labelColor
+                }
+              },
+              y: {
+                grid: {
+                  borderColor: borderColor,
+                  display: false,
+                  drawBorder: false
+                },
+                ticks: {
+                  color: labelColor
+                }
+              }
+            }
+          }
+        });
+      }
+
+    })();
+
+  </script>
+{% endblock page_js %}
+
+{% block content %}
+  <div class="container-fluid h-100 mzloading">
+    <div class="sk-chase sk-primary">
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12  mb-4">
+      <div class="card h-100 p-4">
+        <div class="row">
+          <form class="row g-3" action="{{ vpn.id }}" method="get">
+            <div class="col-md-2">
+              <label class="form-label" for="flatpickr-range">بازه تاریخ:</label>
+              {% if selected_date == None %}
+                <input class="form-control" id="flatpickr-range" name="selected_date" placeholder="همه تاریخ ها"
+                       type="text" />
+              {% else %}
+                <input class="form-control" id="flatpickr-range" name="selected_date" placeholder="همه تاریخ ها"
+                       type="text" value="{{ selected_date }}" />
+              {% endif %}
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="select2Success">اپراتور</label>
+              <div class="select2-success">
+                <select class="select2 form-select" id="select2Success" multiple disabled>
+                  <option value="1" selected>ایرانسل</option>
+                  <option value="2" selected>همراه اول</option>
+                  <option value="3" selected>رایتل</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic">نام ابزار گریز:</label>
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" name="vpn" disabled>
+                <option label="singapore" value="0">نمایش همگانی</option>
+                {% for item in vpn %}
+                  <option label="{{ item.name }}" value="{{ item.id }}"
+                          {% if selected_vpn == item.id|stringformat:"s" %}selected{% endif %}>{{ item.name }}</option>
+                {% endfor %}
+              </select>
+
+            </div>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic2">کشور ابزار گریز:</label>
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic2"
+                      name="country" disabled>
+                <option label="singapore" value="0">نمایش همگانی</option>
+                {% for item in country %}
+                  <option label="{{ item.name }}" value="{{ item.id }}"
+                          {% if selected_country == item.id|stringformat:"s" %}selected{% endif %}>{{ item.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic3">کشور سرور:</label>
+
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3"
+                      name="server_country" disabled>
+                <option label="singapore" value="0">نمایش همگانی</option>
+                {% for item in country_server %}
+                  <option label="{{ item.name }}" value="{{ item.id }}"
+                          {% if selected_country_server == item.id|stringformat:"s" %}selected{% endif %}>{{ item.name }}</option>
+                {% endfor %}
+              </select>
+
+            </div>
+            <div class="col-md-1">
+              <label class="form-label" for="select2Basic3">.</label>
+              <br>
+              <button class="btn btn-primary" type="submit" id="applyFilter">اعمال فیلتر</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6 col-12 mb-4">
+      <div class="card">
+        <div class="card-header header-elements">
+          <div class="d-flex flex-column">
+            <p class="card-subtitle text-muted mb-1">جدول اتصال </p>
+            <h5 class="card-title mb-0">
+              <bdi>
+                <svg class="toman" width="1rem" height="1rem">
+                  <use>
+                    <symbol id="toman" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                      <path clip-rule="evenodd"
+                            d="M3.057 1.742L3.821 1l.78.75-.776.741-.768-.749zm3.23 2.48c0 .622-.16 1.111-.478 1.467-.201.221-.462.39-.783.505a3.251 3.251 0 01-1.083.163h-.555c-.421 0-.801-.074-1.139-.223a2.045 2.045 0 01-.9-.738A2.238 2.238 0 011 4.148c0-.059.001-.117.004-.176.03-.55.204-1.158.525-1.827l1.095.484c-.257.532-.397 1-.419 1.403-.002.04-.004.08-.004.12 0 .252.055.458.166.618a.887.887 0 00.5.354c.085.028.178.048.278.06.079.01.16.014.243.014h.555c.458 0 .769-.081.933-.244.14-.139.21-.383.21-.731V2.02h1.2v2.202zm5.433 3.184l-.72-.7.709-.706.735.707-.724.7zm-2.856.308c.542 0 .973.19 1.293.569.297.346.445.777.445 1.293v.364h.18v-.004h.41c.221 0 .377-.028.467-.084.093-.055.14-.14.14-.258v-.069c.004-.243.017-1.044 0-1.115L13 8.05v1.574a1.4 1.4 0 01-.287.863c-.306.405-.804.607-1.495.607h-.627c-.061.733-.434 1.257-1.117 1.573-.267.122-.58.21-.937.265a5.845 5.845 0 01-.914.067v-1.159c.612 0 1.072-.082 1.38-.247.25-.132.376-.298.376-.499h-.515c-.436 0-.807-.113-1.113-.339-.367-.273-.55-.667-.55-1.18 0-.488.122-.901.367-1.24.296-.415.728-.622 1.296-.622zm.533 2.226v-.364c0-.217-.048-.389-.143-.516a.464.464 0 00-.39-.187.478.478 0 00-.396.187.705.705 0 00-.136.449.65.65 0 00.003.067c.008.125.066.22.177.283.093.054.21.08.352.08h.533zM9.5 6.707l.72.7.724-.7L10.209 6l-.709.707zm-6.694 4.888h.03c.433-.01.745-.106.937-.29.024.012.065.035.12.068l.074.039.081.042c.135.073.261.133.379.18.345.146.67.22.977.22a1.216 1.216 0 00.87-.34c.3-.285.449-.714.449-1.286a2.19 2.19 0 00-.335-1.145c-.299-.457-.732-.685-1.3-.685-.502 0-.916.192-1.242.575-.113.132-.21.284-.294.456-.032.062-.06.125-.084.191a.504.504 0 00-.03.078 1.67 1.67 0 00-.022.06c-.103.309-.171.485-.205.53-.072.09-.214.14-.427.147-.123-.005-.209-.03-.256-.076-.057-.054-.085-.153-.085-.297V7l-1.201-.5v3.562c0 .261.048.496.143.703.071.158.168.296.29.413.123.118.266.211.43.28.198.084.42.13.665.136v.001h.036zm2.752-1.014a.778.778 0 00.044-.353.868.868 0 00-.165-.47c-.1-.134-.217-.201-.35-.201-.18 0-.33.103-.447.31-.042.071-.08.158-.114.262a2.434 2.434 0 00-.04.12l-.015.053-.015.046c.142.118.323.216.544.293.18.062.325.092.433.092.044 0 .086-.05.125-.152z"
+                            fill-rule="evenodd"></path>
+                    </symbol>
+                  </use>
+                </svg>
+                ایرانسل
+              </bdi>
+            </h5>
+          </div>
+        </div>
+        <div class="card-body">
+          <canvas class="chartjs" data-height="400" id="irancellBarChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-12 mb-4">
+      <div class="card">
+        <div class="card-header header-elements">
+          <div class="d-flex flex-column">
+            <p class="card-subtitle text-muted mb-1">جدول اتصال </p>
+            <h5 class="card-title mb-0">
+              <bdi>
+                <svg class="toman" width="1rem" height="1rem">
+                  <use>
+                    <symbol id="toman" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                      <path clip-rule="evenodd"
+                            d="M3.057 1.742L3.821 1l.78.75-.776.741-.768-.749zm3.23 2.48c0 .622-.16 1.111-.478 1.467-.201.221-.462.39-.783.505a3.251 3.251 0 01-1.083.163h-.555c-.421 0-.801-.074-1.139-.223a2.045 2.045 0 01-.9-.738A2.238 2.238 0 011 4.148c0-.059.001-.117.004-.176.03-.55.204-1.158.525-1.827l1.095.484c-.257.532-.397 1-.419 1.403-.002.04-.004.08-.004.12 0 .252.055.458.166.618a.887.887 0 00.5.354c.085.028.178.048.278.06.079.01.16.014.243.014h.555c.458 0 .769-.081.933-.244.14-.139.21-.383.21-.731V2.02h1.2v2.202zm5.433 3.184l-.72-.7.709-.706.735.707-.724.7zm-2.856.308c.542 0 .973.19 1.293.569.297.346.445.777.445 1.293v.364h.18v-.004h.41c.221 0 .377-.028.467-.084.093-.055.14-.14.14-.258v-.069c.004-.243.017-1.044 0-1.115L13 8.05v1.574a1.4 1.4 0 01-.287.863c-.306.405-.804.607-1.495.607h-.627c-.061.733-.434 1.257-1.117 1.573-.267.122-.58.21-.937.265a5.845 5.845 0 01-.914.067v-1.159c.612 0 1.072-.082 1.38-.247.25-.132.376-.298.376-.499h-.515c-.436 0-.807-.113-1.113-.339-.367-.273-.55-.667-.55-1.18 0-.488.122-.901.367-1.24.296-.415.728-.622 1.296-.622zm.533 2.226v-.364c0-.217-.048-.389-.143-.516a.464.464 0 00-.39-.187.478.478 0 00-.396.187.705.705 0 00-.136.449.65.65 0 00.003.067c.008.125.066.22.177.283.093.054.21.08.352.08h.533zM9.5 6.707l.72.7.724-.7L10.209 6l-.709.707zm-6.694 4.888h.03c.433-.01.745-.106.937-.29.024.012.065.035.12.068l.074.039.081.042c.135.073.261.133.379.18.345.146.67.22.977.22a1.216 1.216 0 00.87-.34c.3-.285.449-.714.449-1.286a2.19 2.19 0 00-.335-1.145c-.299-.457-.732-.685-1.3-.685-.502 0-.916.192-1.242.575-.113.132-.21.284-.294.456-.032.062-.06.125-.084.191a.504.504 0 00-.03.078 1.67 1.67 0 00-.022.06c-.103.309-.171.485-.205.53-.072.09-.214.14-.427.147-.123-.005-.209-.03-.256-.076-.057-.054-.085-.153-.085-.297V7l-1.201-.5v3.562c0 .261.048.496.143.703.071.158.168.296.29.413.123.118.266.211.43.28.198.084.42.13.665.136v.001h.036zm2.752-1.014a.778.778 0 00.044-.353.868.868 0 00-.165-.47c-.1-.134-.217-.201-.35-.201-.18 0-.33.103-.447.31-.042.071-.08.158-.114.262a2.434 2.434 0 00-.04.12l-.015.053-.015.046c.142.118.323.216.544.293.18.062.325.092.433.092.044 0 .086-.05.125-.152z"
+                            fill-rule="evenodd"></path>
+                    </symbol>
+                  </use>
+                </svg>
+                همراه اول
+              </bdi>
+            </h5>
+          </div>
+        </div>
+        <div class="card-body">
+          <canvas class="chartjs" data-height="400" id="mciBarChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-12 mb-4">
+      <div class="card">
+        <div class="card-header header-elements">
+          <div class="d-flex flex-column">
+            <p class="card-subtitle text-muted mb-1">جدول اتصال </p>
+            <h5 class="card-title mb-0">
+              <bdi>
+                <svg class="toman" width="1rem" height="1rem">
+                  <use>
+                    <symbol id="toman" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                      <path clip-rule="evenodd"
+                            d="M3.057 1.742L3.821 1l.78.75-.776.741-.768-.749zm3.23 2.48c0 .622-.16 1.111-.478 1.467-.201.221-.462.39-.783.505a3.251 3.251 0 01-1.083.163h-.555c-.421 0-.801-.074-1.139-.223a2.045 2.045 0 01-.9-.738A2.238 2.238 0 011 4.148c0-.059.001-.117.004-.176.03-.55.204-1.158.525-1.827l1.095.484c-.257.532-.397 1-.419 1.403-.002.04-.004.08-.004.12 0 .252.055.458.166.618a.887.887 0 00.5.354c.085.028.178.048.278.06.079.01.16.014.243.014h.555c.458 0 .769-.081.933-.244.14-.139.21-.383.21-.731V2.02h1.2v2.202zm5.433 3.184l-.72-.7.709-.706.735.707-.724.7zm-2.856.308c.542 0 .973.19 1.293.569.297.346.445.777.445 1.293v.364h.18v-.004h.41c.221 0 .377-.028.467-.084.093-.055.14-.14.14-.258v-.069c.004-.243.017-1.044 0-1.115L13 8.05v1.574a1.4 1.4 0 01-.287.863c-.306.405-.804.607-1.495.607h-.627c-.061.733-.434 1.257-1.117 1.573-.267.122-.58.21-.937.265a5.845 5.845 0 01-.914.067v-1.159c.612 0 1.072-.082 1.38-.247.25-.132.376-.298.376-.499h-.515c-.436 0-.807-.113-1.113-.339-.367-.273-.55-.667-.55-1.18 0-.488.122-.901.367-1.24.296-.415.728-.622 1.296-.622zm.533 2.226v-.364c0-.217-.048-.389-.143-.516a.464.464 0 00-.39-.187.478.478 0 00-.396.187.705.705 0 00-.136.449.65.65 0 00.003.067c.008.125.066.22.177.283.093.054.21.08.352.08h.533zM9.5 6.707l.72.7.724-.7L10.209 6l-.709.707zm-6.694 4.888h.03c.433-.01.745-.106.937-.29.024.012.065.035.12.068l.074.039.081.042c.135.073.261.133.379.18.345.146.67.22.977.22a1.216 1.216 0 00.87-.34c.3-.285.449-.714.449-1.286a2.19 2.19 0 00-.335-1.145c-.299-.457-.732-.685-1.3-.685-.502 0-.916.192-1.242.575-.113.132-.21.284-.294.456-.032.062-.06.125-.084.191a.504.504 0 00-.03.078 1.67 1.67 0 00-.022.06c-.103.309-.171.485-.205.53-.072.09-.214.14-.427.147-.123-.005-.209-.03-.256-.076-.057-.054-.085-.153-.085-.297V7l-1.201-.5v3.562c0 .261.048.496.143.703.071.158.168.296.29.413.123.118.266.211.43.28.198.084.42.13.665.136v.001h.036zm2.752-1.014a.778.778 0 00.044-.353.868.868 0 00-.165-.47c-.1-.134-.217-.201-.35-.201-.18 0-.33.103-.447.31-.042.071-.08.158-.114.262a2.434 2.434 0 00-.04.12l-.015.053-.015.046c.142.118.323.216.544.293.18.062.325.092.433.092.044 0 .086-.05.125-.152z"
+                            fill-rule="evenodd"></path>
+                    </symbol>
+                  </use>
+                </svg>
+                رایتل
+              </bdi>
+            </h5>
+          </div>
+        </div>
+        <div class="card-body">
+          <canvas class="chartjs" data-height="400" id="rightelBarChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-12 mb-4">
+      <div class="card">
+        <div class="card-header header-elements">
+          <div class="d-flex flex-column">
+            <p class="card-subtitle text-muted mb-1">جدول اتصال </p>
+            <h5 class="card-title mb-0">
+              <bdi>
+                <svg class="toman" width="1rem" height="1rem">
+                  <use>
+                    <symbol id="toman" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                      <path clip-rule="evenodd"
+                            d="M3.057 1.742L3.821 1l.78.75-.776.741-.768-.749zm3.23 2.48c0 .622-.16 1.111-.478 1.467-.201.221-.462.39-.783.505a3.251 3.251 0 01-1.083.163h-.555c-.421 0-.801-.074-1.139-.223a2.045 2.045 0 01-.9-.738A2.238 2.238 0 011 4.148c0-.059.001-.117.004-.176.03-.55.204-1.158.525-1.827l1.095.484c-.257.532-.397 1-.419 1.403-.002.04-.004.08-.004.12 0 .252.055.458.166.618a.887.887 0 00.5.354c.085.028.178.048.278.06.079.01.16.014.243.014h.555c.458 0 .769-.081.933-.244.14-.139.21-.383.21-.731V2.02h1.2v2.202zm5.433 3.184l-.72-.7.709-.706.735.707-.724.7zm-2.856.308c.542 0 .973.19 1.293.569.297.346.445.777.445 1.293v.364h.18v-.004h.41c.221 0 .377-.028.467-.084.093-.055.14-.14.14-.258v-.069c.004-.243.017-1.044 0-1.115L13 8.05v1.574a1.4 1.4 0 01-.287.863c-.306.405-.804.607-1.495.607h-.627c-.061.733-.434 1.257-1.117 1.573-.267.122-.58.21-.937.265a5.845 5.845 0 01-.914.067v-1.159c.612 0 1.072-.082 1.38-.247.25-.132.376-.298.376-.499h-.515c-.436 0-.807-.113-1.113-.339-.367-.273-.55-.667-.55-1.18 0-.488.122-.901.367-1.24.296-.415.728-.622 1.296-.622zm.533 2.226v-.364c0-.217-.048-.389-.143-.516a.464.464 0 00-.39-.187.478.478 0 00-.396.187.705.705 0 00-.136.449.65.65 0 00.003.067c.008.125.066.22.177.283.093.054.21.08.352.08h.533zM9.5 6.707l.72.7.724-.7L10.209 6l-.709.707zm-6.694 4.888h.03c.433-.01.745-.106.937-.29.024.012.065.035.12.068l.074.039.081.042c.135.073.261.133.379.18.345.146.67.22.977.22a1.216 1.216 0 00.87-.34c.3-.285.449-.714.449-1.286a2.19 2.19 0 00-.335-1.145c-.299-.457-.732-.685-1.3-.685-.502 0-.916.192-1.242.575-.113.132-.21.284-.294.456-.032.062-.06.125-.084.191a.504.504 0 00-.03.078 1.67 1.67 0 00-.022.06c-.103.309-.171.485-.205.53-.072.09-.214.14-.427.147-.123-.005-.209-.03-.256-.076-.057-.054-.085-.153-.085-.297V7l-1.201-.5v3.562c0 .261.048.496.143.703.071.158.168.296.29.413.123.118.266.211.43.28.198.084.42.13.665.136v.001h.036zm2.752-1.014a.778.778 0 00.044-.353.868.868 0 00-.165-.47c-.1-.134-.217-.201-.35-.201-.18 0-.33.103-.447.31-.042.071-.08.158-.114.262a2.434 2.434 0 00-.04.12l-.015.053-.015.046c.142.118.323.216.544.293.18.062.325.092.433.092.044 0 .086-.05.125-.152z"
+                            fill-rule="evenodd"></path>
+                    </symbol>
+                  </use>
+                </svg>
+                مخابرات
+              </bdi>
+            </h5>
+          </div>
+        </div>
+        <div class="card-body">
+          <canvas class="chartjs" data-height="400" id="mokhaberatBarChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+{% endblock content %}
+

@@ -1,0 +1,79 @@
+[
+  {
+    "model": "transactions.transaction",
+    "pk": 1,
+    "fields": {
+      "customer": "نوید محمدزاده",
+      "transaction_date": "1402-01-01",
+      "due_date": "1402-01-31",
+      "total": "100.00",
+      "status": "Paid"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 2,
+    "fields": {
+      "customer": "پارسا پیروزفر",
+      "transaction_date": "1402-02-01",
+      "due_date": "1402-02-28",
+      "total": "200.00",
+      "status": "Due"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 3,
+    "fields": {
+      "customer": "لیندا کیانی",
+      "transaction_date": "1402-03-01",
+      "due_date": "1402-03-31",
+      "total": "300.00",
+      "status": "Canceled"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 4,
+    "fields": {
+      "customer": "امیر جدیدی",
+      "transaction_date": "1402-04-01",
+      "due_date": "1402-04-30",
+      "total": "400.00",
+      "status": "Paid"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 5,
+    "fields": {
+      "customer": "رعنا آزادی‌ور",
+      "transaction_date": "1402-05-01",
+      "due_date": "1402-05-31",
+      "total": "500.00",
+      "status": "Due"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 6,
+    "fields": {
+      "customer": "گلشیفته قراهانی",
+      "transaction_date": "1402-06-01",
+      "due_date": "1402-06-30",
+      "total": "600.00",
+      "status": "Canceled"
+    }
+  },
+  {
+    "model": "transactions.transaction",
+    "pk": 7,
+    "fields": {
+      "customer": "ساعد سهیلی",
+      "transaction_date": "1402-07-01",
+      "due_date": "1402-07-31",
+      "total": "700.00",
+      "status": "Paid"
+    }
+  }
+]

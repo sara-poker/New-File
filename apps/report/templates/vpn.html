@@ -1,0 +1,533 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}شناسنامه ابزار گریز{% endblock %}
+
+{% block vendor_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-bs5/datatables.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/flatpickr/flatpickr.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/@form-validation/umd/styles/index.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/css/pages/page-profile.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/flatpickr/flatpickr.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/select2/select2.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/tagify/tagify.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-select/bootstrap-select.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/typeahead-js/typeahead.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/apex-charts/apex-charts.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'vendor/libs/select2/select2.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/tagify/tagify.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-select/bootstrap-select.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/typeahead-js/typeahead.css' %}" />
+  <style>
+    .dt-buttons {
+      display: none;
+    }
+
+    th {
+      text-align: center !important;
+    }
+
+    td {
+      text-align: center;
+    }
+
+    tr {
+      transition: all .2s;
+    }
+
+    tr:hover {
+      background: #eee !important;
+    }
+
+    td a {
+      color: #666 !important;
+    }
+
+    .number_dy {
+      transition: all .3s;
+    }
+
+    .number_dy:hover {
+      background: #eee;
+    }
+
+    .number_dy h1 {
+      font-size: 50px;
+    }
+
+    #isp_number {
+      border-bottom: 8px solid #df2b2b;
+    }
+
+    #isp_number h1 {
+      color: #df2b2b;
+    }
+
+    #ip_number {
+      border-bottom: 8px solid #f16b08;
+    }
+
+    #ip_number h1 {
+      color: #f16b08;
+    }
+
+    #server_number {
+      border-bottom: 8px solid #ec18bb;
+    }
+
+    #server_number h1 {
+      color: #ec18bb;
+    }
+
+    #cuntry_number {
+      border-bottom: 8px solid #4620ed;
+    }
+
+    #cuntry_number h1 {
+      color: #4620ed;
+    }
+
+    .user-profile-header img{
+      border-radius: 50px!important;
+    }
+
+    .card {
+    }
+  </style>
+{% endblock vendor_css %}
+
+{% block vendor_js %}
+  {{ block.super }}
+  <script src="{% static 'js/forms-selects.js' %}"></script>
+  <script src="{% static 'js/forms-tagify.js' %}"></script>
+  <script src="{% static 'js/forms-typeahead.js' %}"></script>
+
+  <script src="{% static 'vendor/libs/moment/moment.js' %}"></script>
+  <script src="{% static 'libs/jdate/jdate.min.js' %}"></script>
+  <script src="{% static 'vendor/libs/flatpickr/flatpickr.js' %}"></script>
+  <script src="{% static 'libs/flatpickr/flatpickr-jdate.js' %}"></script>
+  <script src="{% static 'libs/flatpickr-jalali/dist/l10n/fa.js' %}"></script>
+  <script src="{% static 'vendor/libs/bootstrap-datepicker/bootstrap-datepicker.js' %}"></script>
+  <script src="{% static 'vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.js' %}"></script>
+  <script src="{% static 'vendor/libs/jquery-timepicker/jquery-timepicker.js' %}"></script>
+  <script src="{% static 'vendor/libs/pickr/pickr.js' %}"></script>
+
+  <script src="{% static 'vendor/libs/datatables-bs5/datatables-bootstrap5.js' %}"></script>
+  <script src="{% static 'vendor/libs/moment/moment.js' %}"></script>
+  <script src="{% static 'libs/jdate/jdate.min.js' %}"></script>
+  <script src="{% static 'vendor/libs/flatpickr/flatpickr.js' %}"></script>
+  <script src="{% static 'libs/flatpickr/flatpickr-jdate.js' %}"></script>
+  <script src="{% static 'libs/flatpickr-jalali/dist/l10n/fa.js' %}"></script>
+  <script src="{% static 'vendor/libs/select2/select2.js' %}"></script>
+  <script src="{% static 'libs/select2/i18n/fa.js' %}"></script>
+  <script src="{% static 'vendor/libs/tagify/tagify.js' %}"></script>
+  <script src="{% static 'vendor/libs/bootstrap-select/bootstrap-select.js' %}"></script>
+  <script src="{% static 'libs/bootstrap-select/i18n/defaults-fa_IR.js' %}"></script>
+  <script src="{% static 'vendor/libs/typeahead-js/typeahead.js' %}"></script>
+  <script src="{% static 'vendor/libs/bloodhound/bloodhound.js' %}"></script>
+
+  <script>
+    (function($) {
+      $.fn.count = function(options) {
+        var $this = $(this);
+        var settings = $.extend({
+          startValue: 0,
+          endValue: 300,
+          durationValue: 2000
+        }, options);
+        $this.html(settings.startValue).attr('data-count', settings.endValue);
+        var countTo = $this.attr('data-count');
+        $({ countNum: $this.html() }).animate({
+            countNum: countTo
+          },
+          {
+            duration: settings.durationValue,
+            easing: 'swing',
+            step: function() {
+              $this.text(Math.floor(this.countNum));
+            },
+            complete: function() {
+              $this.text(this.countNum);
+              console.log('done.');
+            }
+          });
+        return this;
+      };
+    }(jQuery));
+
+    $('#cuntry_number h1').count({
+      startValue: -20,
+      endValue: {{ server_country_count }},
+      durationValue: 800
+    });
+    $('#server_number h1').count({
+      startValue: -20,
+      endValue: {{ server_region_count }},
+      durationValue: 800
+    });
+    $('#isp_number h1').count({
+      startValue: -20,
+      endValue: {{ server_isp_count }},
+      durationValue: 800
+    });
+    $('#ip_number h1').count({
+      startValue: -10,
+      endValue: {{ server_ip_count }},
+      durationValue: 800
+    });
+  </script>
+{% endblock vendor_js %}
+
+{% block page_js %}
+  {{ block.super }}
+  <script src="{% static 'js/forms-pickers-jalali.js' %}"></script>
+  <script src="{% static 'js/table-vpn.js' %}"></script>
+{% endblock page_js %}
+
+
+{% block content %}
+  <div class="row">
+    <div class="col-lg-12  mb-4">
+      <div class="card h-100 p-4">
+        <div class="row">
+          <form class="row g-3" action="{{ vpn.id }}" method="get">
+            <div class="col-md-2">
+              <label class="form-label" for="flatpickr-range">بازه تاریخ:</label>
+              {% if selected_date == None %}
+                <input class="form-control" id="flatpickr-range" name="selected_date" placeholder="همه تاریخ ها"
+                       type="text" />
+              {% else %}
+                <input class="form-control" id="flatpickr-range" name="selected_date" placeholder="همه تاریخ ها"
+                       type="text" value="{{ selected_date }}" />
+              {% endif %}
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="select2Success">اپراتور</label>
+              <div class="select2-success">
+                <select class="select2 form-select" id="select2Success" multiple disabled>
+                  <option value="1" selected>ایرانسل</option>
+                  <option value="2" selected>همراه اول</option>
+                  <option value="3" selected>رایتل</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic">نام ابزار گریز:</label>
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" disabled>
+                <option label="singapore" value="1">نمایش همگانی</option>
+                {#                {% for item in vpn %}#}
+                {#                  <option label="{{ item.name }}" value="{{ item.id }}">{{ item.name }}</option>#}
+                {#                {% endfor %}#}
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic2">کشور ابزار گریز:</label>
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic2" disabled>
+                <option label="singapore" value="1">نمایش همگانی</option>
+                <option label="singapore" value="1">Singapore</option>
+                <option label="United States" value="1">United States</option>
+                <option label="Hong Kong" value="1">Hong Kong</option>
+                <option label="Ukrain" value="1">Ukrain</option>
+                <option label="Canada" value="1">Canada</option>
+                <option label="Emirate" value="1">Emirate</option>
+                <option label="Estonia" value="1">Estonia</option>
+                <option label="India" value="1">India</option>
+                <option label="Montengro" value="1">Montengro</option>
+                <option label="United Kingdom" value="1">United Kingdom</option>
+                <option label="Vitenam" value="vietnam">Vitenam</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic3">کشور سرور:</label>
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3" disabled>
+                <option label="singapore" value="1">نمایش همگانی</option>
+                <option label="singapore" value="1">Singapore</option>
+                <option label="United States" value="1">United States</option>
+                <option label="Hong Kong" value="Hong-Kong">Hong Kong</option>
+                <option label="Ukrain" value="1">Ukrain</option>
+                <option label="Canada" value="1">Canada</option>
+                <option label="Emirate" value="1">Emirate</option>
+                <option label="Estonia" value="1">Estonia</option>
+                <option label="India" value="1">India</option>
+                <option label="Montengro" value="1">Montengro</option>
+                <option label="United Kingdom" value="1">United Kingdom</option>
+                <option label="Vitenam" value="1">Vitenam</option>
+              </select>
+            </div>
+            <div class="col-md-1">
+              <label class="form-label" for="select2Basic3">.</label>
+              <br>
+              <button class="btn btn-primary" type="submit" id="applyFilter">اعمال فیلتر</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4 col-md-12">
+      <!-- DataTable with Buttons -->
+      <div class="card">
+        <div class="card-datatable table-responsive pt-0">
+          <table class="datatables-basic table">
+            <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>نام vpn</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!--/ DataTable with Buttons -->
+    </div>
+    <div class="col-lg-8 col-md-12">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="user-profile-header-banner">
+              <img width="100%" src="{% static 'img/pages/profile-banner.png' %}" alt="Banner image"
+                   class="rounded-top">
+            </div>
+            <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
+              <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
+                <img src="{% static 'img/vpnIcon/' %}{{ vpn.name2 }}.png" alt="user image"
+                     class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img">
+
+              </div>
+              <div class="flex-grow-1 mt-3 mt-sm-5">
+                <div
+                  class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
+                  <div class="user-profile-info">
+                    <h4>{{ vpn.name }}</h4>
+                    <ul
+                      class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
+                      <li class="list-inline-item d-flex gap-1">
+                        <i class='ti ti-building-factory-2'></i> {{ vpn.vpn_maker }}
+                      </li>
+                      <li class="list-inline-item d-flex gap-1">
+                        {% if vpn.platform == "Android" %}
+                          <i class='ti ti-brand-android'></i> {{ vpn.platform }}
+                        {% endif %}
+                        {% if vpn.platform == "Telegram" %}
+                          <i class='ti ti-brand-telegram'></i> Telegram Proxy
+                        {% endif %}
+                      </li>
+                      <li class="list-inline-item d-flex gap-1">
+                        {% if vpn.vpn_country != None %}
+                          <i class='ti ti-map-pin'></i>{{ vpn.vpn_country }}
+                        {% else %}
+                          <i class='ti ti-map-pin'></i>کشور نامشخص
+                        {% endif %}
+                      </li>
+                      <li class="list-inline-item d-flex gap-1">
+                        {% if vpn.vpn_normal_user_fee != "nan" %}
+                          <i class='ti ti-coin'></i>{{ vpn.vpn_normal_user_fee }}
+                        {% endif %}
+                      </li>
+                    </ul>
+                  </div>
+                  {#                  <a href="javascript:void(0)" class="btn btn-primary">#}
+                  {#                    <i class='ti ti-check me-1'></i>متصل#}
+                  {#                  </a>#}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-xl-3 col-lg-6 col-md-6 ">
+          <div class="card number_dy" id="cuntry_number">
+            <div class="card-body text-center">
+              <div class="dropdown btn-pinned">
+                <button aria-expanded="false" class="btn dropdown-toggle hide-arrow p-0" data-bs-target="#modalCenter1"
+                        data-bs-toggle="modal" type="button">
+                  <i class="ti ti-dots-vertical text-muted"></i>
+                </button>
+              </div>
+              <br>
+              <br><br>
+              <div class="mx-auto my-3">
+                <h1></h1>
+              </div>
+              <br>
+              <br>
+              <br>
+              <h5>کشور های خدمات سرور</h5>
+              <br>
+            </div>
+            <div aria-hidden="true" class="modal fade" id="modalCenter1" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">کشور های خدمات سرور</h5>
+                    <button aria-label="بستن" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                  </div>
+                  <div class="modal-body">
+                    {% for item in server_countries %}
+                      <ul>
+                        <li>{{ item.persian_name }}</li>
+                      </ul>
+                    {% endfor %}
+
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-label-secondary" data-bs-dismiss="modal" type="button"> بستن</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6">
+          <div class="card number_dy" id="server_number">
+            <div class="card-body text-center">
+              <div class="dropdown btn-pinned">
+                <button aria-expanded="false" class="btn dropdown-toggle hide-arrow p-0" data-bs-target="#modalCenter2"
+                        data-bs-toggle="modal" type="button">
+                  <i class="ti ti-dots-vertical text-muted"></i>
+                </button>
+              </div>
+              <br>
+              <br><br>
+              <div class="mx-auto my-3">
+                <h1></h1>
+              </div>
+              <br>
+              <br>
+              <br>
+              <h5>سرور ابزار گریز (شهر)</h5>
+              <br>
+            </div>
+            <div aria-hidden="true" class="modal fade" id="modalCenter2" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">سرور ابزار گریز (شهر)</h5>
+                    <button aria-label="بستن" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                  </div>
+                  <div class="modal-body">
+                    {% for item in server_regions %}
+                      <ul>
+                        <li>{{ item }}</li>
+                      </ul>
+                    {% endfor %}
+
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-label-secondary" data-bs-dismiss="modal" type="button"> بستن</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6">
+          <div class="card number_dy" id="isp_number">
+            <div class="card-body text-center">
+              <div class="dropdown btn-pinned">
+                <button aria-expanded="false" class="btn dropdown-toggle hide-arrow p-0" data-bs-target="#modalCenter3"
+                        data-bs-toggle="modal" type="button">
+                  <i class="ti ti-dots-vertical text-muted"></i>
+                </button>
+              </div>
+              <br>
+              <br><br>
+              <div class="mx-auto my-3">
+                <h1></h1>
+              </div>
+              <br>
+              <br>
+              <br>
+              <h5>شرکت های ارائه دهنده </h5>
+              <br>
+            </div>
+            <div aria-hidden="true" class="modal fade" id="modalCenter3" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">شرکت های ارائه دهنده </h5>
+                    <button aria-label="بستن" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                  </div>
+                  <div class="modal-body">
+                    {% for item in server_isps %}
+                      <ul>
+                        <li>{{ item }}</li>
+                      </ul>
+                    {% endfor %}
+
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-label-secondary" data-bs-dismiss="modal" type="button"> بستن</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6">
+          <div class="card number_dy" id="ip_number">
+            <div class="card-body text-center">
+              <div class="dropdown btn-pinned">
+                <button aria-expanded="false" class="btn dropdown-toggle hide-arrow p-0" data-bs-target="#modalCenter4"
+                        data-bs-toggle="modal" type="button">
+                  <i class="ti ti-dots-vertical text-muted"></i>
+                </button>
+              </div>
+              <br>
+              <br><br>
+              <div class="mx-auto my-3">
+                <h1></h1>
+              </div>
+              <br>
+              <br>
+              <br>
+              <h5>آیپی های سرور</h5>
+              <br>
+            </div>
+            <div aria-hidden="true" class="modal fade" id="modalCenter4" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalCenterTitle">آیپی های سرور </h5>
+                    <button aria-label="بستن" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                  </div>
+                  <div class="modal-body">
+                    <ul>
+                      {% for item in server_ips %}
+                        <li>{{ item }}</li>
+                      {% endfor %}
+                    </ul>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-label-secondary" data-bs-dismiss="modal" type="button"> بستن</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock content %}
+

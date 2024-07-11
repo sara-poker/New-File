@@ -1,0 +1,1027 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}روند نگاری{% endblock %}
+
+{% block vendor_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'vendor/libs/apex-charts/apex-charts.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/swiper/swiper.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-bs5/datatables.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css' %}" />
+
+  <link rel="stylesheet" href="{% static 'vendor/libs/flatpickr/flatpickr.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-datepicker/bootstrap-datepicker.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-daterangepicker/bootstrap-daterangepicker.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/jquery-timepicker/jquery-timepicker.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/pickr/pickr-themes.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/spinkit/spinkit.css' %}" />
+
+
+  <link rel="stylesheet" href="{% static 'vendor/libs/select2/select2.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/tagify/tagify.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-select/bootstrap-select.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/typeahead-js/typeahead.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/apex-charts/apex-charts.css' %}" />
+
+{% endblock vendor_css %}
+
+{% block vendor_js %}
+  {{ block.super }}
+  <script src="{% static 'vendor/libs/apex-charts/apexcharts.js' %}"></script>
+  <script src="{% static 'vendor/libs/swiper/swiper.js' %}"></script>
+  <script src="{% static 'vendor/libs/datatables-bs5/datatables-bootstrap5.js' %}"></script>
+  <script src="{% static 'vendor/libs/apex-charts/apexcharts.js' %}"></script>
+
+  <script src="{% static 'amcharts5/index.js' %}"></script>
+  <script src="{% static 'amcharts5/xy.js' %}"></script>
+  <script src="{% static 'amcharts5/themes/Animated.js' %}"></script>
+  <script src="{% static 'amcharts5/plugins/exporting.js' %}"></script>
+  <script src="{% static 'js/charts-apex.js' %}"></script>
+
+  <script src="{% static 'vendor/libs/datatables-bs5/datatables-bootstrap5.js' %}"></script>
+  <script src="{% static 'vendor/libs/moment/moment.js' %}"></script>
+  <script src="{% static 'libs/jdate/jdate.min.js' %}"></script>
+  <script src="{% static 'vendor/libs/flatpickr/flatpickr.js' %}"></script>
+  <script src="{% static 'libs/flatpickr/flatpickr-jdate.js' %}"></script>
+  <script src="{% static 'libs/flatpickr-jalali/dist/l10n/fa.js' %}"></script>
+
+
+  <script src="{% static 'vendor/libs/select2/select2.js' %}"></script>
+  <script src="{% static 'libs/select2/i18n/fa.js' %}"></script>
+  <script src="{% static 'vendor/libs/tagify/tagify.js' %}"></script>
+  <script src="{% static 'vendor/libs/bootstrap-select/bootstrap-select.js' %}"></script>
+  <script src="{% static 'libs/bootstrap-select/i18n/defaults-fa_IR.js' %}"></script>
+  <script src="{% static 'vendor/libs/typeahead-js/typeahead.js' %}"></script>
+  <script src="{% static 'vendor/libs/bloodhound/bloodhound.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block page_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'vendor/css/pages/cards-advance.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/swiper/swiper.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/css/pages/ui-carousel.css' %}" />
+  <style>
+
+    #chartdiv {
+      margin: 0 auto;
+      width: 90%;
+      height: 500px;
+      max-width: 100%;
+      direction: ltr;
+    }
+
+    .mzloading {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 5500;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 75%;
+    }
+  </style>
+{% endblock page_css %}
+
+{% block page_js %}
+  {{ block.super }}
+  <script src="{% static 'js/report-dashboard.js' %}"></script>
+  <script src="{% static 'js/forms-selects.js' %}"></script>
+  <script src="{% static 'js/forms-tagify.js' %}"></script>
+  <script src="{% static 'js/forms-typeahead.js' %}"></script>
+  <script src="{% static 'vendor/libs/swiper/swiper.js' %}"></script>
+  <script src="{% static 'js/ui-carousel.js' %}"></script>
+  <script src="{% static 'js/loading.js' %}"></script>
+
+  <script>
+    /**
+     * Charts Apex
+     */
+
+    'use strict';
+
+    (function() {
+
+      let cardColor, headingColor, labelColor, borderColor, legendColor;
+
+      if (isDarkStyle) {
+        cardColor = config.colors_dark.cardColor;
+        headingColor = config.colors_dark.headingColor;
+        labelColor = config.colors_dark.textMuted;
+        legendColor = config.colors_dark.bodyColor;
+        borderColor = config.colors_dark.borderColor;
+      } else {
+        cardColor = config.colors.cardColor;
+        headingColor = config.colors.headingColor;
+        labelColor = config.colors.textMuted;
+        legendColor = config.colors.bodyColor;
+        borderColor = config.colors.borderColor;
+      }
+      // Color constant
+      const chartColors = {
+        donut: {
+          series1: '#d30838',
+          series2: '#01d64d'
+        }
+      };
+      // Donut Chart
+      // --------------------------------------------------------------------
+      const donutChartEl1 = document.querySelector('#donutChart1'),
+        donutChartConfig1 = {
+          chart: {
+            height: 290,
+            type: 'donut'
+          },
+          labels: ['متصل', 'مسدود شده'],
+          series: [{{ irancell_no_filter }}, {{ irancell_filter }}],
+          colors: [
+            chartColors.donut.series1,
+            chartColors.donut.series2
+          ],
+          stroke: {
+            show: false,
+            curve: 'straight'
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function(val, opt) {
+              return parseInt(val, 10) + '%';
+            }
+          },
+          legend: {
+            show: true,
+            position: 'bottom',
+            markers: { offsetX: -3 },
+            itemMargin: {
+              vertical: 3,
+              horizontal: 10
+            },
+            labels: {
+              colors: legendColor,
+              useSeriesColors: false
+            }
+          },
+          plotOptions: {
+            pie: {
+              donut: {
+                labels: {
+                  show: true,
+                  name: {
+                    fontSize: '2rem',
+                    fontFamily: 'font-primary'
+                  },
+                  value: {
+                    fontSize: '1.2rem',
+                    color: legendColor,
+                    fontFamily: 'font-primary',
+                    formatter: function(val) {
+                      return parseInt(val, 10)+ '%';
+                    }
+                  },
+                  total: {
+                    show: true,
+                    fontSize: '1.5rem',
+                    color: headingColor,
+                    label: 'ایرانسل',
+                    formatter: function(w) {
+                      return '';
+                    }
+                  }
+                }
+              }
+            }
+          },
+          responsive: [
+            {
+              breakpoint: 992,
+              options: {
+                chart: {
+                  height: 380
+                },
+                legend: {
+                  position: 'bottom',
+                  labels: {
+                    colors: legendColor,
+                    useSeriesColors: false
+                  }
+                }
+              }
+            },
+            {
+              breakpoint: 576,
+              options: {
+                chart: {
+                  height: 320
+                },
+                plotOptions: {
+                  pie: {
+                    donut: {
+                      labels: {
+                        show: true,
+                        name: {
+                          fontSize: '1.5rem'
+                        },
+                        value: {
+                          fontSize: '1rem'
+                        },
+                        total: {
+                          fontSize: '1.5rem'
+                        }
+                      }
+                    }
+                  }
+                },
+                legend: {
+                  position: 'bottom',
+                  labels: {
+                    colors: legendColor,
+                    useSeriesColors: false
+                  }
+                }
+              }
+            },
+            {
+              breakpoint: 420,
+              options: {
+                chart: {
+                  height: 280
+                },
+                legend: {
+                  show: false
+                }
+              }
+            },
+            {
+              breakpoint: 360,
+              options: {
+                chart: {
+                  height: 250
+                },
+                legend: {
+                  show: false
+                }
+              }
+            }
+          ]
+        };
+      if (typeof donutChartEl1 !== undefined && donutChartEl1 !== null) {
+        const donutChart1 = new ApexCharts(donutChartEl1, donutChartConfig1);
+        donutChart1.render();
+      }
+
+      // Donut Chart
+      // --------------------------------------------------------------------
+      const donutChartEl2 = document.querySelector('#donutChart2'),
+        donutChartConfig2 = {
+          chart: {
+            height: 290,
+            type: 'donut'
+          },
+          labels: ['متصل', 'مسدود شده'],
+          series: [{{ tci_no_filter }}, {{ tci_filter }}],
+          colors: [
+            chartColors.donut.series1,
+            chartColors.donut.series2
+          ],
+          stroke: {
+            show: false,
+            curve: 'straight'
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function(val, opt) {
+              return parseInt(val, 10)+ '%';
+            }
+          },
+          legend: {
+            show: true,
+            position: 'bottom',
+            markers: { offsetX: -3 },
+            itemMargin: {
+              vertical: 3,
+              horizontal: 10
+            },
+            labels: {
+              colors: legendColor,
+              useSeriesColors: false
+            }
+          },
+          plotOptions: {
+            pie: {
+              donut: {
+                labels: {
+                  show: true,
+                  name: {
+                    fontSize: '2rem',
+                    fontFamily: 'font-primary'
+                  },
+                  value: {
+                    fontSize: '1.2rem',
+                    color: legendColor,
+                    fontFamily: 'font-primary',
+                    formatter: function(val) {
+                      return parseInt(val, 10)+ '%';
+                    }
+                  },
+                  total: {
+                    show: true,
+                    fontSize: '1.5rem',
+                    color: headingColor,
+                    label: 'مخابرات',
+                    formatter: function(w) {
+                      return '';
+                    }
+                  }
+                }
+              }
+            }
+          },
+          responsive: [
+            {
+              breakpoint: 992,
+              options: {
+                chart: {
+                  height: 380
+                },
+                legend: {
+                  position: 'bottom',
+                  labels: {
+                    colors: legendColor,
+                    useSeriesColors: false
+                  }
+                }
+              }
+            },
+            {
+              breakpoint: 576,
+              options: {
+                chart: {
+                  height: 320
+                },
+                plotOptions: {
+                  pie: {
+                    donut: {
+                      labels: {
+                        show: true,
+                        name: {
+                          fontSize: '1.5rem'
+                        },
+                        value: {
+                          fontSize: '1rem'
+                        },
+                        total: {
+                          fontSize: '1.5rem'
+                        }
+                      }
+                    }
+                  }
+                },
+                legend: {
+                  position: 'bottom',
+                  labels: {
+                    colors: legendColor,
+                    useSeriesColors: false
+                  }
+                }
+              }
+            },
+            {
+              breakpoint: 420,
+              options: {
+                chart: {
+                  height: 280
+                },
+                legend: {
+                  show: false
+                }
+              }
+            },
+            {
+              breakpoint: 360,
+              options: {
+                chart: {
+                  height: 250
+                },
+                legend: {
+                  show: false
+                }
+              }
+            }
+          ]
+        };
+      if (typeof donutChartEl2 !== undefined && donutChartEl2 !== null) {
+        const donutChart2 = new ApexCharts(donutChartEl2, donutChartConfig2);
+        donutChart2.render();
+      }
+
+      // Donut Chart
+      // --------------------------------------------------------------------
+      const donutChartEl3 = document.querySelector('#donutChart3'),
+        donutChartConfig3 = {
+          chart: {
+            height: 290,
+            type: 'donut'
+          },
+          labels: ['متصل', 'مسدود شده'],
+          series: [{{ rightel_no_filter }}, {{ rightel_filter }}],
+          colors: [
+            chartColors.donut.series1,
+            chartColors.donut.series2
+          ],
+          stroke: {
+            show: false,
+            curve: 'straight'
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function(val, opt) {
+              return parseInt(val, 10)+ '%';
+            }
+          },
+          legend: {
+            show: true,
+            position: 'bottom',
+            markers: { offsetX: -3 },
+            itemMargin: {
+              vertical: 3,
+              horizontal: 10
+            },
+            labels: {
+              colors: legendColor,
+              useSeriesColors: false
+            }
+          },
+          plotOptions: {
+            pie: {
+              donut: {
+                labels: {
+                  show: true,
+                  name: {
+                    fontSize: '2rem',
+                    fontFamily: 'font-primary'
+                  },
+                  value: {
+                    fontSize: '1.2rem',
+                    color: legendColor,
+                    fontFamily: 'font-primary',
+                    formatter: function(val) {
+                      return parseInt(val, 10)+ '%';
+                    }
+                  },
+                  total: {
+                    show: true,
+                    fontSize: '1.5rem',
+                    color: headingColor,
+                    label: 'رایتل',
+                    formatter: function(w) {
+                      return '';
+                    }
+                  }
+                }
+              }
+            }
+          },
+          responsive: [
+            {
+              breakpoint: 992,
+              options: {
+                chart: {
+                  height: 380
+                },
+                legend: {
+                  position: 'bottom',
+                  labels: {
+                    colors: legendColor,
+                    useSeriesColors: false
+                  }
+                }
+              }
+            },
+            {
+              breakpoint: 576,
+              options: {
+                chart: {
+                  height: 320
+                },
+                plotOptions: {
+                  pie: {
+                    donut: {
+                      labels: {
+                        show: true,
+                        name: {
+                          fontSize: '1.5rem'
+                        },
+                        value: {
+                          fontSize: '1rem'
+                        },
+                        total: {
+                          fontSize: '1.5rem'
+                        }
+                      }
+                    }
+                  }
+                },
+                legend: {
+                  position: 'bottom',
+                  labels: {
+                    colors: legendColor,
+                    useSeriesColors: false
+                  }
+                }
+              }
+            },
+            {
+              breakpoint: 420,
+              options: {
+                chart: {
+                  height: 280
+                },
+                legend: {
+                  show: false
+                }
+              }
+            },
+            {
+              breakpoint: 360,
+              options: {
+                chart: {
+                  height: 250
+                },
+                legend: {
+                  show: false
+                }
+              }
+            }
+          ]
+        };
+      if (typeof donutChartEl3 !== undefined && donutChartEl3 !== null) {
+        const donutChart3 = new ApexCharts(donutChartEl3, donutChartConfig3);
+        donutChart3.render();
+      }
+
+      // Donut Chart
+      // --------------------------------------------------------------------
+      const donutChartEl4 = document.querySelector('#donutChart4'),
+        donutChartConfig4 = {
+          chart: {
+            height: 290,
+            type: 'donut'
+          },
+          labels: ['متصل', 'مسدود شده'],
+          series: [{{ mci_no_filter }}, {{ mci_filter }}],
+          colors: [
+            chartColors.donut.series1,
+            chartColors.donut.series2
+          ],
+          stroke: {
+            show: false,
+            curve: 'straight'
+          },
+          dataLabels: {
+            enabled: true,
+            formatterformatter: function(val, opt) {
+              return parseInt(val, 10)+ '%';
+            }
+          },
+          legend: {
+            show: true,
+            position: 'bottom',
+            markers: { offsetX: -3 },
+            itemMargin: {
+              vertical: 3,
+              horizontal: 10
+            },
+            labels: {
+              colors: legendColor,
+              useSeriesColors: false
+            }
+          },
+          plotOptions: {
+            pie: {
+              donut: {
+                labels: {
+                  show: true,
+                  name: {
+                    fontSize: '2rem',
+                    fontFamily: 'font-primary'
+                  },
+                  value: {
+                    fontSize: '1.2rem',
+                    color: legendColor,
+                    fontFamily: 'font-primary',
+                    formatter: function(val) {
+                      return parseInt(val, 10)+ '%';
+                    }
+                  },
+                  total: {
+                    show: true,
+                    fontSize: '1.5rem',
+                    color: headingColor,
+                    label: 'همراه اول',
+                    formatter: function(w) {
+                      return '';
+                    }
+                  }
+                }
+              }
+            }
+          },
+          responsive: [
+            {
+              breakpoint: 992,
+              options: {
+                chart: {
+                  height: 380
+                },
+                legend: {
+                  position: 'bottom',
+                  labels: {
+                    colors: legendColor,
+                    useSeriesColors: false
+                  }
+                }
+              }
+            },
+            {
+              breakpoint: 576,
+              options: {
+                chart: {
+                  height: 320
+                },
+                plotOptions: {
+                  pie: {
+                    donut: {
+                      labels: {
+                        show: true,
+                        name: {
+                          fontSize: '1.5rem'
+                        },
+                        value: {
+                          fontSize: '1rem'
+                        },
+                        total: {
+                          fontSize: '1.5rem'
+                        }
+                      }
+                    }
+                  }
+                },
+                legend: {
+                  position: 'bottom',
+                  labels: {
+                    colors: legendColor,
+                    useSeriesColors: false
+                  }
+                }
+              }
+            },
+            {
+              breakpoint: 420,
+              options: {
+                chart: {
+                  height: 280
+                },
+                legend: {
+                  show: false
+                }
+              }
+            },
+            {
+              breakpoint: 360,
+              options: {
+                chart: {
+                  height: 250
+                },
+                legend: {
+                  show: false
+                }
+              }
+            }
+          ]
+        };
+      if (typeof donutChartEl4 !== undefined && donutChartEl4 !== null) {
+        const donutChart4 = new ApexCharts(donutChartEl4, donutChartConfig4);
+        donutChart4.render();
+      }
+    })();
+
+  </script>
+
+  <script>
+    am5.ready(function() {
+
+      var root = am5.Root.new('chartdiv');
+
+      root.setThemes([
+        am5themes_Animated.new(root)
+
+      ]);
+
+
+      var chart = root.container.children.push(
+        am5xy.XYChart.new(root, {
+          panX: true,
+          panY: true,
+          wheelX: 'panX',
+          wheelY: 'zoomX',
+          layout: root.verticalLayout,
+          pinchZoomX: true
+        })
+      );
+
+
+      var cursor = chart.set('cursor', am5xy.XYCursor.new(root, {
+        behavior: 'none'
+      }));
+      cursor.lineY.set('visible', false);
+
+
+      {#var data = [#}
+      {##}
+      {#  {#}
+      {#    year: '1402/02/01',#}
+      {#    irancell: 3,#}
+      {#    rightel: 5,#}
+      {#    mci: 2#}
+      {#  }#}
+      {#];#}
+
+      var data = [
+        {% for res in data1 %}
+
+          {
+            year: `{{ res.year }}/{{ res.month }}/{{ res.day }}`,
+            irancell: {{ res.irancell }},
+            rightel: {{ res.rightel }},
+            mci: {{ res.mci }},
+            tci: {{ res.tci }}
+          },
+        {% endfor %}
+
+      ];
+
+
+      var xRenderer = am5xy.AxisRendererX.new(root, {
+        minorGridEnabled: true
+      });
+      xRenderer.grid.template.set('location', 0.5);
+      xRenderer.labels.template.setAll({
+        location: 0.5,
+        multiLocation: 0.5
+      });
+
+      var xAxis = chart.xAxes.push(
+        am5xy.CategoryAxis.new(root, {
+          categoryField: 'year',
+          renderer: xRenderer,
+          tooltip: am5.Tooltip.new(root, {})
+        })
+      );
+
+      xAxis.data.setAll(data);
+
+      var yAxis = chart.yAxes.push(
+        am5xy.ValueAxis.new(root, {
+          maxPrecision: 0,
+          renderer: am5xy.AxisRendererY.new(root, {
+            inversed: false
+          })
+        })
+      );
+
+
+      function createSeries(name, field, color) {
+        var series = chart.series.push(
+          am5xy.LineSeries.new(root, {
+            name: name,
+            xAxis: xAxis,
+            yAxis: yAxis,
+            valueYField: field,
+            categoryXField: 'year',
+            tooltip: am5.Tooltip.new(root, {
+              pointerOrientation: 'horizontal',
+              labelText: '[bold]{name}[/]\n{categoryX}: {valueY}'
+            })
+          })
+        );
+
+
+        series.bullets.push(function() {
+          return am5.Bullet.new(root, {
+            sprite: am5.Circle.new(root, {
+              radius: 5,
+              fill: series.get('fill')
+            })
+          });
+        });
+
+
+        series.set('setStateOnChildren', true);
+        series.states.create('hover', {});
+
+        series.mainContainer.set('setStateOnChildren', true);
+        series.mainContainer.states.create('hover', {});
+
+        series.strokes.template.states.create('hover', {
+          strokeWidth: 4
+        });
+
+        series.data.setAll(data);
+        series.appear(1000);
+        series.set('fill', am5.color(color));
+      }
+
+      createSeries('ایرانسل', 'irancell', '#fab402');
+      createSeries('همراه اول', 'mci', '#0244fa');
+      createSeries('رایتل', 'rightel', '#ca059e');
+      createSeries('مخابرات', 'tci', '#424242');
+
+      var exporting = am5plugins_exporting.Exporting.new(root, {
+        menu: am5plugins_exporting.ExportingMenu.new(root, {})
+      });
+
+      chart.set('scrollbarX', am5.Scrollbar.new(root, {
+        orientation: 'horizontal',
+        marginBottom: 20
+
+      }));
+
+      var legend = chart.children.push(
+        am5.Legend.new(root, {
+          centerX: am5.p50,
+          x: am5.p50
+
+        })
+      );
+
+
+      legend.itemContainers.template.states.create('hover', {});
+
+      legend.itemContainers.template.events.on('pointerover', function(e) {
+        e.target.dataItem.dataContext.hover();
+      });
+      legend.itemContainers.template.events.on('pointerout', function(e) {
+        e.target.dataItem.dataContext.unhover();
+      });
+
+      legend.data.setAll(chart.series.values);
+
+
+      chart.appear(1000, 100);
+
+    });
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      $('.select2').select2();
+
+      $('#applyFilter').click(function() {
+        let dateRange = $('#flatpickr-range').val();
+
+        console.log('Date Range:', dateRange);
+      });
+    });
+  </script>
+
+  <script src="{% static 'js/forms-pickers-jalali.js' %}"></script>
+{% endblock page_js %}
+
+{% block content %}
+  <div class="container-fluid h-100 mzloading">
+    <div class="sk-chase sk-primary">
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12  mb-3">
+      <div class="card h-100 pb-3 ps-4 pe-4">
+        <div class="row">
+          <form class="row g-3" action="{% url 'liner_chart' %}" method="get">
+            <div class="col-md-2">
+              <label class="form-label" for="flatpickr-range">بازه تاریخ:</label>
+              {% if selected_date == None %}
+                <input class="form-control" id="flatpickr-range" name="selected_date" placeholder="همه تاریخ ها"
+                       type="text" />
+              {% else %}
+                <input class="form-control" id="flatpickr-range" name="selected_date" placeholder="همه تاریخ ها"
+                       type="text" value="{{ selected_date }}" />
+              {% endif %}
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="select2Success">اپراتور</label>
+              <div class="select2-success">
+                <select class="select2 form-select" id="select2Success" multiple disabled>
+                  <option value="1" selected>ایرانسل</option>
+                  <option value="2" selected>همراه اول</option>
+                  <option value="3" selected>رایتل</option>
+                  <option value="3" selected>مخابرات</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic">نام ابزار گریز:</label>
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" name="vpn">
+                <option label="singapore" value="0">نمایش همگانی</option>
+                {% for item in vpn %}
+                  <option label="{{ item.name }}" value="{{ item.id }}"
+                          {% if selected_vpn == item.id|stringformat:"s" %}selected{% endif %}>{{ item.name }}</option>
+                {% endfor %}
+              </select>
+
+            </div>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic2">کشور ابزار گریز:</label>
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic2"
+                      name="country">
+                <option label="singapore" value="0">نمایش همگانی</option>
+                {% for item in country %}
+                  <option label="{{ item.name }}" value="{{ item.id }}"
+                          {% if selected_country == item.id|stringformat:"s" %}selected{% endif %}>{{ item.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Basic3">کشور سرور:</label>
+
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3"
+                      name="server_country">
+                <option label="singapore" value="0">نمایش همگانی</option>
+                {% for item in country_server %}
+                  <option label="{{ item.name }}" value="{{ item.id }}"
+                          {% if selected_country_server == item.id|stringformat:"s" %}selected{% endif %}>{{ item.name }}</option>
+                {% endfor %}
+              </select>
+
+            </div>
+            <div class="col-md-1">
+              <label class="form-label" for="select2Basic3">.</label>
+              <br>
+              <button class="btn btn-primary" type="submit" id="applyFilter">اعمال فیلتر</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Website Analytics -->
+    <div class="col-lg-12 mb-4">
+      <div class="card h-100 pb-3">
+        <div class="card-header d-flex justify-content-between pb-0">
+          <div class="card-title mb-0">
+            <h5 class="mb-0">نمودار تعداد ابزار گریز مسدود نشده</h5>
+          </div>
+        </div>
+        <div id="chartdiv"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-lg-3 col-md-6 col-12">
+      <div class="card p-4" style="border-bottom: 5px solid #f19f09">
+        <div id="donutChart1"></div>
+      </div>
+    </div>
+
+    <!-- Donut Chart -->
+    <div class="col-lg-3 col-md-6 col-12">
+      <div class="card p-4" style="border-bottom: 5px solid #111">
+        <div id="donutChart2"></div>
+      </div>
+    </div>
+
+    <!-- Donut Chart -->
+    <div class="col-lg-3 col-md-6 col-12">
+      <div class="card p-4" style="border-bottom: 5px solid #c80b93">
+        <div id="donutChart3"></div>
+      </div>
+    </div>
+
+
+    <!-- Donut Chart -->
+    <div class="col-lg-3 col-md-6 col-12">
+      <div class="card p-4" style="border-bottom: 5px solid #0715e1">
+        <div id="donutChart4"></div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+{% endblock content %}
+

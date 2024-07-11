@@ -1,0 +1,1356 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "AdGuard VPN — Privacy & Security",
+      "platform": "Android",
+      "vpn_maker": "AdGuard Software Limited",
+      "vpn_country": "Russia",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 2,
+      "name": "Free VPN SecVPN Fast Unlimited Secure Proxy",
+      "platform": "Android",
+      "vpn_maker": "DaaYou Tech Team",
+      "vpn_country": "Hong Kong",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 3,
+      "name": "LUX VPN - Free Unlimited Fast VPN",
+      "platform": "Android",
+      "vpn_maker": "MironApp",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 4,
+      "name": "VPN Proxy Master - free unblock VPN & security VPN",
+      "platform": "Android",
+      "vpn_maker": "LEMON CLOVE PTE. LIMITED",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 5,
+      "name": "Free VPN unlimited secure hotspot proxy by vpnify",
+      "platform": "Android",
+      "vpn_maker": "VPNIFY",
+      "vpn_country": "Hong Kong",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 6,
+      "name": "Ultimate VPN",
+      "platform": "Android",
+      "vpn_maker": "VPN Master LLC",
+      "vpn_country": "Hong Kong",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 7,
+      "name": "Thunder VPN - A Fast , Unlimited, Free VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "Signal Lab",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 8,
+      "name": "Armada VPN - Unlimited Free VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "Connect Anywhere",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 9,
+      "name": "Ultrasurf (beta) - Unlimited Free VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "Ultrareach",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 10,
+      "name": "USA VPN - Get free USA IP",
+      "platform": "Android",
+      "vpn_maker": "AltApps",
+      "vpn_country": "Ukraine",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 11,
+      "name": "Free VPN - Super Unblock Proxy Master Hotspot VPN",
+      "platform": "Android",
+      "vpn_maker": "Super VPN & Free Proxy",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 12,
+      "name": "Daily VPN - Free Unlimited VPN & high VPN speed",
+      "platform": "Android",
+      "vpn_maker": "Link Better World",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 13,
+      "name": "Kaspersky Fast Secure VPN",
+      "platform": "Android",
+      "vpn_maker": "Kaspersky Lab Switzerland",
+      "vpn_country": "Switzerland",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 14,
+      "name": "FishVPN – Unlimited Free VPN Proxy & Security VPN",
+      "platform": "Android",
+      "vpn_maker": "Connect Anywhere",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 15,
+      "name": "Flash VPN Pro",
+      "platform": "Android",
+      "vpn_maker": "Reston Security",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 16,
+      "name": "My IP Hide",
+      "platform": "Android",
+      "vpn_maker": "Didsoft Ltd.",
+      "vpn_country": "Hong Kong",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 17,
+      "name": "USA VPN - Unlimited VPN, Free VPN, Privacy",
+      "platform": "Android",
+      "vpn_maker": "ZOZ Developer",
+      "vpn_country": "United Kingdom",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 18,
+      "name": "VPN Free - GreenNet Hotspot VPN Private Browser",
+      "platform": "Android",
+      "vpn_maker": "ITRAYS Development",
+      "vpn_country": "Estonia",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 19,
+      "name": "unlimited super fast VPN proxy",
+      "platform": "Android",
+      "vpn_maker": "EYEVPN",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 20,
+      "name": "Speedy Quark VPN - Fast Servers Secure Proxy",
+      "platform": "Android",
+      "vpn_maker": "Free VPN - Fast Proxy Inc",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 21,
+      "name": "Saeron VPN Plus",
+      "platform": "Android",
+      "vpn_maker": "One 2 Tree App",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 22,
+      "name": "Speedtest by Ookla",
+      "platform": "Android",
+      "vpn_maker": "Ookla",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 23,
+      "name": "Lantern Open Internet for All",
+      "platform": "Android",
+      "vpn_maker": "Lantern",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 24,
+      "name": "Whale VPN - Safe , Fast Tunnel",
+      "platform": "Android",
+      "vpn_maker": "Enea Demiri",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 25,
+      "name": "Fast VPN - A Secure, Free , Unlimited Proxy",
+      "platform": "Android",
+      "vpn_maker": "Free VPN & Free Proxy",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 26,
+      "name": "Unique VPN Free VPN Proxy Fast And Unlimited",
+      "platform": "Android",
+      "vpn_maker": "Anonymith",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 27,
+      "name": "VPN - Unlimited Fast VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "SEC VPN",
+      "vpn_country": "Hong Kong",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 28,
+      "name": "TikVPN - Fast VPN Safe Proxy",
+      "platform": "Android",
+      "vpn_maker": "TikVPN Anonymous Secure Privacy Team",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 29,
+      "name": "Speed Vpn",
+      "platform": "Android",
+      "vpn_maker": "JS2021 Games",
+      "vpn_country": "Hong Kong",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 30,
+      "name": "Secure VPN – A high speed, ultra secure VPN",
+      "platform": "Android",
+      "vpn_maker": "Free VPN Pte. Ltd.",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 31,
+      "name": "Windscribe VPN",
+      "platform": "Android",
+      "vpn_maker": "Windscribe",
+      "vpn_country": "Canada",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 32,
+      "name": "Solo VPN - One Tap Free Proxy",
+      "platform": "Android",
+      "vpn_maker": "SoloVPN & NCleaner & Radio",
+      "vpn_country": "Hong Kong",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 33,
+      "name": "Ryn VPN",
+      "platform": "Android",
+      "vpn_maker": "Elecube",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 34,
+      "name": "Free VPN by FireVPN",
+      "platform": "Android",
+      "vpn_maker": "FireVPN",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 35,
+      "name": "ArgoVPN",
+      "platform": "Android",
+      "vpn_maker": "Filtershekanha",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 36,
+      "name": "SuperVPN Pro",
+      "platform": "Android",
+      "vpn_maker": "SuperSoftTech",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 37,
+      "name": "NET VPN Free, Fast, unlimited secure hotspot proxy",
+      "platform": "Android",
+      "vpn_maker": "TurboNet",
+      "vpn_country": "Oman",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 38,
+      "name": "LA VPN Ultra fast VPN, Secure vbn, Best fast BPN",
+      "platform": "Android",
+      "vpn_maker": "La VPN.Duel",
+      "vpn_country": "India",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 39,
+      "name": "MiniFox - Free VPN",
+      "platform": "Android",
+      "vpn_maker": "MiniFox LTD",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 40,
+      "name": "BBVpn VPN - Unlimited Fast VPN",
+      "platform": "Android",
+      "vpn_maker": "Bohdan Borkovych",
+      "vpn_country": "Ukraine",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 41,
+      "name": "Psiphon Pro - The Internet Freedom VPN",
+      "platform": "Android",
+      "vpn_maker": "Psiphon Inc.",
+      "vpn_country": "Canada",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 42,
+      "name": "X-VPN - Free Private VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "Free Connected Limited",
+      "vpn_country": "Hong Kong",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 43,
+      "name": "Turbo VPN- Free VPN Proxy Server Secure Service",
+      "platform": "Android",
+      "vpn_maker": "Innovative Connecting",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 44,
+      "name": "Mayi VPN - Free, Fast Secure VPN proxy",
+      "platform": "Android",
+      "vpn_maker": "mayi",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 45,
+      "name": "Unlimited Free VPN Monster - Fast Secure VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "Innovative Connecting",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 46,
+      "name": "Outline",
+      "platform": "Android",
+      "vpn_maker": "Jigsaw Operations LLC",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 47,
+      "name": "VPN 365 - Free Unlimited VPN Proxy WiFi Security",
+      "platform": "Android",
+      "vpn_maker": "Better Proxy",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 48,
+      "name": "Private VPN - Proxy Browser",
+      "platform": "Android",
+      "vpn_maker": "SEA MOBILE LTD",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 49,
+      "name": "ProtonVPN - Free VPN, Secure & Unlimited",
+      "platform": "Android",
+      "vpn_maker": "Proton Technologies AG",
+      "vpn_country": "Switzerland",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 50,
+      "name": "WhiteHat VPN Free vpn",
+      "platform": "Android",
+      "vpn_maker": "High Speed Rabbit Limited\u200F",
+      "vpn_country": "United Kingdom",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 51,
+      "name": "CoolVPN Pro - Fast",
+      "platform": "Android",
+      "vpn_maker": "Cool VPN Team\u200F",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 52,
+      "name": "Cosmos VPN",
+      "platform": "Android",
+      "vpn_maker": "CosmosVPN Official",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 53,
+      "name": "KUTO VPN - A free, fast, secure VPN",
+      "platform": "Android",
+      "vpn_maker": "KUTO GROUP",
+      "vpn_country": "Estonia",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 54,
+      "name": "FREE VPN - Unseen Online",
+      "platform": "Android",
+      "vpn_maker": "FREE VPN - Unseen Online",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 55,
+      "name": "Free VPN (VPN Proxy Master)",
+      "platform": "Android",
+      "vpn_maker": "VPN & Proxy Master",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 56,
+      "name": "XY VPN -Security Proxy VPN",
+      "platform": "Android",
+      "vpn_maker": "MATRIX MOBILE PTE",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 57,
+      "name": "Super VPN - Best Free Proxy",
+      "platform": "Android",
+      "vpn_maker": "SuperVPN Inc",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 58,
+      "name": "Fast Turbo VPN - Secure VPN",
+      "platform": "Android",
+      "vpn_maker": "Fast VPN - Secure VPN",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 59,
+      "name": "VPN Proxy - 100% Unlimited VPN",
+      "platform": "Android",
+      "vpn_maker": "Turbo team VPN",
+      "vpn_country": "Cyprus",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 60,
+      "name": "V2Ray by UTLoop Unlimited VPN",
+      "platform": "Android",
+      "vpn_maker": "UcheTechs",
+      "vpn_country": "Nigeria",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 61,
+      "name": "OD VPN - Fast VPN Server Secure VPN App",
+      "platform": "Android",
+      "vpn_maker": "OverDreams",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 62,
+      "name": "BeePass VPN",
+      "platform": "Android",
+      "vpn_maker": "BeePass Team",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 63,
+      "name": "Hook VPN",
+      "platform": "Android",
+      "vpn_maker": "VR Tech Solutions",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 64,
+      "name": "Star VPN - Free Anonymous Unblock Fast",
+      "platform": "Android",
+      "vpn_maker": "VPN & Proxy Master",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 65,
+      "name": "VPN Free - Unlimited Proxy & Fast Unblock Master",
+      "platform": "Android",
+      "vpn_maker": "Hotspot VPN & Proxy Master",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 66,
+      "name": "Halley VPN - Free VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "Golden Dragon Ltd",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 67,
+      "name": "Mojo VPN - Fast Free Unlimited VPN Security VPN",
+      "platform": "Android",
+      "vpn_maker": "Yuanbo Tech LLC",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 68,
+      "name": "VPN Super - Free VPN Proxy Server Secure App",
+      "platform": "Android",
+      "vpn_maker": "VPN Super Inc.",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 69,
+      "name": "VPN PotatoVPN - Free VPN WiFi Proxy",
+      "platform": "Android",
+      "vpn_maker": "FASTPOTATO PTE. LTD",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 70,
+      "name": "VPN Private",
+      "platform": "Android",
+      "vpn_maker": "Master of VPN",
+      "vpn_country": "Spain",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 71,
+      "name": "3X VPN - Unlimited & Safe",
+      "platform": "Android",
+      "vpn_maker": "Fruit Security Studio",
+      "vpn_country": "Hong Kong",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 72,
+      "name": "Geph",
+      "platform": "Android",
+      "vpn_maker": "Gephyra OÜ",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 73,
+      "name": "1.1.1.1 Faster & Safer Internet",
+      "platform": "Android",
+      "vpn_maker": "SCloudflare, Inc.",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 74,
+      "name": "NetGO - Private Net Access",
+      "platform": "Android",
+      "vpn_maker": "ouou Zhou",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 75,
+      "name": "VPN Proxy Speed - Super VPN",
+      "platform": "Android",
+      "vpn_maker": "Phone Master Lab",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 76,
+      "name": "VPN by Private Internet Access",
+      "platform": "Android",
+      "vpn_maker": "Private Internet Access, Inc",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Non-free"
+    },
+    {
+      "id": 77,
+      "name": "Orbot-Tor for Android",
+      "platform": "Android",
+      "vpn_maker": "The Tor Project",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 78,
+      "name": "Super VPN Proxy - Proxy Master",
+      "platform": "Android",
+      "vpn_maker": "Phone Master Lab",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 79,
+      "name": "Lindo VPN - Fast & Secure VPN",
+      "platform": "Android",
+      "vpn_maker": "VRMAPPS",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 80,
+      "name": "XD VPN",
+      "platform": "Android",
+      "vpn_maker": "XD Team",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 141,
+      "name": "HulaVPN - Fast Secure VPN",
+      "platform": "Android",
+      "vpn_maker": "Hula Link",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 142,
+      "name": "Aspire VPN Fast, Secure",
+      "platform": "Android",
+      "vpn_maker": "Waraya",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 143,
+      "name": "Instant VPN – Fast VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "InstantApps Studio",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 144,
+      "name": "NT VPN",
+      "platform": "Android",
+      "vpn_maker": "pi vpn",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 145,
+      "name": "VPN - biubiuVPN Fast Secure",
+      "platform": "Android",
+      "vpn_maker": "SOON BODYWERKZ",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 146,
+      "name": "Fast VPN - Ultra Speed",
+      "platform": "Android",
+      "vpn_maker": "Fast VPN Proxy Network",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 147,
+      "name": "iTop Vpn",
+      "platform": "Android",
+      "vpn_maker": "techway",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 148,
+      "name": "sedrey vpn",
+      "platform": "Android",
+      "vpn_maker": "با شتاب ترین تلگرام بی فیلتر",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 149,
+      "name": "MagNet - VPN",
+      "platform": "Android",
+      "vpn_maker": "Castel App 90",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 150,
+      "name": "SecureMaster VPN",
+      "platform": "Android",
+      "vpn_maker": "Труболыс Николай",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 151,
+      "name": "Ninja VPN",
+      "platform": "Android",
+      "vpn_maker": "nexus vpn",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 152,
+      "name": "OX VPN",
+      "platform": "Android",
+      "vpn_maker": "Reyhan",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 153,
+      "name": "فیلتر شکن پرسرعت قوی آمریکایی",
+      "platform": "Android",
+      "vpn_maker": "Reyhan",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 154,
+      "name": "Gini vpn",
+      "platform": "Android",
+      "vpn_maker": "Cloudifly App",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 155,
+      "name": "Rapid Pro VPN",
+      "platform": "Android",
+      "vpn_maker": "Rapid Powerful VPN Connection",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 156,
+      "name": "Shenzo VPN",
+      "platform": "Android",
+      "vpn_maker": "Oskavol Team",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 157,
+      "name": "Prime VPN",
+      "platform": "Android",
+      "vpn_maker": "Prime VPN",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 158,
+      "name": "Giti VPN super fast VPN",
+      "platform": "Android",
+      "vpn_maker": "SASAAPPS",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 159,
+      "name": "فیلتر شکن قوی ایرانسل - واتساپ",
+      "platform": "Android",
+      "vpn_maker": "Beti App Na",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 160,
+      "name": "Snake VPN",
+      "platform": "Android",
+      "vpn_maker": "Ouzhat Soft",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 161,
+      "name": "Awat VPN",
+      "platform": "Android",
+      "vpn_maker": "Win Mark App",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 162,
+      "name": "فیلتر شکن پرسرعت قوی گرگ",
+      "platform": "Android",
+      "vpn_maker": "Beti App Na",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 163,
+      "name": "Run VPN - unlimited Safe VPN",
+      "platform": "Android",
+      "vpn_maker": "Thebestdevelopergroup",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 164,
+      "name": "Pi VPN",
+      "platform": "Android",
+      "vpn_maker": "Pi VPN",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 165,
+      "name": "Free VPN Proxy by Planet VPN",
+      "platform": "Android",
+      "vpn_maker": "Free VPN Planet",
+      "vpn_country": "Romania",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 166,
+      "name": "فیلتر شکن پرسرعت قوی - spider vpn",
+      "platform": "Android",
+      "vpn_maker": "nexus vpn",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 167,
+      "name": "ForVPN - Fast and Secure VPN",
+      "platform": "Android",
+      "vpn_maker": "ForVPN",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 168,
+      "name": "SunRay VPN - Ultra Speed",
+      "platform": "Android",
+      "vpn_maker": "poulwrap",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 169,
+      "name": "Lite VPN - Secure VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "OZZMO",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 170,
+      "name": "MahsaVPN - Security VPN 2022",
+      "platform": "Android",
+      "vpn_maker": "Briana Group",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 171,
+      "name": "Mahsa VPN",
+      "platform": "Android",
+      "vpn_maker": "VPN4IRAN",
+      "vpn_country": "Australia",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 172,
+      "name": "Flux VPN VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "Adana team",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 173,
+      "name": "Nexus VPN",
+      "platform": "Android",
+      "vpn_maker": "pi vpn",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 174,
+      "name": "darli vpn",
+      "platform": "Android",
+      "vpn_maker": "با شتاب ترین تلگرام بی فیلتر",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 175,
+      "name": "Rabbit VPN",
+      "platform": "Android",
+      "vpn_maker": "nexus vpn",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": " Free"
+    },
+    {
+      "id": 176,
+      "name": "Orbit VPN",
+      "platform": "Android",
+      "vpn_maker": "Alice Burton",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 177,
+      "name": "VPN - fast proxy + secure",
+      "platform": "Android",
+      "vpn_maker": "Stolitomson VPN",
+      "vpn_country": "Montenegro",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 178,
+      "name": "VPN APP - Meet VPN",
+      "platform": "Android",
+      "vpn_maker": "VPN IN VPN",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 179,
+      "name": "Delight VPN",
+      "platform": "Android",
+      "vpn_maker": "Dela Vpns App",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 180,
+      "name": "tof vpn fast",
+      "platform": "Android",
+      "vpn_maker": "با شتاب ترین تلگرام بی فیلتر",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 181,
+      "name": "Shark VPN",
+      "platform": "Android",
+      "vpn_maker": "Zhekal",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 182,
+      "name": "VPN quickly | proxy speed fast",
+      "platform": "Android",
+      "vpn_maker": "با شتاب ترین تلگرام بی فیلتر",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 183,
+      "name": "Palm VPN",
+      "platform": "Android",
+      "vpn_maker": "WorldDevApp",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 184,
+      "name": "Candy VPN - Fast, Safe VPN",
+      "platform": "Android",
+      "vpn_maker": "Candy Group",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 185,
+      "name": "Fast VPN",
+      "platform": "Android",
+      "vpn_maker": "VPN Proxy Master",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 186,
+      "name": "shahan vpn",
+      "platform": "Android",
+      "vpn_maker": "با شتاب ترین تلگرام بی فیلتر",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 187,
+      "name": "MTM Tunnel Lite",
+      "platform": "Android",
+      "vpn_maker": "tmtunnel",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 188,
+      "name": "biah vpn",
+      "platform": "Android",
+      "vpn_maker": "با شتاب ترین تلگرام بی فیلتر",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 189,
+      "name": "Ostrich VPN - Unlimited Proxy",
+      "platform": "Android",
+      "vpn_maker": "Geware VPN Pro",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 191,
+      "name": "Tesla Proxy - Unlimited Safe",
+      "platform": "Android",
+      "vpn_maker": "NoCard Team",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 192,
+      "name": "Shuttle VPN Secure VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "Shuttle VPN",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 193,
+      "name": "VPN - Super Proxy Master",
+      "platform": "Android",
+      "vpn_maker": "Phone Master Lab",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 194,
+      "name": "IronMeta One - Proxy Master",
+      "platform": "Android",
+      "vpn_maker": "IronMeta Studio",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 195,
+      "name": "Touch VPN - Fast Wifi Security",
+      "platform": "Android",
+      "vpn_maker": "The Tool Tech",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 196,
+      "name": "VPN.lat Unlimited and Secure",
+      "platform": "Android",
+      "vpn_maker": "VPN.lat",
+      "vpn_country": "Mexico",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 197,
+      "name": "Transocks VPN",
+      "platform": "Android",
+      "vpn_maker": "Chengdu Fobwifi Networks Technology LLC",
+      "vpn_country": "China",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 198,
+      "name": "V2Net vpn V2ray Fast, secure",
+      "platform": "Android",
+      "vpn_maker": "V2ray VPN",
+      "vpn_country": "Emirates",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 199,
+      "name": "VPN - secure, fast, unlimited",
+      "platform": "Android",
+      "vpn_maker": "Stolitomson VPN",
+      "vpn_country": "Montenegro",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 200,
+      "name": "FlashVPN Fast VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "FlashSoftware",
+      "vpn_country": "Hong Kong",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 201,
+      "name": "VPN Inf - Security Fast VPN",
+      "platform": "Android",
+      "vpn_maker": "Inf Security Studio",
+      "vpn_country": "Singapore",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 202,
+      "name": "VPN RedCat secure unlimited",
+      "platform": "Android",
+      "vpn_maker": "international radio",
+      "vpn_country": "Ukraine",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 203,
+      "name": "Vpn One Click",
+      "platform": "Android",
+      "vpn_maker": "Kryptotel fz llc",
+      "vpn_country": "Emirates",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 204,
+      "name": "BeastVPN Secure and Fast VPN",
+      "platform": "Android",
+      "vpn_maker": "BeastVPN",
+      "vpn_country": "Hong Kong",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 205,
+      "name": "Melon VPN - Unblock Proxy VPN",
+      "platform": "Android",
+      "vpn_maker": "Inf Security Studio",
+      "vpn_country": "Singapur",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 206,
+      "name": "Veilduck VPN",
+      "platform": "Android",
+      "vpn_maker": "Veilduck VPN",
+      "vpn_country": "South Korea",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 207,
+      "name": "Kiwi VPN Connection IP Changer",
+      "platform": "Android",
+      "vpn_maker": "Super VPN Solution",
+      "vpn_country": "Vietnam",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 208,
+      "name": "Kiwi VPN Proxy: Safer & Faster",
+      "platform": "Android",
+      "vpn_maker": "Macdep inc",
+      "vpn_country": "Vietnam",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 209,
+      "name": "SuperNet VPN: fast VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "AUTUMN BREEZE PTE. LIMITED",
+      "vpn_country": "Singapur",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 210,
+      "name": "Yoga VPN -Secure Proxy VPN",
+      "platform": "Android",
+      "vpn_maker": "Sarah Hawken",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 211,
+      "name": "Smart VPN - Reliable VPN",
+      "platform": "Android",
+      "vpn_maker": "5Star Dev LTD",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 212,
+      "name": "Hoxx VPN",
+      "platform": "Android",
+      "vpn_maker": "Hoxx VPN",
+      "vpn_country": "Florida",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 213,
+      "name": "Bert Vpn ( Fast & Secure )",
+      "platform": "Android",
+      "vpn_maker": "Shopna Tech info",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 214,
+      "name": "Oasis VPN ( Fast VPN)",
+      "platform": "Android",
+      "vpn_maker": "smart code",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 215,
+      "name": "Octohide VPN",
+      "platform": "Android",
+      "vpn_maker": "Octohide",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 216,
+      "name": "VPN - Fast Secure Stable",
+      "platform": "Android",
+      "vpn_maker": "VPN - Fast Proxy Inc",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 217,
+      "name": "Atlas VPN: fast & secure VPN",
+      "platform": "Android",
+      "vpn_maker": "Atlas VPN",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 218,
+      "name": "OK VPN - Secure & Fast Proxy",
+      "platform": "Android",
+      "vpn_maker": "OKVpnTeam",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 219,
+      "name": "Free VPN",
+      "platform": "Android",
+      "vpn_maker": "Appoxide.com",
+      "vpn_country": "India",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 220,
+      "name": "Super VPN Fast Secure Proxy",
+      "platform": "Android",
+      "vpn_maker": "DANIEL GOES SALVIANO",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 221,
+      "name": "Super VPN - Stable & Fast VPN",
+      "platform": "Android",
+      "vpn_maker": "MiniVPN Dev",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 222,
+      "name": "Browsec Fast Secure VPN Proxy",
+      "platform": "Android",
+      "vpn_maker": "Browsec",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 223,
+      "name": "Signal Secure VPN - Robot VPN",
+      "platform": "Android",
+      "vpn_maker": "AUTUMN BREEZE PTE. LIMITED",
+      "vpn_country": "Singapur",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 224,
+      "name": "Cyber VPN - Fast and Stable",
+      "platform": "Android",
+      "vpn_maker": "Sol Sol App654472",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 225,
+      "name": "RavoVPN-Secure Fast Proxy",
+      "platform": "Android",
+      "vpn_maker": "Five Oceans E-Commerce",
+      "vpn_country": "Hong Kong",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 226,
+      "name": "Mouse VPN",
+      "platform": "Android",
+      "vpn_maker": "Zharfa",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 227,
+      "name": "itsVpn vpn v2ray Fast Proxy",
+      "platform": "Android",
+      "vpn_maker": "fxsignals",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 228,
+      "name": "VPN - فیلتر شکن پرسرعت قوی",
+      "platform": "Android",
+      "vpn_maker": "AY-GO",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    },
+    {
+      "id": 229,
+      "name": "Speedify",
+      "platform": "Android",
+      "vpn_maker": "Connectify Inc",
+      "vpn_country": "United States",
+      "vpn_normal_user_fee": "Limited Free"
+    },
+    {
+      "id": 230,
+      "name": "Fino VPN",
+      "platform": "Android",
+      "vpn_maker": "Adana team",
+      "vpn_country": "nan",
+      "vpn_normal_user_fee": "Free"
+    }
+  ]
+}

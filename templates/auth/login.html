@@ -1,0 +1,120 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}صفحات - ورود{% endblock %}
+
+{% block vendor_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'vendor/libs/@form-validation/umd/styles/index.min.css' %}" />
+{% endblock vendor_css %}
+
+{% block vendor_js %}
+{{ block.super }}
+<script src="{% static 'vendor/libs/@form-validation/umd/bundle/popular.min.js' %}"></script>
+<script src="{% static 'vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js' %}"></script>
+<script src="{% static 'vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block page_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'vendor/css/pages/page-auth.css' %}" />
+{% endblock page_css %}
+
+{% block page_js %}
+{{ block.super }}
+<script src="{% static 'js/pages-auth.js' %}"></script>
+<script src="{% static 'js/ui-popover.js' %}"></script>
+{% endblock page_js %}
+
+{% block content %}
+<div class="authentication-wrapper authentication-cover authentication-bg">
+  <div class="authentication-inner row">
+    <!-- /Left Text -->
+    <div class="d-none d-lg-flex col-lg-7 p-0">
+      <div class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center">
+{#        <img src="{% static "img/MyFile/login.png" alt="auth-login-cover" class="img-fluid my-5 auth-illustration" data-app-light-img="illustrations/auth-login-illustration-light.png" data-app-dark-img="illustrations/auth-login-illustration-dark.png">#}
+        <img src="{% static "img/MyFile/login.png" %}" alt="">
+        <img src="{% static 'img/illustrations/bg-shape-image-' %}{{ COOKIES.style|default:style }}.png" alt="auth-login-cover" class="platform-bg" data-app-light-img="illustrations/bg-shape-image-light.png" data-app-dark-img="illustrations/bg-shape-image-dark.png">
+      </div>
+    </div>
+    <!-- /Left Text -->
+
+    <!-- Login -->
+    <div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-4">
+      <div class="w-px-400 mx-auto">
+        <!-- Logo -->
+        <div class="app-brand mb-4">
+          <a href="{% url 'index' %}" class="app-brand-link">
+            <span class="app-brand-logo demo">
+              {% include 'partials/logo.html' with height=20 bgcolor="fill: #fff;" %}
+            </span>
+          </a>
+        </div>
+        <!-- /Logo -->
+        <h3 class="mb-1">سامانه نمایش گزارشات👋</h3>
+{#        <p class="mb-4">برای تجربه پنل مدیریت حرفه ای وارد شوید.</p>#}
+{#        <div class="alert alert-primary small">#}
+{#          <p class="text-caption mb-1"> ایمیل ادمین: <strong>admin@demo.com</strong> / نام کاربری: <strong>admin</strong>#}
+{#            <span class="cursor-pointer" id="admin-user"><i class="ti ti-help ti-xs text-body mb-1" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" title="دسترسی ادمین" data-bs-content="می تواند به صفحات کاربر، نقش ها و مجوزها دسترسی داشته باشد. دارای مجوز برای مشاهده، به روز رسانی، حذف، و ایجاد تراکنش ها در صفحه تراکنش."></i></span>#}
+{#          </p>#}
+{#          <p class="text-caption mb-1"> ایمیل کلاینت: <strong>client@demo.com</strong> / نام کاربری: <strong>client</strong>#}
+{#            <span class="cursor-pointer" id="client-user"><i class="ti ti-help ti-xs text-body mb-1" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover focus" title="دسترسی کلاینت" data-bs-content="دسترسی به صفحات کاربر، نقش ها و مجوزها امکان پذیر نیست. محدود به مشاهده انحصاری صفحه تراکنش."></i></span>#}
+{#          </p>#}
+{#          <p class="text-caption mb-0">رمز ورود: <strong>Pwd_1234</strong></p>#}
+{#        </div>#}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% else %}alert-warning{% endif %}" role="alert">
+          {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <form id="formAuthentication" class="mb-3" action="{% url 'login' %}" method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="email" class="form-label">ایمیل یا نام کاربری</label>
+{#            <input type="email" class="form-control" id="email" name="email-username" value="admin@demo.com" placeholder="ایمیل / نام کاربری" autofocus />#}
+            <input type="email" class="form-control" id="email" name="email-username" value="" placeholder="ایمیل / نام کاربری" autofocus />
+          </div>
+          <div class="mb-3 form-password-toggle">
+            <div class="d-flex justify-content-between">
+              <label class="form-label" for="password">رمز ورود</label>
+{#              <a href="{% url 'forgot-password' %}">#}
+{#                <small>رمز را فراموش کردید؟</small>#}
+{#              </a>#}
+            </div>
+            <div class="input-group input-group-merge">
+{#              <input type="password" id="password" class="form-control" name="password" value="Pwd_1234" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />#}
+              <input type="password" id="password" class="form-control" name="password" value="" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+              <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="remember-me">
+              <label class="form-check-label" for="remember-me">
+                مرا به یاد داشته باش
+              </label>
+            </div>
+          </div>
+          {% if request.GET.next %}
+          <input type="hidden" name="next" value="{{request.GET.next}}">
+          {% endif %}
+          <button class="btn btn-primary d-grid w-100" type="submit">ورود</button>
+        </form>
+
+{#        <p class="text-center">#}
+{#          <span>قبلا حسابی نداشتید؟</span>#}
+{#          <a href="{% url 'register' %}">#}
+{#            <span>عضو شوید</span>#}
+{#          </a>#}
+{#        </p>#}
+
+      </div>
+    </div>
+    <!-- /Login -->
+  </div>
+</div>
+{% endblock content %}
