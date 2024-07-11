@@ -5,7 +5,7 @@ from apps.vpn.models import *
 from django.db.models import Count
 import random
 
-    
+
 
 def convert_date(date):
     date = date.replace(" ", "")
@@ -352,7 +352,7 @@ class VpnByIdView(TemplateView):
         server_countries_id = [ip for ip in server_countries_id if ip != 166]
         server_countries = Country.objects.filter(id__in=server_countries_id)
         server_country_count = len(server_countries)
-        
+
         for item in vpn:
             original_name = item.name
             modified_name = original_name.replace(' ', '')
@@ -427,6 +427,7 @@ class OperatorView(TemplateView):
                 'vpn_test_counts': vpn_test_counts
             }
 
+        print(">>",operator_data["Irancell"]['vpn_names'])
         context['country_server'] = country_server
         context['country'] = country
         context['vpn'] = vpn
