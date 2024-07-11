@@ -179,13 +179,15 @@
       // Horizontal Bar Chart
       // --------------------------------------------------------------------
 
+      const irancellNames = {{ irancell_names|safe }};
 
       const irancellBarChart = document.getElementById('irancellBarChart');
       if (irancellBarChart) {
         const irancellBarChartVar = new Chart(irancellBarChart, {
           type: 'bar',
           data: {
-            labels: ['VPN PotatoVPN - Free VPN WiFi Proxy', 'VPN by Private Internet Access', 'X-VPN - Free Private VPN Proxy', 'VPN Free - GreenNet Hotspot VPN Private Browser', 'Windscribe VPN', 'Free VPN (VPN Proxy Master)', 'MiniFox - Free VPN'],
+            {#labels: ['VPN PotatoVPN - Free VPN WiFi Proxy', 'VPN by Private Internet Access', 'X-VPN - Free Private VPN Proxy', 'VPN Free - GreenNet Hotspot VPN Private Browser', 'Windscribe VPN', 'Free VPN (VPN Proxy Master)', 'MiniFox - Free VPN'],#}
+            labels: irancellNames ,
             datasets: [
               {
                 data: {{ irancell_count }},
@@ -249,12 +251,14 @@
         });
       }
 
+      const mciNames = {{ mci_names|safe }};
+
       const mciBarChart = document.getElementById('mciBarChart');
       if (mciBarChart) {
         const mciBarChartVar = new Chart(mciBarChart, {
           type: 'bar',
           data: {
-            labels: ['VPN PotatoVPN - Free VPN WiFi Proxy', 'VPN by Private Internet Access', 'X-VPN - Free Private VPN Proxy', 'VPN Free - GreenNet Hotspot VPN Private Browser', 'Windscribe VPN', 'Free VPN (VPN Proxy Master)', 'MiniFox - Free VPN'],
+            labels: mciNames,
             datasets: [
               {
                 data: {{ mci_count }},
@@ -318,12 +322,14 @@
         });
       }
 
+      const rightelNames = {{ rightel_names|safe }};
+
       const rightelBarChart = document.getElementById('rightelBarChart');
       if (rightelBarChart) {
         const rightelBarChartVar = new Chart(rightelBarChart, {
           type: 'bar',
           data: {
-            labels: ['VPN PotatoVPN - Free VPN WiFi Proxy', 'VPN by Private Internet Access', 'X-VPN - Free Private VPN Proxy', 'VPN Free - GreenNet Hotspot VPN Private Browser', 'Windscribe VPN', 'Free VPN (VPN Proxy Master)', 'MiniFox - Free VPN'],
+            labels: rightelNames,
             datasets: [
               {
                 data: {{ rightel_count }},
@@ -387,12 +393,14 @@
         });
       }
 
+      const tciNames = {{ tci_names|safe }};
+
       const mokhaberatBarChart = document.getElementById('mokhaberatBarChart');
       if (mokhaberatBarChart) {
         const mokhaberatBarChartVar = new Chart(mokhaberatBarChart, {
           type: 'bar',
           data: {
-            labels: ['VPN PotatoVPN - Free VPN WiFi Proxy', 'VPN by Private Internet Access', 'X-VPN - Free Private VPN Proxy', 'VPN Free - GreenNet Hotspot VPN Private Browser', 'Windscribe VPN', 'Free VPN (VPN Proxy Master)', 'MiniFox - Free VPN'],
+            labels: tciNames,
             datasets: [
               {
                 data: {{ tci_count }},
