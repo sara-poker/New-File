@@ -9,6 +9,8 @@ passenger_wsgi.py
 /tmp
 /public
 
+apps/vpn/migrations/*
+
 # Ignoring src and assets folders
 
 # Exclude everything from vendors
