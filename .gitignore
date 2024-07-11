@@ -1,7 +1,7 @@
 /venv
 /.venv
 /src/node_modules
-./config/settings.py
+config/settings.py
 .env
 ~$data.xlsx
 passenger_wsgi.py
