@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import FrontPagesView ,GetAllVpn
+from .views import FrontPagesView ,GetAllVpn,AddItem
 
 urlpatterns = [
     path(
@@ -41,5 +41,10 @@ urlpatterns = [
         "api/getAllVpn",
         GetAllVpn.as_view(),
         name="get-all-vpn",
+    ),
+    path(
+        "api/addItem",
+        AddItem.as_view(),
+        name="add-item",
     ),
 ]
