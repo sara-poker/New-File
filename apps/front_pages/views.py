@@ -5,7 +5,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from apps.vpn.models import *
-from apps.front_pages.serializers import VpnSerializer
+from apps.front_pages.serializers import *
+from rest_framework import status
+import math
 
 """
 This file is a view controller for multiple pages as a module.
@@ -51,6 +53,94 @@ class GetAllVpn(APIView):
             original_name = item.name
             modified_name = original_name.replace(' ', '')
             item.name2 = modified_name
-            
-        serializer = VpnSerializer(vpn, many=True)
+
+        serializer = VpnSerializerr(vpn, many=True)
         return Response(serializer.data)
+
+
+class AddItem(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        data = request.data
+
+        # Vpn
+        vpn_exist = Vpn.objects.filter(name=data['vpn_name'])
+        if vpn_exist:
+            vpn = vpn_exist[0]
+        else:
+            vpn_country_obj = Country.objects.filter(name=data['vpn_country']).first()
+            if not vpn_country_obj:
+                vpn_country_obj = Country.objects.create(name=data['vpn_country'])
+
+            vpn_data = {
+                "name": data['vpn_name'],
+                "platform": data['vpn_platform'],
+                "vpn_maker": data['vpn_maker'],
+                "vpn_country": vpn_country_obj,
+                "vpn_normal_user_fee": data['vpn_normal_user_fee']
+            }
+            vpn_serializer = VpnSerializer(data=vpn_data)
+            if vpn_serializer.is_valid():
+                vpn = vpn_serializer.save()
+            else:
+                return Response(vpn_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        # Isp
+        isp_exist = Isp.objects.filter(name=data['server_isp'])
+        if isp_exist:
+            isp = isp_exist[0]
+        else:
+            isp_data = {
+                "name": data['server_isp']
+            }
+            isp_serializer = IspSerializer(data=isp_data)
+            if isp_serializer.is_valid():
+                isp = isp_serializer.save()
+            else:
+                return Response(isp_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        # Ping and TTL
+        if data['ping_speed'] == "failed" or math.isnan(data['ping_speed']):
+            ping = -1
+        else:
+            ping = int(data['ping_speed'])
+
+        if data['ttl'] == "failed" or math.isnan(data['ttl']):
+            ttl = -1
+        else:
+            ttl = int(data['ttl'])
+
+        # Server Country
+        server_country_obj = Country.objects.filter(name=data['server_country']).first()
+        if not server_country_obj:
+            server_country_obj = Country.objects.create(name=data['server_country'])
+
+        test_data = {
+            "date": data['date'],
+            "time": data['time'],
+            "city": data['city'],
+            "vpn": vpn.id,
+            "oprator": data['oprator'],
+            "status": data['status'],
+            "filter": data['filter'],
+            "server_ip": data['server_ip'],
+            "server_host": data['server_host'],
+            "server_isp": isp.id,
+            "server_country": server_country_obj.id,
+            "server_region": data['server_region'],
+            "server_city": data['server_city'],
+            "server_Latitude": data['server_Latitude'],
+            "server_Longitude": data['server_Longitude'],
+            "ping_speed": ping,
+            "ttl": ttl,
+            "proxy_port": data['proxy_port'],
+            "proxy_secret": data['proxy_secret'],
+        }
+
+        test_serializer = TestSerializer(data=test_data)
+        if test_serializer.is_valid():
+            test_serializer.save()
+            return Response(test_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(test_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
