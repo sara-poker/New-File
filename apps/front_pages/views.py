@@ -77,7 +77,7 @@ class AddItem(APIView):
                 "name": data['vpn_name'],
                 "platform": data['vpn_platform'],
                 "vpn_maker": data['vpn_maker'],
-                "vpn_country": vpn_country_obj,
+                "vpn_country": vpn_country_obj.id,
                 "vpn_normal_user_fee": data['vpn_normal_user_fee']
             }
             vpn_serializer = VpnSerializer(data=vpn_data)
