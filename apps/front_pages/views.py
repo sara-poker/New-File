@@ -144,3 +144,26 @@ class AddItem(APIView):
             return Response(test_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(test_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AddRecord(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        data = request.data
+
+        test_data = {
+            "vpn_name": data['vpn_name'],
+            "date": data['date'],
+            "time": data['time'],
+            "city": data['city'],
+            "oprator": data['oprator'],
+            "status": data['status']
+        }
+
+        online_test_serializer = OnlineTestSerializer(data=test_data)
+        if online_test_serializer.is_valid():
+            online_test_serializer.save()
+            return Response(online_test_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(online_test_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

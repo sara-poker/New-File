@@ -70,7 +70,7 @@ class Test(models.Model):
 
     date = models.IntegerField(verbose_name="تاریخ")
     time = models.CharField(verbose_name="ساعت",max_length=15)
-    city = models.CharField(verbose_name='شهر',max_length=40)
+    city = models.CharField(verbose_name='شهر',max_length=140)
     vpn = models.ForeignKey(Vpn, related_name='vpns', on_delete=models.PROTECT)
     oprator = models.CharField(max_length=30, verbose_name='اپراتور')
     status = models.CharField(max_length=18, verbose_name='وضعیت', choices=STATUS_CHOICE)
@@ -111,3 +111,28 @@ class Isp(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class OnlineTest(models.Model):
+    class Meta:
+        verbose_name = 'نتیجه تست آنلاین'
+        verbose_name_plural = 'نتایج تست هاآنلاین'
+
+    STATUS_CHOICE = (
+        ('Filter', 'Filter'),
+        ('Without Filter', 'Without Filter')
+    )
+
+
+
+    date = models.IntegerField(verbose_name="تاریخ")
+    time = models.CharField(verbose_name="ساعت",max_length=15)
+    city = models.CharField(verbose_name='شهر',max_length=140)
+
+    vpn_name = models.CharField(verbose_name='اسم', max_length=100)
+    oprator = models.CharField(max_length=30, verbose_name='اپراتور')
+    status = models.CharField(max_length=18, verbose_name='وضعیت', choices=STATUS_CHOICE)
+
+
+    def __str__(self):
+        return self.vpn.name + "|" + self.city + "|" + str(self.date)

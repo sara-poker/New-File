@@ -39,3 +39,8 @@ class TestSerializer(serializers.ModelSerializer):
                   'server_host',
                   'server_isp', 'server_country', 'server_region', 'server_city', 'server_Latitude',
                   'server_Longitude', 'ping_speed', 'ttl', 'proxy_port', 'proxy_secret']
+
+class OnlineTestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OnlineTest
+        fields = '__all__'
