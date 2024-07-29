@@ -60,6 +60,9 @@ def filter_country_server(country_server, queryset):
         return queryset
     return queryset.filter(server_country=country_server)
 
+def filter_province(province, queryset):
+    return queryset.filter(city=province)
+
 
 def filter_country(country, queryset):
     if country == "0":
@@ -136,6 +139,8 @@ class LinerChartView(TemplateView):
         country_server = Country.objects.filter(id__in=country_server_id)
 
         province = list(all_test.values_list('city', flat=True).distinct())
+        province = [item for item in province if item != 'nan']
+        province = [item for item in province if item != 'تهران']
 
         country_id = list(vpn.values_list('vpn_country', flat=True).distinct())
         country_id = [item for item in country_id if item != 'nan']
@@ -164,6 +169,10 @@ class LinerChartView(TemplateView):
         if selected_country:
             no_filter = filter_country(selected_country, no_filter)
             all_test = filter_country(selected_country, all_test)
+
+        if selected_province:
+            no_filter = filter_province(selected_province, no_filter)
+            all_test = filter_province(selected_province, all_test)
 
         # hello
         results = []
