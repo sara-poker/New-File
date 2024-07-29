@@ -311,10 +311,11 @@
             <div class="col-md-3">
               <label class="form-label" for="select2Success">اپراتور</label>
               <div class="select2-success">
-                <select class="select2 form-select" id="select2Success" multiple disabled>
-                  <option value="1" selected>ایرانسل</option>
-                  <option value="2" selected>همراه اول</option>
-                  <option value="3" selected>رایتل</option>
+                <select class="select2 form-select" id="select2Success" name="operator" multiple>
+                  <option value="Irancell" {% if 'Irancell' in selected_operators %}selected{% endif %}>ایرانسل</option>
+                  <option value="MCI" {% if 'MCI' in selected_operators %}selected{% endif %}>همراه اول</option>
+                  <option value="RighTel" {% if 'RighTel' in selected_operators %}selected{% endif %}>رایتل</option>
+                  <option value="TCI" {% if 'TCI' in selected_operators %}selected{% endif %}>مخابرات</option>
                 </select>
               </div>
             </div>

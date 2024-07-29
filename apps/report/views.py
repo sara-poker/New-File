@@ -507,6 +507,8 @@ class ProcessView(TemplateView):
         selected_province = self.request.GET.get('province')
         selected_country_server = self.request.GET.get('server_country')
         selected_country = self.request.GET.get('country')
+        selected_operators = self.request.GET.getlist('operator')
+
 
         if selected_date_str:
             test = filter_date(selected_date_str, test)
@@ -596,5 +598,6 @@ class ProcessView(TemplateView):
         context['server_regions'] = server_regions
         context['server_countries'] = server_countries
         context['selected_province'] = selected_province
+        context['selected_operators'] = selected_operators
 
         return context
