@@ -341,14 +341,14 @@
               </select>
             </div>
             <div class="col-md-2">
-              <label class="form-label" for="select2Basic3">کشور سرور:</label>
+              <label class="form-label" for="select2Basic3">استان</label>
 
               <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3"
-                      name="server_country">
-                <option label="singapore" value="0">نمایش همگانی</option>
-                {% for item in country_server %}
-                  <option label="{{ item.name }}" value="{{ item.id }}"
-                          {% if selected_country_server == item.id|stringformat:"s" %}selected{% endif %}>{{ item.name }}</option>
+                      name="province">
+                <option value="تهران">تهران</option>
+                {% for item in province %}
+                  <option label="{{ item }}" value="{{ item }}"
+                          {% if selected_province == item|stringformat:"s" %}selected{% endif %}>{{ item }}</option>
                 {% endfor %}
               </select>
 

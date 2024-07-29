@@ -173,6 +173,9 @@ class LinerChartView(TemplateView):
         if selected_province:
             no_filter = filter_province(selected_province, no_filter)
             all_test = filter_province(selected_province, all_test)
+        else:
+            no_filter = filter_province("تهران", no_filter)
+            all_test = filter_province("تهران", all_test)
 
         # hello
         results = []
@@ -475,6 +478,10 @@ class ProcessView(TemplateView):
         test = Test.objects.filter()
         vpn = Vpn.objects.filter()
 
+        province = list(test.values_list('city', flat=True).distinct())
+        province = [item for item in province if item != 'nan']
+        province = [item for item in province if item != 'تهران']
+
         country_server_id = list(test.values_list('server_country', flat=True).distinct())
         country_server_id = [item for item in country_server_id if item != 'nan']
         country_server = Country.objects.filter(id__in=country_server_id)
@@ -485,6 +492,7 @@ class ProcessView(TemplateView):
 
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
+        selected_province = self.request.GET.get('province')
         selected_country_server = self.request.GET.get('server_country')
         selected_country = self.request.GET.get('country')
 
@@ -499,6 +507,11 @@ class ProcessView(TemplateView):
 
         if selected_country:
             test = filter_country(selected_country, test)
+
+        if selected_province:
+            test = filter_province(selected_province, test)
+        else:
+            test = filter_province("تهران", test)
 
         filter = test.values('filter').annotate(count=models.Count('filter'))
         filter_dict = {}
@@ -559,6 +572,7 @@ class ProcessView(TemplateView):
         context['vpn'] = vpn
         context['country_server'] = country_server
         context['country'] = country
+        context['province'] = province
 
         context['selected_date'] = selected_date_str
         context['selected_country_server'] = selected_country_server
@@ -569,5 +583,6 @@ class ProcessView(TemplateView):
         context['server_isps'] = server_isps
         context['server_regions'] = server_regions
         context['server_countries'] = server_countries
+        context['selected_province'] = selected_province
 
         return context
