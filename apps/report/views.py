@@ -399,6 +399,10 @@ class OperatorView(TemplateView):
         test = Test.objects
         vpn = Vpn.objects.filter()
 
+        province = list(test.values_list('city', flat=True).distinct())
+        province = [item for item in province if item != 'nan']
+        province = [item for item in province if item != 'تهران']
+
         country_server_id = list(test.values_list('server_country', flat=True).distinct())
         country_server_id = [item for item in country_server_id if item != 'nan']
         country_server = Country.objects.filter(id__in=country_server_id)
@@ -409,6 +413,7 @@ class OperatorView(TemplateView):
 
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
+        selected_province = self.request.GET.get('province')
         selected_country_server = self.request.GET.get('server_country')
         selected_country = self.request.GET.get('country')
 
@@ -425,6 +430,11 @@ class OperatorView(TemplateView):
 
         if selected_country:
             test = filter_country(selected_country, test)
+
+        if selected_province:
+            test = filter_province(selected_province, test)
+        else:
+            test = filter_province("تهران", test)
 
         operators = ["Irancell", "MCI", "RighTel", "TCI"]
         operator_data = {}
@@ -448,11 +458,13 @@ class OperatorView(TemplateView):
         context['country_server'] = country_server
         context['country'] = country
         context['vpn'] = vpn
+        context['province'] = province
 
         context['selected_date'] = selected_date_str
         context['selected_country_server'] = selected_country_server
         context['selected_vpn'] = selected_vpn
         context['selected_country'] = selected_country
+        context['selected_province'] = selected_province
 
         context['irancell_names'] = operator_data["Irancell"]['vpn_names']
         context['irancell_count'] = operator_data["Irancell"]['vpn_test_counts']

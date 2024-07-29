@@ -506,12 +506,12 @@
               </div>
             </div>
             <div class="col-md-2">
-              <label class="form-label" for="select2Basic">نام ابزار گریز:</label>
-              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" name="vpn" disabled>
-                <option label="singapore" value="0">نمایش همگانی</option>
-                {% for item in vpn %}
-                  <option label="{{ item.name }}" value="{{ item.id }}"
-                          {% if selected_vpn == item.id|stringformat:"s" %}selected{% endif %}>{{ item.name }}</option>
+              <label class="form-label" for="select2Basic">استان:</label>
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" name="province" >
+                <option value="تهران">تهران</option>
+                {% for item in province %}
+                  <option label="{{ item }}" value="{{ item }}"
+                          {% if selected_province == item|stringformat:"s" %}selected{% endif %}>{{ item }}</option>
                 {% endfor %}
               </select>
 
