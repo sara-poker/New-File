@@ -6,7 +6,6 @@ from django.db.models import Count
 import random
 
 
-
 def convert_date(date):
     date = date.replace(" ", "")
     year = date[:4]
@@ -60,6 +59,7 @@ def filter_country_server(country_server, queryset):
         return queryset
     return queryset.filter(server_country=country_server)
 
+
 def filter_province(province, queryset):
     return queryset.filter(city=province)
 
@@ -68,6 +68,10 @@ def filter_country(country, queryset):
     if country == "0":
         return queryset
     return queryset.filter(vpn__vpn_country=country)
+
+
+def filter_operator(oprator, queryset):
+    return queryset.filter(oprator__in=oprator)
 
 
 # Create your views here.
@@ -223,7 +227,6 @@ class LinerChartView(TemplateView):
 
         context['data1'] = results
 
-
         context['irancell_no_filter'] = irancell_no_filter
         context['irancell_filter'] = irancell_filter
 
@@ -375,7 +378,6 @@ class VpnByIdView(TemplateView):
             modified_name = original_name.replace(' ', '')
             item.name2 = modified_name
 
-
         context['vpn'] = vpn[0]
         context['server_ip_count'] = server_ip_count
         context['server_isp_count'] = server_isp_count
@@ -454,7 +456,7 @@ class OperatorView(TemplateView):
                 'vpn_test_counts': vpn_test_counts
             }
 
-        print(">>",operator_data["Irancell"]['vpn_names'])
+        print(">>", operator_data["Irancell"]['vpn_names'])
         context['country_server'] = country_server
         context['country'] = country
         context['vpn'] = vpn
@@ -509,7 +511,6 @@ class ProcessView(TemplateView):
         selected_country = self.request.GET.get('country')
         selected_operators = self.request.GET.getlist('operator')
 
-
         if selected_date_str:
             test = filter_date(selected_date_str, test)
 
@@ -525,7 +526,14 @@ class ProcessView(TemplateView):
         if selected_province:
             test = filter_province(selected_province, test)
         else:
-            test = filter_province("تهران", test)
+            selected_province = "تهران"
+            test = filter_province(selected_province, test)
+
+        if selected_operators:
+            test = filter_operator(selected_operators, test)
+        else:
+            selected_operators = ["TCI","RighTel","MCI","Irancell"]
+            test = test
 
         filter = test.values('filter').annotate(count=models.Count('filter'))
         filter_dict = {}
