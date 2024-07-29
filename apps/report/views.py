@@ -135,12 +135,15 @@ class LinerChartView(TemplateView):
         country_server_id = [item for item in country_server_id if item != 'nan']
         country_server = Country.objects.filter(id__in=country_server_id)
 
+        province = list(all_test.values_list('city', flat=True).distinct())
+
         country_id = list(vpn.values_list('vpn_country', flat=True).distinct())
         country_id = [item for item in country_id if item != 'nan']
         country = Country.objects.filter(id__in=country_id)
 
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
+        selected_province = self.request.GET.get('province')
         selected_country_server = self.request.GET.get('server_country')
         selected_country = self.request.GET.get('country')
 
@@ -208,7 +211,6 @@ class LinerChartView(TemplateView):
 
         context['data1'] = results
 
-        context['vpn'] = vpn
 
         context['irancell_no_filter'] = irancell_no_filter
         context['irancell_filter'] = irancell_filter
@@ -222,6 +224,8 @@ class LinerChartView(TemplateView):
         context['tci_no_filter'] = tci_no_filter
         context['tci_filter'] = tci_filter
 
+        context['vpn'] = vpn
+        context['province'] = province
         context['country_server'] = country_server
         context['country'] = country
 
@@ -229,6 +233,7 @@ class LinerChartView(TemplateView):
         context['selected_country_server'] = selected_country_server
         context['selected_vpn'] = selected_vpn
         context['selected_country'] = selected_country
+        context['selected_province'] = selected_province
 
         return context
 

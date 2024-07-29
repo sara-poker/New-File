@@ -180,7 +180,7 @@
                     color: legendColor,
                     fontFamily: 'font-primary',
                     formatter: function(val) {
-                      return parseInt(val, 10)+ '%';
+                      return parseInt(val, 10) + '%';
                     }
                   },
                   total: {
@@ -295,7 +295,7 @@
           dataLabels: {
             enabled: true,
             formatter: function(val, opt) {
-              return parseInt(val, 10)+ '%';
+              return parseInt(val, 10) + '%';
             }
           },
           legend: {
@@ -325,7 +325,7 @@
                     color: legendColor,
                     fontFamily: 'font-primary',
                     formatter: function(val) {
-                      return parseInt(val, 10)+ '%';
+                      return parseInt(val, 10) + '%';
                     }
                   },
                   total: {
@@ -440,7 +440,7 @@
           dataLabels: {
             enabled: true,
             formatter: function(val, opt) {
-              return parseInt(val, 10)+ '%';
+              return parseInt(val, 10) + '%';
             }
           },
           legend: {
@@ -470,7 +470,7 @@
                     color: legendColor,
                     fontFamily: 'font-primary',
                     formatter: function(val) {
-                      return parseInt(val, 10)+ '%';
+                      return parseInt(val, 10) + '%';
                     }
                   },
                   total: {
@@ -585,7 +585,7 @@
           dataLabels: {
             enabled: true,
             formatterformatter: function(val, opt) {
-              return parseInt(val, 10)+ '%';
+              return parseInt(val, 10) + '%';
             }
           },
           legend: {
@@ -615,7 +615,7 @@
                     color: legendColor,
                     fontFamily: 'font-primary',
                     formatter: function(val) {
-                      return parseInt(val, 10)+ '%';
+                      return parseInt(val, 10) + '%';
                     }
                   },
                   total: {
@@ -908,7 +908,7 @@
       <div class="card h-100 pb-3 ps-4 pe-4">
         <div class="row">
           <form class="row g-3" action="{% url 'liner_chart' %}" method="get">
-            <div class="col-md-2">
+            <div class="col-md-3">
               <label class="form-label" for="flatpickr-range">بازه تاریخ:</label>
               {% if selected_date == None %}
                 <input class="form-control" id="flatpickr-range" name="selected_date" placeholder="همه تاریخ ها"
@@ -918,14 +918,15 @@
                        type="text" value="{{ selected_date }}" />
               {% endif %}
             </div>
-            <div class="col-md-3">
-              <label class="form-label" for="select2Success">اپراتور</label>
+            <div class="col-md-2">
+              <label class="form-label" for="select2Success">استان</label>
               <div class="select2-success">
-                <select class="select2 form-select" id="select2Success" multiple disabled>
-                  <option value="1" selected>ایرانسل</option>
-                  <option value="2" selected>همراه اول</option>
-                  <option value="3" selected>رایتل</option>
-                  <option value="3" selected>مخابرات</option>
+                <select class="select2 form-select" id="select2Success" name="province">
+                  <option value="تهران">تهران</option>
+                  {% for item in province %}
+                    <option label="{{ item }}" value="{{ item}}"
+                            {% if selected_province == item|stringformat:"s" %}selected{% endif %}>{{ item }}</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
