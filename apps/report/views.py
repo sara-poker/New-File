@@ -178,8 +178,9 @@ class LinerChartView(TemplateView):
             no_filter = filter_province(selected_province, no_filter)
             all_test = filter_province(selected_province, all_test)
         else:
-            no_filter = filter_province("تهران", no_filter)
-            all_test = filter_province("تهران", all_test)
+            selected_province = "تهران"
+            no_filter = filter_province(selected_province, no_filter)
+            all_test = filter_province(selected_province, all_test)
 
         # hello
         results = []
@@ -436,7 +437,8 @@ class OperatorView(TemplateView):
         if selected_province:
             test = filter_province(selected_province, test)
         else:
-            test = filter_province("تهران", test)
+            selected_province = "تهران"
+            test = filter_province(selected_province, test)
 
         operators = ["Irancell", "MCI", "RighTel", "TCI"]
         operator_data = {}
