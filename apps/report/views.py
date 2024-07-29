@@ -401,6 +401,7 @@ class OperatorView(TemplateView):
         test = Test.objects
         vpn = Vpn.objects.filter()
 
+
         province = list(test.values_list('city', flat=True).distinct())
         province = [item for item in province if item != 'nan']
         province = [item for item in province if item != 'تهران']
