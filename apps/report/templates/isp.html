@@ -457,7 +457,7 @@
           <form class="row g-3" action="{{ vpn.id }}" method="get">
             <div class="col-md-2">
               <label class="form-label" for="select2Basic">سال:</label>
-              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic"
+              <select class="select2 form-select form-select" data-allow-clear="true" id="select2Basic"
                       name="selected_date">
                 <option label="نمایش همگانی" value="0">نمایش همگانی</option>
                 <option label="1401" value="14010101">1401</option>
@@ -466,17 +466,17 @@
 
               </select>
             </div>
+{#            <div class="col-md-3">#}
+{#              <label class="form-label" for="select2Success">اپراتور</label>#}
+{#              <div class="select2-success">#}
+{#                <select class="select2 form-select" id="select2Success" multiple disabled>#}
+{#                  <option value="1" selected>ایرانسل</option>#}
+{#                  <option value="2" selected>همراه اول</option>#}
+{#                  <option value="3" selected>رایتل</option>#}
+{#                </select>#}
+{#              </div>#}
+{#            </div>#}
             <div class="col-md-3">
-              <label class="form-label" for="select2Success">اپراتور</label>
-              <div class="select2-success">
-                <select class="select2 form-select" id="select2Success" multiple disabled>
-                  <option value="1" selected>ایرانسل</option>
-                  <option value="2" selected>همراه اول</option>
-                  <option value="3" selected>رایتل</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-2">
               <label class="form-label" for="select2Basic">نام ابزار گریز:</label>
               <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" name="vpn">
                 <option label="singapore" value="0">نمایش همگانی</option>
@@ -487,7 +487,7 @@
               </select>
 
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
               <label class="form-label" for="select2Basic2">کشور ابزار گریز:</label>
               <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic2"
                       name="country">
@@ -498,7 +498,7 @@
                 {% endfor %}
               </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
               <label class="form-label" for="select2Basic3">کشور سرور:</label>
 
               <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3"

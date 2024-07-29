@@ -6,7 +6,6 @@ from django.db.models import Count
 import random
 
 
-
 def convert_date(date):
     date = date.replace(" ", "")
     year = date[:4]
@@ -61,10 +60,18 @@ def filter_country_server(country_server, queryset):
     return queryset.filter(server_country=country_server)
 
 
+def filter_province(province, queryset):
+    return queryset.filter(city=province)
+
+
 def filter_country(country, queryset):
     if country == "0":
         return queryset
     return queryset.filter(vpn__vpn_country=country)
+
+
+def filter_operator(oprator, queryset):
+    return queryset.filter(oprator__in=oprator)
 
 
 # Create your views here.
@@ -135,12 +142,17 @@ class LinerChartView(TemplateView):
         country_server_id = [item for item in country_server_id if item != 'nan']
         country_server = Country.objects.filter(id__in=country_server_id)
 
+        province = list(all_test.values_list('city', flat=True).distinct())
+        province = [item for item in province if item != 'nan']
+        province = [item for item in province if item != 'تهران']
+
         country_id = list(vpn.values_list('vpn_country', flat=True).distinct())
         country_id = [item for item in country_id if item != 'nan']
         country = Country.objects.filter(id__in=country_id)
 
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
+        selected_province = self.request.GET.get('province')
         selected_country_server = self.request.GET.get('server_country')
         selected_country = self.request.GET.get('country')
 
@@ -161,6 +173,13 @@ class LinerChartView(TemplateView):
         if selected_country:
             no_filter = filter_country(selected_country, no_filter)
             all_test = filter_country(selected_country, all_test)
+
+        if selected_province:
+            no_filter = filter_province(selected_province, no_filter)
+            all_test = filter_province(selected_province, all_test)
+        else:
+            no_filter = filter_province("تهران", no_filter)
+            all_test = filter_province("تهران", all_test)
 
         # hello
         results = []
@@ -208,8 +227,6 @@ class LinerChartView(TemplateView):
 
         context['data1'] = results
 
-        context['vpn'] = vpn
-
         context['irancell_no_filter'] = irancell_no_filter
         context['irancell_filter'] = irancell_filter
 
@@ -222,6 +239,8 @@ class LinerChartView(TemplateView):
         context['tci_no_filter'] = tci_no_filter
         context['tci_filter'] = tci_filter
 
+        context['vpn'] = vpn
+        context['province'] = province
         context['country_server'] = country_server
         context['country'] = country
 
@@ -229,6 +248,7 @@ class LinerChartView(TemplateView):
         context['selected_country_server'] = selected_country_server
         context['selected_vpn'] = selected_vpn
         context['selected_country'] = selected_country
+        context['selected_province'] = selected_province
 
         return context
 
@@ -358,7 +378,6 @@ class VpnByIdView(TemplateView):
             modified_name = original_name.replace(' ', '')
             item.name2 = modified_name
 
-
         context['vpn'] = vpn[0]
         context['server_ip_count'] = server_ip_count
         context['server_isp_count'] = server_isp_count
@@ -382,6 +401,10 @@ class OperatorView(TemplateView):
         test = Test.objects
         vpn = Vpn.objects.filter()
 
+        province = list(test.values_list('city', flat=True).distinct())
+        province = [item for item in province if item != 'nan']
+        province = [item for item in province if item != 'تهران']
+
         country_server_id = list(test.values_list('server_country', flat=True).distinct())
         country_server_id = [item for item in country_server_id if item != 'nan']
         country_server = Country.objects.filter(id__in=country_server_id)
@@ -392,13 +415,13 @@ class OperatorView(TemplateView):
 
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
+        selected_province = self.request.GET.get('province')
         selected_country_server = self.request.GET.get('server_country')
         selected_country = self.request.GET.get('country')
 
         if selected_date_str:
             test = filter_date(selected_date_str, test)
 
-        print("count>>", test.count())
 
         if selected_vpn:
             test = filter_vpn(selected_vpn, test)
@@ -408,6 +431,11 @@ class OperatorView(TemplateView):
 
         if selected_country:
             test = filter_country(selected_country, test)
+
+        if selected_province:
+            test = filter_province(selected_province, test)
+        else:
+            test = filter_province("تهران", test)
 
         operators = ["Irancell", "MCI", "RighTel", "TCI"]
         operator_data = {}
@@ -427,20 +455,20 @@ class OperatorView(TemplateView):
                 'vpn_test_counts': vpn_test_counts
             }
 
-        print(">>",operator_data["Irancell"]['vpn_names'])
         context['country_server'] = country_server
         context['country'] = country
         context['vpn'] = vpn
+        context['province'] = province
 
         context['selected_date'] = selected_date_str
         context['selected_country_server'] = selected_country_server
         context['selected_vpn'] = selected_vpn
         context['selected_country'] = selected_country
+        context['selected_province'] = selected_province
 
         context['irancell_names'] = operator_data["Irancell"]['vpn_names']
         context['irancell_count'] = operator_data["Irancell"]['vpn_test_counts']
 
-        print(operator_data["Irancell"]['vpn_names'])
 
         context['mci_names'] = operator_data["MCI"]['vpn_names']
         context['mci_count'] = operator_data["MCI"]['vpn_test_counts']
@@ -461,6 +489,10 @@ class ProcessView(TemplateView):
         test = Test.objects.filter()
         vpn = Vpn.objects.filter()
 
+        province = list(test.values_list('city', flat=True).distinct())
+        province = [item for item in province if item != 'nan']
+        province = [item for item in province if item != 'تهران']
+
         country_server_id = list(test.values_list('server_country', flat=True).distinct())
         country_server_id = [item for item in country_server_id if item != 'nan']
         country_server = Country.objects.filter(id__in=country_server_id)
@@ -471,8 +503,10 @@ class ProcessView(TemplateView):
 
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
+        selected_province = self.request.GET.get('province')
         selected_country_server = self.request.GET.get('server_country')
         selected_country = self.request.GET.get('country')
+        selected_operators = self.request.GET.getlist('operator')
 
         if selected_date_str:
             test = filter_date(selected_date_str, test)
@@ -485,6 +519,18 @@ class ProcessView(TemplateView):
 
         if selected_country:
             test = filter_country(selected_country, test)
+
+        if selected_province:
+            test = filter_province(selected_province, test)
+        else:
+            selected_province = "تهران"
+            test = filter_province(selected_province, test)
+
+        if selected_operators:
+            test = filter_operator(selected_operators, test)
+        else:
+            selected_operators = ["TCI","RighTel","MCI","Irancell"]
+            test = test
 
         filter = test.values('filter').annotate(count=models.Count('filter'))
         filter_dict = {}
@@ -545,6 +591,7 @@ class ProcessView(TemplateView):
         context['vpn'] = vpn
         context['country_server'] = country_server
         context['country'] = country
+        context['province'] = province
 
         context['selected_date'] = selected_date_str
         context['selected_country_server'] = selected_country_server
@@ -555,5 +602,7 @@ class ProcessView(TemplateView):
         context['server_isps'] = server_isps
         context['server_regions'] = server_regions
         context['server_countries'] = server_countries
+        context['selected_province'] = selected_province
+        context['selected_operators'] = selected_operators
 
         return context

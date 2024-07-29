@@ -311,10 +311,11 @@
             <div class="col-md-3">
               <label class="form-label" for="select2Success">اپراتور</label>
               <div class="select2-success">
-                <select class="select2 form-select" id="select2Success" multiple disabled>
-                  <option value="1" selected>ایرانسل</option>
-                  <option value="2" selected>همراه اول</option>
-                  <option value="3" selected>رایتل</option>
+                <select class="select2 form-select" id="select2Success" name="operator" multiple>
+                  <option value="Irancell" {% if 'Irancell' in selected_operators %}selected{% endif %}>ایرانسل</option>
+                  <option value="MCI" {% if 'MCI' in selected_operators %}selected{% endif %}>همراه اول</option>
+                  <option value="RighTel" {% if 'RighTel' in selected_operators %}selected{% endif %}>رایتل</option>
+                  <option value="TCI" {% if 'TCI' in selected_operators %}selected{% endif %}>مخابرات</option>
                 </select>
               </div>
             </div>
@@ -341,14 +342,14 @@
               </select>
             </div>
             <div class="col-md-2">
-              <label class="form-label" for="select2Basic3">کشور سرور:</label>
+              <label class="form-label" for="select2Basic3">استان</label>
 
               <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3"
-                      name="server_country">
-                <option label="singapore" value="0">نمایش همگانی</option>
-                {% for item in country_server %}
-                  <option label="{{ item.name }}" value="{{ item.id }}"
-                          {% if selected_country_server == item.id|stringformat:"s" %}selected{% endif %}>{{ item.name }}</option>
+                      name="province">
+                <option value="تهران">تهران</option>
+                {% for item in province %}
+                  <option label="{{ item }}" value="{{ item }}"
+                          {% if selected_province == item|stringformat:"s" %}selected{% endif %}>{{ item }}</option>
                 {% endfor %}
               </select>
 
