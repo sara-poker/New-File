@@ -5,6 +5,7 @@ config/settings.py
 .env
 ~$data.xlsx
 
+/src/assets/js/table-vpn.js
 
 passenger_wsgi.py
 /tmp
