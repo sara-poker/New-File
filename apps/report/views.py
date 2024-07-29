@@ -422,7 +422,6 @@ class OperatorView(TemplateView):
         if selected_date_str:
             test = filter_date(selected_date_str, test)
 
-        print("count>>", test.count())
 
         if selected_vpn:
             test = filter_vpn(selected_vpn, test)
@@ -456,7 +455,6 @@ class OperatorView(TemplateView):
                 'vpn_test_counts': vpn_test_counts
             }
 
-        print(">>", operator_data["Irancell"]['vpn_names'])
         context['country_server'] = country_server
         context['country'] = country
         context['vpn'] = vpn
@@ -471,7 +469,6 @@ class OperatorView(TemplateView):
         context['irancell_names'] = operator_data["Irancell"]['vpn_names']
         context['irancell_count'] = operator_data["Irancell"]['vpn_test_counts']
 
-        print(operator_data["Irancell"]['vpn_names'])
 
         context['mci_names'] = operator_data["MCI"]['vpn_names']
         context['mci_count'] = operator_data["MCI"]['vpn_test_counts']
