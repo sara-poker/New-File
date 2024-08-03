@@ -111,6 +111,7 @@ class ReportDashboardsView(TemplateView):
             '-count').first()
 
         test = test.exclude(vpn__vpn_country=None)
+        test = test.exclude(vpn__vpn_country='nan')
         best_country_id = test.values('vpn__vpn_country').annotate(count=Count('id')).exclude(
             status="Filter").order_by(
             '-count').first()
