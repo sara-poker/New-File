@@ -157,7 +157,7 @@
         {
           id: '{{ item.country_id }}',
           name: '{{ item.persian_name }}',
-          name2:'{{ item.name }}',
+          name2: '{{ item.name }}',
           value: {{ item.value }}
         },
       {% endfor %}
@@ -278,139 +278,115 @@
       <div class="sk-chase-dot"></div>
     </div>
   </div>
-{#  <div class="row">#}
-{#    <div class="col-lg-12  mb-4">#}
-{#      <div class="card h-100 p-4">#}
-{#        <div class="row">#}
-{#          <div class="col-md-2">#}
-{#            <label class="form-label" for="flatpickr-range">بازه تاریخ:</label>#}
-{#            <input class="form-control" id="flatpickr-range" placeholder="همه تاریخ ها" type="text" disabled/>#}
-{#          </div>#}
-{#          <div class="col-md-3">#}
-{#            <label class="form-label" for="select2Success">اپراتور</label>#}
-{#            <div class="select2-success">#}
-{#              <select class="select2 form-select" id="select2Success" multiple disabled>#}
-{#                <option value="1">ایرانسل</option>#}
-{#                <option value="2">همراه اول</option>#}
-{#                <option value="3">رایتل</option>#}
-{#                <option value="4">مخابرات</option>#}
-{#              </select>#}
-{#            </div>#}
-{#          </div>#}
-{#          <div class="col-md-2">#}
-{#            <label class="form-label" for="select2Basic">نام ابزار گریز:</label>#}
-{#            <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" disabled>#}
-{#              <option label="singapore" value="1">نمایش همگانی</option>#}
-{#              {% for item in vpn %}#}
-{#                <option label="{{ item.name }}" value="{{ item.id }}">{{ item.name }}</option>#}
-{#              {% endfor %}#}
-{#            </select>#}
-{#          </div>#}
-{#          <div class="col-md-2">#}
-{#            <label class="form-label" for="select2Basic2">کشور ابزار گریز:</label>#}
-{#            <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic2" disabled>#}
-{#              <option label="singapore" value="1">نمایش همگانی</option>#}
-{#              <option label="singapore" value="1">Singapore</option>#}
-{#              <option label="United States" value="1">United States</option>#}
-{#              <option label="Hong Kong" value="1">Hong Kong</option>#}
-{#              <option label="Ukrain" value="1">Ukrain</option>#}
-{#              <option label="Canada" value="1">Canada</option>#}
-{#              <option label="Emirate" value="1">Emirate</option>#}
-{#              <option label="Estonia" value="1">Estonia</option>#}
-{#              <option label="India" value="1">India</option>#}
-{#              <option label="Montengro" value="1">Montengro</option>#}
-{#              <option label="United Kingdom" value="1">United Kingdom</option>#}
-{#              <option label="Vitenam" value="1">Vitenam</option>#}
-{#            </select>#}
-{#          </div>#}
-{##}
-{#          <div class="col-md-2">#}
-{#            <label class="form-label" for="select2Basic3">کشور سرور:</label>#}
-{#            <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3" disabled>#}
-{#              <option label="singapore" value="1">نمایش همگانی</option>#}
-{#              <option label="singapore" value="1">Singapore</option>#}
-{#              <option label="United States" value="1">United States</option>#}
-{#              <option label="Hong Kong" value="1">Hong Kong</option>#}
-{#              <option label="Ukrain" value="1">Ukrain</option>#}
-{#              <option label="Canada" value="1">Canada</option>#}
-{#              <option label="Emirate" value="1">Emirate</option>#}
-{#              <option label="Estonia" value="1">Estonia</option>#}
-{#              <option label="India" value="1">India</option>#}
-{#              <option label="Montengro" value="1">Montengro</option>#}
-{#              <option label="United Kingdom" value="1">United Kingdom</option>#}
-{#              <option label="Vitenam" value="1">Vitenam</option>#}
-{#            </select>#}
-{#          </div>#}
-{##}
-{#          <div class="col-md-1">#}
-{#            <label class="form-label" for="select2Basic3">.</label>#}
-{#            <br>#}
-{#            <button class="btn btn-primary" type="button">اعمال فیلتر</button>#}
-{#          </div>#}
-{##}
-{#        </div>#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
-
-  <div class="row">
-    <div class="col-12">
-      <div id="chartdiv"></div>
-    </div>
-  </div>
-
-{#  <div class="row">#}
-{#    <div class="col-12">#}
-{#      <div class="carousel slide" data-bs-ride="carousel" id="carouselExample" style="height:" 800px#}
-{#      ";>#}
-{#      <div class="carousel-indicators">#}
-{#        <button aria-current="true" aria-label="اسلاید 1" class="active" data-bs-slide-to="0"#}
-{#                data-bs-target="#carouselExample" type="button"></button>#}
-{#        <button aria-label="اسلاید 2" data-bs-slide-to="1" data-bs-target="#carouselExample" type="button"></button>#}
-{#      </div>#}
-{#      <div class="carousel-inner">#}
-{#        <div class="carousel-item active">#}
-{#          <div id="chartdiv"></div>#}
-{#          <div class="carousel-caption d-none d-md-block">#}
-{#            <h4>25 کشور</h4>#}
-{#            <p>کشور های سازنده ابزار گریز</p>#}
-{#          </div>#}
-{#        </div>#}
-{#        <div class="carousel-item">#}
-{#          <div id="chartdiv2"></div>#}
-{#          <div class="carousel-caption d-none d-md-block">#}
-{#            <h4>28 کشور</h4>#}
-{#            <p>کشور های حامل سرور</p>#}
-{#          </div>#}
-{#        </div>#}
-{#      </div>#}
-{#      <a class="carousel-control-prev" data-bs-slide="prev" href="#carouselExample" role="button">#}
-{#        <span aria-hidden="true" class="carousel-control-prev-icon"></span>#}
-{#        <span class="visually-hidden">قبلی</span>#}
-{#      </a>#}
-{#      <a class="carousel-control-next" data-bs-slide="next" href="#carouselExample" role="button">#}
-{#        <span aria-hidden="true" class="carousel-control-next-icon"></span>#}
-{#        <span class="visually-hidden">بعد</span>#}
-{#      </a>#}
-{#    </div>#}
-{#  </div>#}
-{#  </div>#}
-
   {#  <div class="row">#}
-  {#    <!-- Website Analytics -->#}
-  {#    <div class="col-lg-12">#}
-  {#      <div class="card h-100 pb-5">#}
-  {#        <div class="card-header d-flex justify-content-between pb-0">#}
-  {#          <div class="card-title mb-0">#}
-  {#            <h5 class="mb-0">کشور های سازنده ابزار گریز</h5>#}
-  {#            <small class="text-muted">بر روی نقشه</small>#}
+  {#    <div class="col-lg-12  mb-4">#}
+  {#      <div class="card h-100 p-4">#}
+  {#        <div class="row">#}
+  {#          <div class="col-md-2">#}
+  {#            <label class="form-label" for="flatpickr-range">بازه تاریخ:</label>#}
+  {#            <input class="form-control" id="flatpickr-range" placeholder="همه تاریخ ها" type="text" disabled/>#}
+  {#          </div>#}
+  {#          <div class="col-md-3">#}
+  {#            <label class="form-label" for="select2Success">اپراتور</label>#}
+  {#            <div class="select2-success">#}
+  {#              <select class="select2 form-select" id="select2Success" multiple disabled>#}
+  {#                <option value="1">ایرانسل</option>#}
+  {#                <option value="2">همراه اول</option>#}
+  {#                <option value="3">رایتل</option>#}
+  {#                <option value="4">مخابرات</option>#}
+  {#              </select>#}
+  {#            </div>#}
+  {#          </div>#}
+  {#          <div class="col-md-2">#}
+  {#            <label class="form-label" for="select2Basic">نام ابزار گریز:</label>#}
+  {#            <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" disabled>#}
+  {#              <option label="singapore" value="1">نمایش همگانی</option>#}
+  {#              {% for item in vpn %}#}
+  {#                <option label="{{ item.name }}" value="{{ item.id }}">{{ item.name }}</option>#}
+  {#              {% endfor %}#}
+  {#            </select>#}
+  {#          </div>#}
+  {#          <div class="col-md-2">#}
+  {#            <label class="form-label" for="select2Basic2">کشور ابزار گریز:</label>#}
+  {#            <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic2" disabled>#}
+  {#              <option label="singapore" value="1">نمایش همگانی</option>#}
+  {#              <option label="singapore" value="1">Singapore</option>#}
+  {#              <option label="United States" value="1">United States</option>#}
+  {#              <option label="Hong Kong" value="1">Hong Kong</option>#}
+  {#              <option label="Ukrain" value="1">Ukrain</option>#}
+  {#              <option label="Canada" value="1">Canada</option>#}
+  {#              <option label="Emirate" value="1">Emirate</option>#}
+  {#              <option label="Estonia" value="1">Estonia</option>#}
+  {#              <option label="India" value="1">India</option>#}
+  {#              <option label="Montengro" value="1">Montengro</option>#}
+  {#              <option label="United Kingdom" value="1">United Kingdom</option>#}
+  {#              <option label="Vitenam" value="1">Vitenam</option>#}
+  {#            </select>#}
+  {#          </div>#}
+  {##}
+  {#          <div class="col-md-2">#}
+  {#            <label class="form-label" for="select2Basic3">کشور سرور:</label>#}
+  {#            <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3" disabled>#}
+  {#              <option label="singapore" value="1">نمایش همگانی</option>#}
+  {#              <option label="singapore" value="1">Singapore</option>#}
+  {#              <option label="United States" value="1">United States</option>#}
+  {#              <option label="Hong Kong" value="1">Hong Kong</option>#}
+  {#              <option label="Ukrain" value="1">Ukrain</option>#}
+  {#              <option label="Canada" value="1">Canada</option>#}
+  {#              <option label="Emirate" value="1">Emirate</option>#}
+  {#              <option label="Estonia" value="1">Estonia</option>#}
+  {#              <option label="India" value="1">India</option>#}
+  {#              <option label="Montengro" value="1">Montengro</option>#}
+  {#              <option label="United Kingdom" value="1">United Kingdom</option>#}
+  {#              <option label="Vitenam" value="1">Vitenam</option>#}
+  {#            </select>#}
+  {#          </div>#}
+  {##}
+  {#          <div class="col-md-1">#}
+  {#            <label class="form-label" for="select2Basic3">.</label>#}
+  {#            <br>#}
+  {#            <button class="btn btn-primary" type="button">اعمال فیلتر</button>#}
   {#          </div>#}
   {##}
   {#        </div>#}
-  {##}
   {#      </div>#}
   {#    </div>#}
   {#  </div>#}
+
+  <div class="nav-align-top mb-4">
+    <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+      <li class="nav-item">
+        <button aria-controls="navs-pills-justified-home" aria-selected="true" class="nav-link active"
+                data-bs-target="#navs-pills-justified-home" data-bs-toggle="tab" role="tab" type="button">
+          <i class="tf-icons ti ti-table-alias ti-xs me-1"></i>
+          نقشه
+        </button>
+      </li>
+      <li class="nav-item">
+        <button aria-controls="navs-pills-justified-profile" aria-selected="false" class="nav-link"
+                data-bs-target="#navs-pills-justified-profile" data-bs-toggle="tab" role="tab" type="button">
+          <i class="tf-icons ti ti-checklist ti-xs me-1"></i>
+          نمودار استفاده از ابزار گریز
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+        <div class="row">
+          <div class="col-12">
+            <div id="chartdiv"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
+
+      </div>
+    </div>
+  </div>
+
+
+
+
 
 
 
