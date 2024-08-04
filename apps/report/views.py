@@ -115,6 +115,7 @@ class ReportDashboardsView(TemplateView):
             status="Filter",vpn__vpn_country__in=['nan',None]).order_by(
             '-count')[1]
 
+
         print(">",best_country_id)
         best_country = Country.objects.get(id=best_country_id['vpn__vpn_country'])
 
