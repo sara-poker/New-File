@@ -272,22 +272,17 @@
 
   <script>
     am5.ready(function() {
-
-
-// Create root element
-// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+      // Create root element
       var root = am5.Root.new('chartdiv2');
 
+      let y1401 = [23, 28, 21, 25, 27, 31, 164, 132, 95, 131, 108, 105,
+        88, 93, 89, 73, 64, 57, 60, 68, 72, 69, 61, 73, 75,
+        72, 86];
 
-// Set themes
-// https://www.amcharts.com/docs/v5/concepts/themes/
-      root.setThemes([
-        am5themes_Animated.new(root)
-      ]);
+      // Set themes
+      root.setThemes([am5themes_Animated.new(root)]);
 
-
-// Create chart
-// https://www.amcharts.com/docs/v5/charts/xy-chart/
+      // Create chart
       var chart = root.container.children.push(am5xy.XYChart.new(root, {
         panX: true,
         panY: true,
@@ -297,45 +292,15 @@
         paddingLeft: 0
       }));
 
-// Add cursor
-// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+      // Add cursor
       var cursor = chart.set('cursor', am5xy.XYCursor.new(root, {
         behavior: 'none'
       }));
       cursor.lineY.set('visible', false);
 
-
-// Generate random data
-      var date = new Date();
-      date.setHours(0, 0, 0, 0);
-      var value = 100;
-
-      function generateData() {
-        value = Math.round((Math.random() * 10 - 5) + value);
-        am5.time.add(date, 'day', 1);
-        return {
-          date: date.getTime(),
-          value: value
-        };
-      }
-
-      function generateDatas(count) {
-        var data = [];
-        for (var i = 0; i < count; ++i) {
-          data.push(generateData());
-        }
-        return data;
-      }
-
-
-// Create axes
-// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-      var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
-        maxDeviation: 0.5,
-        baseInterval: {
-          timeUnit: 'day',
-          count: 1
-        },
+      // Create axes
+      var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+        categoryField: 'month',
         renderer: am5xy.AxisRendererX.new(root, {
           minGridDistance: 80,
           minorGridEnabled: true,
@@ -351,15 +316,13 @@
         })
       }));
 
-
-// Add series
-// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+      // Add series
       var series = chart.series.push(am5xy.SmoothedXLineSeries.new(root, {
         name: 'Series',
         xAxis: xAxis,
         yAxis: yAxis,
         valueYField: 'value',
-        valueXField: 'date',
+        categoryXField: 'month',
         tooltip: am5.Tooltip.new(root, {
           labelText: '{valueY}'
         })
@@ -382,24 +345,35 @@
         });
       });
 
-
-// Add scrollbar
-// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+      // Add scrollbar
       chart.set('scrollbarX', am5.Scrollbar.new(root, {
         orientation: 'horizontal'
       }));
 
+      let months = ['فروردین 1401', 'اردیبهشت 1401', 'خرداد 1401', 'تیر 1401', 'مرداد 1401', 'شهریور 1401', 'مهر 1401'
+        , 'آبان 1401', 'آذر 1401', 'دی 1401', 'بهمن 1401', 'اسفند 1401', 'فروردین 1402', 'اردیبهشت 1402', 'خرداد 1402', 'تیر 1402', 'مرداد 1402', 'شهریور 1402', 'مهر 1402',
+        'آبان 1402', 'آذر 1402', 'دی 1402', 'بهمن 1402', 'اسفند 1402', 'فروردین 1403',
+        'اردیبهشت 1403', 'خرداد 1403'];
 
-      var data = generateDatas(50);
-      series.data.setAll(data);
+
+      function updateChartData(yearData) {
+        var data = months.map((month, index) => ({
+          month: month,
+          value: yearData[index]
+        }));
+        series.data.setAll(data);
+        xAxis.data.setAll(data);
+      }
+
+      // Initial data load
+      updateChartData(y1401);
 
 
-// Make stuff animate on load
-// https://www.amcharts.com/docs/v5/concepts/animations/
+      // Make stuff animate on load
       series.appear(1000);
       chart.appear(1000, 100);
-
     }); // end am5.ready()
+
   </script>
   <script src="{% static 'js/forms-pickers-jalali.js' %}"></script>
 {% endblock page_js %}
