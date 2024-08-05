@@ -8,7 +8,7 @@ $(function() {
     dt_basic = dt_basic_table.DataTable({
       ajax: {
             // url: 'http://localhost:8000/api/getAllVpn', // لینک API
-            url: 'http://isadid.com/api/getAllVpn', // لینک API
+            url: 'http://isadid.com/api/getAllVpn', // لینک API/
             dataSrc: '' // اگر پاسخ API به صورت لیستی از اشیاء JSON است، این گزینه را خالی بگذارید
         },
       language: {
