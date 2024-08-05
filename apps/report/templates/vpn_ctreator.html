@@ -298,6 +298,10 @@
       }));
       cursor.lineY.set('visible', false);
 
+      var exporting = am5plugins_exporting.Exporting.new(root, {
+        menu: am5plugins_exporting.ExportingMenu.new(root, {})
+      });
+
       // Create axes
       var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
         categoryField: 'month',
