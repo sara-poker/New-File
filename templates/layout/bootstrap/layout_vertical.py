@@ -49,17 +49,23 @@ menu_file = {
                     "name": "پر اتصال ترین",
                     "slug": "Operator_view"
                 },
-                {
-                    "url": "support",
-                    "name": "ارتباط با پشتیبانی",
-                    "slug": "support"
-                },
 
+            ]
+        },
+{
+            "name": "پشتیبانی",
+            "icon": "menu-icon tf-icons ti ti-help",
+            "slug": "support",
+            "submenu":[
+                {
+                    "url": "all_ticket",
+                    "name": "تیکت ها",
+                    "slug": "all_ticket"
+                },
             ]
         }
     ]
 }
-
 
 menu_file2 = {
     "menu": [
@@ -103,13 +109,20 @@ menu_file2 = {
                     "url": "Operator_view",
                     "name": "پر اتصال ترین",
                     "slug": "Operator_view"
-                },
+                }
+
+            ]
+        },
+        {
+            "name": "پشتیبانی",
+            "icon": "menu-icon tf-icons ti ti-help",
+            "slug": "support",
+            "submenu":[
                 {
                     "url": "all_ticket",
                     "name": "تیکت ها",
                     "slug": "all_ticket"
                 },
-
             ]
         }
     ]
