@@ -112,8 +112,12 @@ urlpatterns = [
     # transaction urls
     path("", include("apps.transactions.urls")),
 
-    # transaction urls
-    path("", include("apps.report.urls"))
+    # report urls
+    path("", include("apps.report.urls")),
+
+    # ticket urls
+    path("", include("apps.ticket.urls"))
+
 ]
 
 handler404 = SystemView.as_view(template_name="pages_misc_error.html", status=404)
