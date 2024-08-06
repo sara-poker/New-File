@@ -7,7 +7,7 @@ urlpatterns = [
 
     path(
         "ticket",
-        login_required(SupportView.as_view(template_name="dashboard_report.html")),
+        login_required(SupportView.as_view(template_name="all_ticket.html")),
         name="all_ticket",
     ),
     path(
