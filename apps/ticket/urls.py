@@ -12,7 +12,7 @@ urlpatterns = [
     ),
     path(
         "ticket/<int:pk>",
-        login_required(SupportViewById.as_view(template_name="dashboard_report.html")),
+        login_required(SupportViewById.as_view(template_name="all_ticket_id.html")),
         name="ticket",
     ),
     path(

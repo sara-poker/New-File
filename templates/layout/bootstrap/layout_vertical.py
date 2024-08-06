@@ -58,9 +58,9 @@ menu_file = {
             "slug": "support",
             "submenu":[
                 {
-                    "url": "all_ticket",
-                    "name": "تیکت ها",
-                    "slug": "all_ticket"
+                    "url": "support",
+                    "name": "پشتیبانی",
+                    "slug": "support"
                 },
             ]
         }
