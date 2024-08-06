@@ -32,7 +32,7 @@
       {% endif %}
     {% endfor %}
 
-    {% if user.role == "manager" %}
+    {% if user.is_staff == True %}
       {% for item in menu_data.menu %}
 
         {% comment %} Menu Header {% endcomment %}
