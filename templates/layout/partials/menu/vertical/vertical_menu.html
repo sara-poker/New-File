@@ -20,6 +20,22 @@
   <div class="menu-inner-shadow"></div>
 
   <ul class="menu-inner py-1">
+
+  {% if user.is_staff == True %}
+    {% for item in menu_data3.menu %}
+
+      {% comment %} Menu Header {% endcomment %}
+      {% if "menu_header" in item %}
+        {% include './partials/menu_header_template.html' with header_text=item.menu_header %}
+      {% else %}
+
+        {% comment %} Menu Item {% endcomment %}
+        {% include './partials/menu_item_template.html' with item=item %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if user.is_staff == False %}
     {% for item in menu_data2.menu %}
 
       {% comment %} Menu Header {% endcomment %}
@@ -31,8 +47,9 @@
         {% include './partials/menu_item_template.html' with item=item %}
       {% endif %}
     {% endfor %}
+  {% endif %}
 
-    {% if user.role == "manager" %}
+    {% if user.is_staff == True %}
       {% for item in menu_data.menu %}
 
         {% comment %} Menu Header {% endcomment %}

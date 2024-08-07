@@ -30,6 +30,7 @@
 
   <script src="{% static 'amcharts5/index.js' %} "></script>
   <script src="{% static 'amcharts5/map.js' %} "></script>
+  <script src="{% static 'amcharts5/xy.js' %} "></script>
   <script src="{% static 'amcharts5/themes/Animated.js' %} "></script>
   <script src="{% static 'amcharts5/geodata/worldLow.js' %} "></script>
   <script src="{% static 'amcharts5/plugins/exporting.js' %} "></script>
@@ -66,16 +67,22 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     }
 
+    #chartdiv2 {
+      direction: ltr;
+      width: 100%;
+      height: 400px;
+    }
+
     #chartdiv {
       direction: ltr;
       width: 100%;
-      height: 800px;
+      height: 650px;
     }
 
     #chartdiv2 {
       direction: ltr;
       width: 100%;
-      height: 800px;
+      height: 650px;
     }
 
     .mzloading {
@@ -157,7 +164,7 @@
         {
           id: '{{ item.country_id }}',
           name: '{{ item.persian_name }}',
-          name2:'{{ item.name }}',
+          name2: '{{ item.name }}',
           value: {{ item.value }}
         },
       {% endfor %}
@@ -263,7 +270,115 @@
 
   </script>
 
+  <script>
+    am5.ready(function() {
+      // Create root element
+      var root = am5.Root.new('chartdiv2');
 
+      let y1401 = [23, 28, 21, 25, 27, 31, 164, 132, 95, 131, 108, 105,
+        88, 93, 89, 73, 64, 57, 60, 68, 72, 69, 61, 73, 75,
+        72, 86];
+
+      // Set themes
+      root.setThemes([am5themes_Animated.new(root)]);
+
+      // Create chart
+      var chart = root.container.children.push(am5xy.XYChart.new(root, {
+        panX: true,
+        panY: true,
+        wheelX: 'panX',
+        wheelY: 'zoomX',
+        pinchZoomX: true,
+        paddingLeft: 0
+      }));
+
+      // Add cursor
+      var cursor = chart.set('cursor', am5xy.XYCursor.new(root, {
+        behavior: 'none'
+      }));
+      cursor.lineY.set('visible', false);
+
+      var exporting = am5plugins_exporting.Exporting.new(root, {
+        menu: am5plugins_exporting.ExportingMenu.new(root, {})
+      });
+
+      // Create axes
+      var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+        categoryField: 'month',
+        renderer: am5xy.AxisRendererX.new(root, {
+          minGridDistance: 80,
+          minorGridEnabled: true,
+          pan: 'zoom'
+        }),
+        tooltip: am5.Tooltip.new(root, {})
+      }));
+
+      var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+        maxDeviation: 1,
+        renderer: am5xy.AxisRendererY.new(root, {
+          pan: 'zoom'
+        })
+      }));
+
+      // Add series
+      var series = chart.series.push(am5xy.SmoothedXLineSeries.new(root, {
+        name: 'Series',
+        xAxis: xAxis,
+        yAxis: yAxis,
+        valueYField: 'value',
+        categoryXField: 'month',
+        tooltip: am5.Tooltip.new(root, {
+          labelText: '{valueY}'
+        })
+      }));
+
+      series.fills.template.setAll({
+        visible: true,
+        fillOpacity: 0.2
+      });
+
+      series.bullets.push(function() {
+        return am5.Bullet.new(root, {
+          locationY: 0,
+          sprite: am5.Circle.new(root, {
+            radius: 4,
+            stroke: root.interfaceColors.get('background'),
+            strokeWidth: 2,
+            fill: series.get('fill')
+          })
+        });
+      });
+
+      // Add scrollbar
+      chart.set('scrollbarX', am5.Scrollbar.new(root, {
+        orientation: 'horizontal'
+      }));
+
+      let months = ['فروردین 1401', 'اردیبهشت 1401', 'خرداد 1401', 'تیر 1401', 'مرداد 1401', 'شهریور 1401', 'مهر 1401'
+        , 'آبان 1401', 'آذر 1401', 'دی 1401', 'بهمن 1401', 'اسفند 1401', 'فروردین 1402', 'اردیبهشت 1402', 'خرداد 1402', 'تیر 1402', 'مرداد 1402', 'شهریور 1402', 'مهر 1402',
+        'آبان 1402', 'آذر 1402', 'دی 1402', 'بهمن 1402', 'اسفند 1402', 'فروردین 1403',
+        'اردیبهشت 1403', 'خرداد 1403'];
+
+
+      function updateChartData(yearData) {
+        var data = months.map((month, index) => ({
+          month: month,
+          value: yearData[index]
+        }));
+        series.data.setAll(data);
+        xAxis.data.setAll(data);
+      }
+
+      // Initial data load
+      updateChartData(y1401);
+
+
+      // Make stuff animate on load
+      series.appear(1000);
+      chart.appear(1000, 100);
+    }); // end am5.ready()
+
+  </script>
   <script src="{% static 'js/forms-pickers-jalali.js' %}"></script>
 {% endblock page_js %}
 
@@ -278,139 +393,115 @@
       <div class="sk-chase-dot"></div>
     </div>
   </div>
-{#  <div class="row">#}
-{#    <div class="col-lg-12  mb-4">#}
-{#      <div class="card h-100 p-4">#}
-{#        <div class="row">#}
-{#          <div class="col-md-2">#}
-{#            <label class="form-label" for="flatpickr-range">بازه تاریخ:</label>#}
-{#            <input class="form-control" id="flatpickr-range" placeholder="همه تاریخ ها" type="text" disabled/>#}
-{#          </div>#}
-{#          <div class="col-md-3">#}
-{#            <label class="form-label" for="select2Success">اپراتور</label>#}
-{#            <div class="select2-success">#}
-{#              <select class="select2 form-select" id="select2Success" multiple disabled>#}
-{#                <option value="1">ایرانسل</option>#}
-{#                <option value="2">همراه اول</option>#}
-{#                <option value="3">رایتل</option>#}
-{#                <option value="4">مخابرات</option>#}
-{#              </select>#}
-{#            </div>#}
-{#          </div>#}
-{#          <div class="col-md-2">#}
-{#            <label class="form-label" for="select2Basic">نام ابزار گریز:</label>#}
-{#            <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" disabled>#}
-{#              <option label="singapore" value="1">نمایش همگانی</option>#}
-{#              {% for item in vpn %}#}
-{#                <option label="{{ item.name }}" value="{{ item.id }}">{{ item.name }}</option>#}
-{#              {% endfor %}#}
-{#            </select>#}
-{#          </div>#}
-{#          <div class="col-md-2">#}
-{#            <label class="form-label" for="select2Basic2">کشور ابزار گریز:</label>#}
-{#            <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic2" disabled>#}
-{#              <option label="singapore" value="1">نمایش همگانی</option>#}
-{#              <option label="singapore" value="1">Singapore</option>#}
-{#              <option label="United States" value="1">United States</option>#}
-{#              <option label="Hong Kong" value="1">Hong Kong</option>#}
-{#              <option label="Ukrain" value="1">Ukrain</option>#}
-{#              <option label="Canada" value="1">Canada</option>#}
-{#              <option label="Emirate" value="1">Emirate</option>#}
-{#              <option label="Estonia" value="1">Estonia</option>#}
-{#              <option label="India" value="1">India</option>#}
-{#              <option label="Montengro" value="1">Montengro</option>#}
-{#              <option label="United Kingdom" value="1">United Kingdom</option>#}
-{#              <option label="Vitenam" value="1">Vitenam</option>#}
-{#            </select>#}
-{#          </div>#}
-{##}
-{#          <div class="col-md-2">#}
-{#            <label class="form-label" for="select2Basic3">کشور سرور:</label>#}
-{#            <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3" disabled>#}
-{#              <option label="singapore" value="1">نمایش همگانی</option>#}
-{#              <option label="singapore" value="1">Singapore</option>#}
-{#              <option label="United States" value="1">United States</option>#}
-{#              <option label="Hong Kong" value="1">Hong Kong</option>#}
-{#              <option label="Ukrain" value="1">Ukrain</option>#}
-{#              <option label="Canada" value="1">Canada</option>#}
-{#              <option label="Emirate" value="1">Emirate</option>#}
-{#              <option label="Estonia" value="1">Estonia</option>#}
-{#              <option label="India" value="1">India</option>#}
-{#              <option label="Montengro" value="1">Montengro</option>#}
-{#              <option label="United Kingdom" value="1">United Kingdom</option>#}
-{#              <option label="Vitenam" value="1">Vitenam</option>#}
-{#            </select>#}
-{#          </div>#}
-{##}
-{#          <div class="col-md-1">#}
-{#            <label class="form-label" for="select2Basic3">.</label>#}
-{#            <br>#}
-{#            <button class="btn btn-primary" type="button">اعمال فیلتر</button>#}
-{#          </div>#}
-{##}
-{#        </div>#}
-{#      </div>#}
-{#    </div>#}
-{#  </div>#}
-
-  <div class="row">
-    <div class="col-12">
-      <div id="chartdiv"></div>
-    </div>
-  </div>
-
-{#  <div class="row">#}
-{#    <div class="col-12">#}
-{#      <div class="carousel slide" data-bs-ride="carousel" id="carouselExample" style="height:" 800px#}
-{#      ";>#}
-{#      <div class="carousel-indicators">#}
-{#        <button aria-current="true" aria-label="اسلاید 1" class="active" data-bs-slide-to="0"#}
-{#                data-bs-target="#carouselExample" type="button"></button>#}
-{#        <button aria-label="اسلاید 2" data-bs-slide-to="1" data-bs-target="#carouselExample" type="button"></button>#}
-{#      </div>#}
-{#      <div class="carousel-inner">#}
-{#        <div class="carousel-item active">#}
-{#          <div id="chartdiv"></div>#}
-{#          <div class="carousel-caption d-none d-md-block">#}
-{#            <h4>25 کشور</h4>#}
-{#            <p>کشور های سازنده ابزار گریز</p>#}
-{#          </div>#}
-{#        </div>#}
-{#        <div class="carousel-item">#}
-{#          <div id="chartdiv2"></div>#}
-{#          <div class="carousel-caption d-none d-md-block">#}
-{#            <h4>28 کشور</h4>#}
-{#            <p>کشور های حامل سرور</p>#}
-{#          </div>#}
-{#        </div>#}
-{#      </div>#}
-{#      <a class="carousel-control-prev" data-bs-slide="prev" href="#carouselExample" role="button">#}
-{#        <span aria-hidden="true" class="carousel-control-prev-icon"></span>#}
-{#        <span class="visually-hidden">قبلی</span>#}
-{#      </a>#}
-{#      <a class="carousel-control-next" data-bs-slide="next" href="#carouselExample" role="button">#}
-{#        <span aria-hidden="true" class="carousel-control-next-icon"></span>#}
-{#        <span class="visually-hidden">بعد</span>#}
-{#      </a>#}
-{#    </div>#}
-{#  </div>#}
-{#  </div>#}
-
   {#  <div class="row">#}
-  {#    <!-- Website Analytics -->#}
-  {#    <div class="col-lg-12">#}
-  {#      <div class="card h-100 pb-5">#}
-  {#        <div class="card-header d-flex justify-content-between pb-0">#}
-  {#          <div class="card-title mb-0">#}
-  {#            <h5 class="mb-0">کشور های سازنده ابزار گریز</h5>#}
-  {#            <small class="text-muted">بر روی نقشه</small>#}
+  {#    <div class="col-lg-12  mb-4">#}
+  {#      <div class="card h-100 p-4">#}
+  {#        <div class="row">#}
+  {#          <div class="col-md-2">#}
+  {#            <label class="form-label" for="flatpickr-range">بازه تاریخ:</label>#}
+  {#            <input class="form-control" id="flatpickr-range" placeholder="همه تاریخ ها" type="text" disabled/>#}
+  {#          </div>#}
+  {#          <div class="col-md-3">#}
+  {#            <label class="form-label" for="select2Success">اپراتور</label>#}
+  {#            <div class="select2-success">#}
+  {#              <select class="select2 form-select" id="select2Success" multiple disabled>#}
+  {#                <option value="1">ایرانسل</option>#}
+  {#                <option value="2">همراه اول</option>#}
+  {#                <option value="3">رایتل</option>#}
+  {#                <option value="4">مخابرات</option>#}
+  {#              </select>#}
+  {#            </div>#}
+  {#          </div>#}
+  {#          <div class="col-md-2">#}
+  {#            <label class="form-label" for="select2Basic">نام ابزار گریز:</label>#}
+  {#            <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" disabled>#}
+  {#              <option label="singapore" value="1">نمایش همگانی</option>#}
+  {#              {% for item in vpn %}#}
+  {#                <option label="{{ item.name }}" value="{{ item.id }}">{{ item.name }}</option>#}
+  {#              {% endfor %}#}
+  {#            </select>#}
+  {#          </div>#}
+  {#          <div class="col-md-2">#}
+  {#            <label class="form-label" for="select2Basic2">کشور ابزار گریز:</label>#}
+  {#            <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic2" disabled>#}
+  {#              <option label="singapore" value="1">نمایش همگانی</option>#}
+  {#              <option label="singapore" value="1">Singapore</option>#}
+  {#              <option label="United States" value="1">United States</option>#}
+  {#              <option label="Hong Kong" value="1">Hong Kong</option>#}
+  {#              <option label="Ukrain" value="1">Ukrain</option>#}
+  {#              <option label="Canada" value="1">Canada</option>#}
+  {#              <option label="Emirate" value="1">Emirate</option>#}
+  {#              <option label="Estonia" value="1">Estonia</option>#}
+  {#              <option label="India" value="1">India</option>#}
+  {#              <option label="Montengro" value="1">Montengro</option>#}
+  {#              <option label="United Kingdom" value="1">United Kingdom</option>#}
+  {#              <option label="Vitenam" value="1">Vitenam</option>#}
+  {#            </select>#}
+  {#          </div>#}
+  {##}
+  {#          <div class="col-md-2">#}
+  {#            <label class="form-label" for="select2Basic3">کشور سرور:</label>#}
+  {#            <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3" disabled>#}
+  {#              <option label="singapore" value="1">نمایش همگانی</option>#}
+  {#              <option label="singapore" value="1">Singapore</option>#}
+  {#              <option label="United States" value="1">United States</option>#}
+  {#              <option label="Hong Kong" value="1">Hong Kong</option>#}
+  {#              <option label="Ukrain" value="1">Ukrain</option>#}
+  {#              <option label="Canada" value="1">Canada</option>#}
+  {#              <option label="Emirate" value="1">Emirate</option>#}
+  {#              <option label="Estonia" value="1">Estonia</option>#}
+  {#              <option label="India" value="1">India</option>#}
+  {#              <option label="Montengro" value="1">Montengro</option>#}
+  {#              <option label="United Kingdom" value="1">United Kingdom</option>#}
+  {#              <option label="Vitenam" value="1">Vitenam</option>#}
+  {#            </select>#}
+  {#          </div>#}
+  {##}
+  {#          <div class="col-md-1">#}
+  {#            <label class="form-label" for="select2Basic3">.</label>#}
+  {#            <br>#}
+  {#            <button class="btn btn-primary" type="button">اعمال فیلتر</button>#}
   {#          </div>#}
   {##}
   {#        </div>#}
-  {##}
   {#      </div>#}
   {#    </div>#}
   {#  </div>#}
+
+  <div class="nav-align-top mb-4">
+    <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+      <li class="nav-item">
+        <button aria-controls="navs-pills-justified-home" aria-selected="true" class="nav-link active"
+                data-bs-target="#navs-pills-justified-home" data-bs-toggle="tab" role="tab" type="button">
+          <i class="tf-icons ti ti-table-alias ti-xs me-1"></i>
+          نقشه
+        </button>
+      </li>
+      <li class="nav-item">
+        <button aria-controls="navs-pills-justified-profile" aria-selected="false" class="nav-link"
+                data-bs-target="#navs-pills-justified-profile" data-bs-toggle="tab" role="tab" type="button">
+          <i class="tf-icons ti ti-checklist ti-xs me-1"></i>
+          نمودار استفاده از ابزار گریز
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+        <div class="row">
+          <div class="col-12">
+            <div id="chartdiv"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
+        <div id="chartdiv2"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+
 
 
 
