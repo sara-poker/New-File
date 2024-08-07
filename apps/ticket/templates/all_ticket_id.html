@@ -132,16 +132,17 @@
           </div>
           <!-- Chat message form -->
           <div class="chat-history-footer shadow-sm">
-            <form class="form-send-message d-flex justify-content-between align-items-center">
+            <form class="form-send-message d-flex justify-content-between align-items-center"  method="post">
+              {% csrf_token %}
               <input class="form-control message-input border-0 me-3 shadow-none"
-                     placeholder="پیام خود را اینجا تایپ کنید" />
+                     placeholder="پیام خود را اینجا تایپ کنید" name="text" />
               <div class="message-actions d-flex align-items-center">
-                <i class="speech-to-text ti ti-microphone ti-sm cursor-pointer"></i>
+{#                <i class="speech-to-text ti ti-microphone ti-sm cursor-pointer"></i>#}
                 <label class="form-label mb-0" for="attach-doc">
-                  <i class="ti ti-photo ti-sm cursor-pointer mx-3"></i>
-                  <input hidden id="attach-doc" type="file" />
+{#                  <i class="ti ti-photo ti-sm cursor-pointer mx-3"></i>#}
+{#                  <input hidden id="attach-doc" type="file"/>#}
                 </label>
-                <button class="btn btn-primary d-flex send-msg-btn">
+                <button type="submit" class="btn btn-primary d-flex send-msg-btn">
                   <span class="align-middle d-md-inline-block d-none">ارسال</span>
                   <i class="ti ti-send ms-md-1 ms-0 ic-mirror"></i>
                 </button>

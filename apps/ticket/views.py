@@ -38,6 +38,8 @@ class SupportView(StaffRequiredMixin, TemplateView):
 
 
 class SupportViewById(StaffRequiredMixin, TemplateView):
+    template_name = "support_by_id.html"  # نام فایل قالب خود را تنظیم کنید
+
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
         all_users = User.objects.filter(is_staff=False)
@@ -50,6 +52,20 @@ class SupportViewById(StaffRequiredMixin, TemplateView):
         context['messages'] = messages
         return context
 
+    def post(self, request, *args, **kwargs):
+        text = request.POST.get('text')
+        user_id = self.kwargs['pk']
+
+        if text:
+            Message.objects.create(
+                text=text,
+                user_id=user_id,
+                support_send=True,
+                seen=False,
+            )
+
+        return redirect(request.path)
+
 
 class UserView(StaffRequiredMixin2, TemplateView):
     def get_context_data(self, **kwargs):
@@ -58,3 +74,17 @@ class UserView(StaffRequiredMixin2, TemplateView):
 
         context['messages'] = messages
         return context
+
+    def post(self, request, *args, **kwargs):
+        text = request.POST.get('text')
+        user_id = self.request.user.id
+
+        if text:
+            Message.objects.create(
+                text=text,
+                user_id=user_id,
+                support_send=False,
+                seen=False,
+            )
+
+        return redirect(request.path)
