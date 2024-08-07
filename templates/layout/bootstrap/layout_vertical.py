@@ -48,7 +48,81 @@ menu_file = {
                     "url": "Operator_view",
                     "name": "پر اتصال ترین",
                     "slug": "Operator_view"
+                },
+
+            ]
+        },
+{
+            "name": "پشتیبانی",
+            "icon": "menu-icon tf-icons ti ti-help",
+            "slug": "support",
+            "submenu":[
+                {
+                    "url": "support",
+                    "name": "پشتیبانی",
+                    "slug": "support"
+                },
+            ]
+        }
+    ]
+}
+
+menu_file2 = {
+    "menu": [
+        {
+            "name": "صفحات",
+            "icon": "menu-icon tf-icons ti ti-smart-home",
+            "slug": "dashboard",
+            "submenu": [
+                {
+                    "url": "index",
+                    "name": "نمای کلی",
+                    "slug": "dashboard-analytics"
+                },
+                {
+                    "url": "liner_chart",
+                    "name": "روند نگاری",
+                    "slug": "dashboard-analytics"
+                },
+                {
+                    "url": "/report/vpn/1",
+                    "external": True,
+                    "name": "شناسنامه ابزار گریز",
+                    "slug": "dashboard-analytics"
+                },
+                {
+                    "url": "vpn_ctreator",
+                    "name": "سازندگان ابزار گریز",
+                    "slug": "dashboard-analytics"
+                },
+                {
+                    "url": "isp",
+                    "name": "ارائه دهندگان خدمات اینترنتی",
+                    "slug": "dashboard-analytics"
+                },
+                {
+                    "url": "Process_view",
+                    "name": "روند مسدود سازی",
+                    "slug": "process_view"
+                },
+                {
+                    "url": "Operator_view",
+                    "name": "پر اتصال ترین",
+                    "slug": "Operator_view"
                 }
+
+            ]
+        },
+        {
+            "name": "پشتیبانی",
+            "icon": "menu-icon tf-icons ti ti-help",
+            "slug": "support",
+            "submenu":[
+                {
+                    "url": "all_ticket",
+                    "name": "تیکت ها",
+                    "slug": "all_ticket"
+                },
             ]
         }
     ]
@@ -84,7 +158,9 @@ class TemplateBootstrapLayoutVertical:
         # Load the menu data from the JSON
         menu_data = json.load(menu_file_path.open()) if menu_file_path.exists() else []
         menu_data2 = menu_file
+        menu_data3 = menu_file2
 
         # Updated context with menu_data
         context.update({"menu_data": menu_data,
-                        "menu_data2": menu_data2})
+                        "menu_data2": menu_data2,
+                        "menu_data3": menu_data3})
