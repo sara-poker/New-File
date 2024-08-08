@@ -115,8 +115,7 @@ class ReportDashboardsView(TemplateView):
             status="Filter").order_by(
             '-count')[1]
 
-
-        print(">",best_country_id)
+        print(">", best_country_id)
         best_country = Country.objects.get(id=best_country_id['vpn__vpn_country'])
 
         for item in last_test:
@@ -349,8 +348,28 @@ class IspView(TemplateView):
 class VpnByIdView(TemplateView):
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
-        vpn = Vpn.objects.filter(pk=self.kwargs['pk'])
-        tests = Test.objects.filter(vpn_id=vpn[0].id, status='Without Filter')
+        vpns = Vpn.objects.all()
+        vpn = vpns.filter(pk=self.kwargs['pk'])
+        test = Test.objects.all()
+        tests = test.filter(vpn_id=vpn[0].id, status='Without Filter')
+
+        country_server_id = list(test.values_list('server_country', flat=True).distinct())
+        country_server_id = [item for item in country_server_id if item != 'nan']
+        country_server = Country.objects.filter(id__in=country_server_id)
+
+        country_id = list(vpns.values_list('vpn_country', flat=True).distinct())
+        country_id = [item for item in country_id if item != 'nan']
+        country = Country.objects.filter(id__in=country_id)
+
+        if self.request.GET.get('server_country'):
+            selected_country_server = self.request.GET.get('server_country')
+        else:
+            selected_country_server = 0
+
+        if self.request.GET.get('country'):
+            selected_country = self.request.GET.get('country')
+        else:
+            selected_country = 0
 
         selected_date_str = self.request.GET.get('selected_date')
 
@@ -382,6 +401,9 @@ class VpnByIdView(TemplateView):
             modified_name = original_name.replace(' ', '')
             item.name2 = modified_name
 
+        context['country_server'] = country_server
+        context['country'] = country
+
         context['vpn'] = vpn[0]
         context['server_ip_count'] = server_ip_count
         context['server_isp_count'] = server_isp_count
@@ -394,6 +416,8 @@ class VpnByIdView(TemplateView):
         context['server_countries'] = server_countries
 
         context['selected_date'] = selected_date_str
+        context['selected_country_server'] = selected_country_server
+        context['selected_country'] = selected_country
 
         return context
 
@@ -404,7 +428,6 @@ class OperatorView(TemplateView):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
         test = Test.objects
         vpn = Vpn.objects.filter()
-
 
         province = list(test.values_list('city', flat=True).distinct())
         province = [item for item in province if item != 'nan']
@@ -426,7 +449,6 @@ class OperatorView(TemplateView):
 
         if selected_date_str:
             test = filter_date(selected_date_str, test)
-
 
         if selected_vpn:
             test = filter_vpn(selected_vpn, test)
@@ -474,7 +496,6 @@ class OperatorView(TemplateView):
 
         context['irancell_names'] = operator_data["Irancell"]['vpn_names']
         context['irancell_count'] = operator_data["Irancell"]['vpn_test_counts']
-
 
         context['mci_names'] = operator_data["MCI"]['vpn_names']
         context['mci_count'] = operator_data["MCI"]['vpn_test_counts']
@@ -535,7 +556,7 @@ class ProcessView(TemplateView):
         if selected_operators:
             test = filter_operator(selected_operators, test)
         else:
-            selected_operators = ["TCI","RighTel","MCI","Irancell"]
+            selected_operators = ["TCI", "RighTel", "MCI", "Irancell"]
             test = test
 
         filter = test.values('filter').annotate(count=models.Count('filter'))

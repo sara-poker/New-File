@@ -59,7 +59,7 @@ menu_file = {
             "submenu":[
                 {
                     "url": "support",
-                    "name": "پشتیبانی",
+                    "name": "ارسال تیکت",
                     "slug": "support"
                 },
             ]

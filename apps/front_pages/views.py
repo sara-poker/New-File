@@ -16,6 +16,18 @@ Refer to front_pages/urls.py file for more pages.
 """
 
 
+def filter_country(country, queryset):
+    if country == "0":
+        return queryset
+    return queryset.filter(vpn_country=country)
+
+
+def filter_country_server(country_server, queryset):
+    if country_server == "0":
+        return queryset
+    return queryset.filter(vpns__server_country_id=country_server).distinct()
+
+
 class FrontPagesView(TemplateView):
     # Predefined function
     def get_context_data(self, **kwargs):
@@ -49,6 +61,15 @@ class GetAllVpn(APIView):
 
     def get(self, request):
         vpn = Vpn.objects.exclude(platform="Telegram")
+        selected_country = self.request.GET.get('country')
+        selected_country_server = self.request.GET.get('server_country')
+
+        if selected_country:
+            vpn = filter_country(selected_country, vpn)
+
+        if selected_country_server:
+            vpn = filter_country_server(selected_country_server, vpn)
+
         for item in vpn:
             original_name = item.name
             modified_name = original_name.replace(' ', '')
