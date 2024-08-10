@@ -142,7 +142,7 @@ class LinerChartView(TemplateView):
         all_test = Test.objects.filter()
         country_server_id = list(all_test.values_list('server_country', flat=True).distinct())
         country_server_id = [item for item in country_server_id if item != 'nan']
-        country_server = Country.objects.filter(id__in=country_server_id)
+        country_server = Country.objects.filter(id__in=country_server_id).order_by('persian_name')
 
         province = list(all_test.values_list('city', flat=True).distinct())
         province = [item for item in province if item != 'nan']
@@ -150,7 +150,7 @@ class LinerChartView(TemplateView):
 
         country_id = list(vpn.values_list('vpn_country', flat=True).distinct())
         country_id = [item for item in country_id if item != 'nan']
-        country = Country.objects.filter(id__in=country_id)
+        country = Country.objects.filter(id__in=country_id).order_by('persian_name')
 
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
@@ -289,11 +289,11 @@ class IspView(TemplateView):
 
         country_server_id = list(test.values_list('server_country', flat=True).distinct())
         country_server_id = [item for item in country_server_id if item != 'nan']
-        country_server = Country.objects.filter(id__in=country_server_id)
+        country_server = Country.objects.filter(id__in=country_server_id).order_by('persian_name')
 
         country_id = list(vpn.values_list('vpn_country', flat=True).distinct())
         country_id = [item for item in country_id if item != 'nan']
-        country = Country.objects.filter(id__in=country_id)
+        country = Country.objects.filter(id__in=country_id).order_by('persian_name')
 
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
@@ -355,11 +355,11 @@ class VpnByIdView(TemplateView):
 
         country_server_id = list(test.values_list('server_country', flat=True).distinct())
         country_server_id = [item for item in country_server_id if item != 'nan']
-        country_server = Country.objects.filter(id__in=country_server_id)
+        country_server = Country.objects.filter(id__in=country_server_id).order_by('persian_name')
 
         country_id = list(vpns.values_list('vpn_country', flat=True).distinct())
         country_id = [item for item in country_id if item != 'nan']
-        country = Country.objects.filter(id__in=country_id)
+        country = Country.objects.filter(id__in=country_id).order_by('persian_name')
 
         if self.request.GET.get('server_country'):
             selected_country_server = self.request.GET.get('server_country')
@@ -435,11 +435,11 @@ class OperatorView(TemplateView):
 
         country_server_id = list(test.values_list('server_country', flat=True).distinct())
         country_server_id = [item for item in country_server_id if item != 'nan']
-        country_server = Country.objects.filter(id__in=country_server_id)
+        country_server = Country.objects.filter(id__in=country_server_id).order_by('persian_name')
 
         country_id = list(vpn.values_list('vpn_country', flat=True).distinct())
         country_id = [item for item in country_id if item != 'nan']
-        country = Country.objects.filter(id__in=country_id)
+        country = Country.objects.filter(id__in=country_id).order_by('persian_name')
 
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
@@ -522,11 +522,11 @@ class ProcessView(TemplateView):
 
         country_server_id = list(test.values_list('server_country', flat=True).distinct())
         country_server_id = [item for item in country_server_id if item != 'nan']
-        country_server = Country.objects.filter(id__in=country_server_id)
+        country_server = Country.objects.filter(id__in=country_server_id).order_by('persian_name')
 
         country_id = list(vpn.values_list('vpn_country', flat=True).distinct())
         country_id = [item for item in country_id if item != 'nan']
-        country = Country.objects.filter(id__in=country_id)
+        country = Country.objects.filter(id__in=country_id).order_by('persian_name')
 
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
