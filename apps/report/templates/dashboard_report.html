@@ -387,17 +387,18 @@
       const tableBody = document.querySelector('table.datatables-direct-basic tbody');
       tableBody.innerHTML = ''; // پاک کردن محتواهای قبلی
 
-      data.slice(0, 12).forEach(item => {
+      // برعکس کردن ترتیب داده‌ها
+      data.slice(0, 12).reverse().forEach(item => {
         const row = document.createElement('tr');
         row.innerHTML = `
-              <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.vpn_name}.png" width="32"></td>
-              <td>${item.vpn_name}</td>
-              <td>${translateOperator(item.oprator)}</td>
-              <td>${item.city}</td>
-              <td>${translateStatus(item.status)}</td>
-              <td>${item.date}</td>
-              <td>${item.time}</td>
-          `;
+          <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.vpn_name}.png" width="32"></td>
+          <td>${item.vpn_name.substring(0, 23)}</td>
+          <td>${translateOperator(item.oprator)}</td>
+          <td>${item.city}</td>
+          <td>${translateStatus(item.status)}</td>
+          <td>${item.date}</td>
+          <td>${item.time}</td>
+        `;
         tableBody.appendChild(row);
       });
     }
@@ -443,14 +444,14 @@
         $('.mzloading').show();
 
         newRow.innerHTML = `
-              <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.vpn_name}.png" width="32"></td>
-              <td>${item.vpn_name}</td>
-              <td>${translateOperator(item.oprator)}</td>
-              <td>${item.city}</td>
-              <td>${translateStatus(item.status)}</td>
-              <td>${item.date}</td>
-              <td>${item.time}</td>
-          `;
+          <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.vpn_name}.png" width="32"></td>
+          <td>${item.vpn_name.substring(0, 23)}</td>
+          <td>${translateOperator(item.oprator)}</td>
+          <td>${item.city}</td>
+          <td>${translateStatus(item.status)}</td>
+          <td>${item.date}</td>
+          <td>${item.time}</td>
+        `;
 
         tableBody.insertBefore(newRow, tableBody.firstChild); // رکورد جدید رو به اول اضافه کن
         if (tableBody.rows.length > 12) {
@@ -476,6 +477,7 @@
       updateTablePeriodically();
     });
   </script>
+
 
 
 {% endblock page_js %}

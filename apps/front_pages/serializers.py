@@ -44,3 +44,17 @@ class OnlineTestSerializer(serializers.ModelSerializer):
     class Meta:
         model = OnlineTest
         fields = '__all__'
+
+
+class OnlineTestGetSerializer(serializers.ModelSerializer):
+    date = serializers.SerializerMethodField()
+
+    class Meta:
+        model = OnlineTest
+        fields = '__all__'
+
+    def get_date(self, obj):
+        # تبدیل تاریخ به فرمت مورد نظر
+        date_str = str(obj.date)
+        return f"{date_str[:4]}/{date_str[4:6]}/{date_str[6:]}"
+
