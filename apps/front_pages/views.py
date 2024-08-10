@@ -193,7 +193,7 @@ class AddRecord(APIView):
 class GetAllRecord(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
-        online_test = OnlineTest.objects.all()
+        online_test = OnlineTest.objects.all().order_by()
         online_test_serializer = OnlineTestSerializer(online_test, many=True)
 
         return Response(online_test_serializer.data,status=status.HTTP_200_OK)
