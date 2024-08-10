@@ -95,8 +95,8 @@
       color: #4620ed;
     }
 
-    .user-profile-header img{
-      border-radius: 50px!important;
+    .user-profile-header img {
+      border-radius: 50px !important;
     }
 
     .card {
@@ -184,12 +184,113 @@
       durationValue: 800
     });
   </script>
+
+  <script>
+    $(function() {
+      var dt_basic_table = $('.datatables-basic');
+
+      // DataTable with buttons
+      // --------------------------------------------------------------------
+
+      if (dt_basic_table.length) {
+        dt_basic = dt_basic_table.DataTable({
+          ajax: {
+            url: 'http://localhost:8000/api/getAllVpn?country={{ selected_country }}&server_country={{ selected_country_server }}', // لینک API
+            // url: 'http://isadid.com/api/getAllVpn?country={{ selected_country }}&server_country={{ selected_country_server }}', // لینک API/
+            dataSrc: '' // اگر پاسخ API به صورت لیستی از اشیاء JSON است، این گزینه را خالی بگذارید
+          },
+          language: {
+            url: assetsPath + 'json/i18n/datatables-bs5/fa.json'
+          },
+          columns: [
+            { data: '' },
+            {
+              // For Avatar image
+              targets: 0,
+              orderable: false,
+              searchable: false,
+              responsivePriority: 1,
+              render: function(data, type, full, meta) {
+                var id = full['id'];
+                var name = full['name'];
+                var name2 = full['name2'];
+                if (id) {
+                  return '<a href="/report/vpn/' + id + '"><img src="' + assetsPath + 'img/vpnIcon/' + name2 + '.png' + '" alt="Avatar" width="60" class="rounded-circle"></a>';
+                } else {
+                  return '';
+                }
+              }
+            },
+            {
+              // For vpn Name with link
+              data: 'name',
+              render: function(data, type, full, meta) {
+                return '<a href="/report/vpn/' + full['id'] + '">' + data + '</a>';
+              }
+            }
+          ],
+          columnDefs: [
+            {
+              // For Responsive
+              className: 'control',
+              orderable: false,
+              searchable: false,
+              responsivePriority: 2,
+              targets: 0,
+              render: function(data, type, full, meta) {
+                return '';
+              }
+            }
+          ],
+          order: [[1, 'asc']],
+          dom: '<"card-header flex-column flex-md-row"<"head-label text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+          displayLength: 7,
+          lengthMenu: [7, 10, 25, 50, 75, 100],
+          responsive: {
+            details: {
+              display: $.fn.dataTable.Responsive.display.modal({
+                header: function(row) {
+                  var data = row.data();
+                  return 'جزئیات ' + data['name'];
+                }
+              }),
+              type: 'column',
+              renderer: function(api, rowIdx, columns) {
+
+                var data = $.map(columns, function(col, i) {
+                  console.log('col>>', col);
+                  return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+                    ? '<tr data-dt-row="' +
+                    col.rowIndex +
+                    '" data-dt-column="' +
+                    col.columnIndex +
+                    '">' +
+                    '<td>' +
+                    col.title +
+                    ':' +
+                    '</td> ' +
+                    '<td>' +
+                    col.data +
+                    '</td>' +
+                    '</tr>'
+                    : '';
+                }).join('');
+
+                return data ? $('<table class="table"/><tbody />').append(data) : false;
+              }
+            }
+          }
+        });
+        $('div.head-label').html('<h5 class="card-title mb-0">جدول داده با کلید</h5>');
+      }
+    });
+  </script>
 {% endblock vendor_js %}
 
 {% block page_js %}
   {{ block.super }}
   <script src="{% static 'js/forms-pickers-jalali.js' %}"></script>
-  <script src="{% static 'js/table-vpn.js' %}"></script>
+  {#  <script src="{% static 'js/table-vpn.js' %}"></script>#}
 {% endblock page_js %}
 
 
@@ -230,37 +331,27 @@
             </div>
             <div class="col-md-2">
               <label class="form-label" for="select2Basic2">کشور ابزار گریز:</label>
-              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic2" disabled>
-                <option label="singapore" value="1">نمایش همگانی</option>
-                <option label="singapore" value="1">Singapore</option>
-                <option label="United States" value="1">United States</option>
-                <option label="Hong Kong" value="1">Hong Kong</option>
-                <option label="Ukrain" value="1">Ukrain</option>
-                <option label="Canada" value="1">Canada</option>
-                <option label="Emirate" value="1">Emirate</option>
-                <option label="Estonia" value="1">Estonia</option>
-                <option label="India" value="1">India</option>
-                <option label="Montengro" value="1">Montengro</option>
-                <option label="United Kingdom" value="1">United Kingdom</option>
-                <option label="Vitenam" value="vietnam">Vitenam</option>
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic2"
+                      name="country">
+                <option label="singapore" value="0">نمایش همگانی</option>
+                {% for item in country %}
+                  <option label="{{ item.name }}" value="{{ item.id }}"
+                          {% if selected_country == item.id|stringformat:"s" %}selected{% endif %}>{{ item.persian_name }}</option>
+                {% endfor %}
               </select>
             </div>
             <div class="col-md-2">
               <label class="form-label" for="select2Basic3">کشور سرور:</label>
-              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3" disabled>
-                <option label="singapore" value="1">نمایش همگانی</option>
-                <option label="singapore" value="1">Singapore</option>
-                <option label="United States" value="1">United States</option>
-                <option label="Hong Kong" value="Hong-Kong">Hong Kong</option>
-                <option label="Ukrain" value="1">Ukrain</option>
-                <option label="Canada" value="1">Canada</option>
-                <option label="Emirate" value="1">Emirate</option>
-                <option label="Estonia" value="1">Estonia</option>
-                <option label="India" value="1">India</option>
-                <option label="Montengro" value="1">Montengro</option>
-                <option label="United Kingdom" value="1">United Kingdom</option>
-                <option label="Vitenam" value="1">Vitenam</option>
+
+              <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3"
+                      name="server_country">
+                <option label="singapore" value="0">نمایش همگانی</option>
+                {% for item in country_server %}
+                  <option label="{{ item.name }}" value="{{ item.id }}"
+                          {% if selected_country_server == item.id|stringformat:"s" %}selected{% endif %}>{{ item.persian_name }}</option>
+                {% endfor %}
               </select>
+
             </div>
             <div class="col-md-1">
               <label class="form-label" for="select2Basic3">.</label>
