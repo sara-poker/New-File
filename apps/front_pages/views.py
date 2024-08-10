@@ -188,3 +188,12 @@ class AddRecord(APIView):
             return Response(online_test_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(online_test_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetAllRecord(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        online_test = OnlineTest.objects.all()
+        online_test_serializer = OnlineTestSerializer(online_test, many=True)
+
+        return Response(online_test_serializer.data,status=status.HTTP_200_OK)
