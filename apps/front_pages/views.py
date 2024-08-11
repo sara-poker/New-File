@@ -60,7 +60,7 @@ class GetAllVpn(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        vpn = Vpn.objects.exclude(platform="Telegram")
+        vpn = Vpn.objects.exclude(platform="Telegram").order_by("id")
         selected_country = self.request.GET.get('country')
         selected_country_server = self.request.GET.get('server_country')
 

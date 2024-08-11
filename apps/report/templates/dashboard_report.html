@@ -374,7 +374,7 @@
   <script>
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:8000/api/getAllRecord');
+        const response = await fetch(`${window.location.origin}/api/getAllRecord`);
         const data = await response.json();
         return data;
       } catch (error) {
