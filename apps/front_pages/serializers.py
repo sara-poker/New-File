@@ -48,13 +48,18 @@ class OnlineTestSerializer(serializers.ModelSerializer):
 
 class OnlineTestGetSerializer(serializers.ModelSerializer):
     date = serializers.SerializerMethodField()
+    name2 = serializers.SerializerMethodField()  # اضافه کردن فیلد name2
 
     class Meta:
         model = OnlineTest
-        fields = '__all__'
+        fields = '__all__'  # اضافه کردن name2 به لیست fields
 
     def get_date(self, obj):
         # تبدیل تاریخ به فرمت مورد نظر
         date_str = str(obj.date)
         return f"{date_str[:4]}/{date_str[4:6]}/{date_str[6:]}"
+
+    def get_name2(self, obj):
+        # حذف فاصله‌ها از vpn_name
+        return obj.vpn_name.replace(' ', '')
 

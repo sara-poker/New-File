@@ -391,7 +391,7 @@
       data.slice(0, 12).reverse().forEach(item => {
         const row = document.createElement('tr');
         row.innerHTML = `
-          <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.vpn_name}.png" width="32"></td>
+          <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.name2}.png" width="32"></td>
           <td>${item.vpn_name.substring(0, 23)}</td>
           <td>${translateOperator(item.oprator)}</td>
           <td>${item.city}</td>
@@ -444,7 +444,7 @@
         $('.mzloading').show();
 
         newRow.innerHTML = `
-          <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.vpn_name}.png" width="32"></td>
+          <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.name2}.png" width="32"></td>
           <td>${item.vpn_name.substring(0, 23)}</td>
           <td>${translateOperator(item.oprator)}</td>
           <td>${item.city}</td>
