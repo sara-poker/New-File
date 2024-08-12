@@ -4,7 +4,8 @@ import math
 
 from config.settings import BASE_DIR
 from apps.vpn.models import *
-
+from apps.ticket.models import Notification
+from django.contrib.auth.models import User
 
 
 class Command(BaseCommand):
@@ -13,6 +14,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         excel_data = pd.read_excel(BASE_DIR / 'data.xlsx')
         excel_data = excel_data.values.tolist()
+        users = User.objects.all()
         count_data = len(excel_data)
         counter = 0
 
@@ -26,7 +28,12 @@ class Command(BaseCommand):
                 vpn_country_obj = Country.objects.filter(name=data[29]).first()
                 if not vpn_country_obj:
                     vpn_country_obj = Country.objects.create(name=data[29])
-                    vpn_country_obj = None
+
+                    for user in users:
+                        notification = Notification.objects.create(
+                            user=user,
+                            message=f"کشور {vpn_country_obj.name} به دیتابیس اضافه شده است."
+                        )
 
                 vpn_data = {
                     "name": data[11],
@@ -79,7 +86,7 @@ class Command(BaseCommand):
                 "server_ip": data[16],
                 "server_host": data[17],
                 "server_isp": data[18],
-                "server_country":server_country_obj,
+                "server_country": server_country_obj,
                 "server_region": data[20],
                 "server_city": data[21],
                 "server_Latitude": data[22],
