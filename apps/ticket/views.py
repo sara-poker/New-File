@@ -2,6 +2,8 @@ from django.views.generic import TemplateView
 from web_project import TemplateLayout
 from apps.ticket.models import *
 
+from django.http import JsonResponse
+from django.views import View
 from django.db.models import Count
 
 from django.shortcuts import redirect
@@ -88,3 +90,23 @@ class UserView(StaffRequiredMixin2, TemplateView):
             )
 
         return redirect(request.path)
+
+
+class NotificationView(TemplateView):
+    def get_context_data(self, **kwargs):
+        # دریافت context اصلی
+        context = TemplateLayout.init(self, super().get_context_data(**kwargs))
+
+        # دریافت تمام اعلان‌های کاربر فعلی
+        notifications = Notification.objects.filter(user=self.request.user)
+
+        # اضافه کردن اعلان‌ها به context
+        context['notifications'] = notifications
+        return context
+
+class UpdateNotificationStatusView(View):
+    def post(self, request, *args, **kwargs):
+        # بروزرسانی وضعیت اعلان‌ها برای کاربر فعلی
+        Notification.objects.filter(user=request.user, is_read=False).update(is_read=True)
+        return JsonResponse({'status': 'success'})
+

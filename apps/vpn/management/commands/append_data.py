@@ -77,7 +77,7 @@ class Command(BaseCommand):
                     for user in users:
                         Notification.objects.create(
                             user=user,
-                            message=f"A new VPN '{vpn.name}' has been added."
+                            message=f"یک ابزار گریز جدید '{vpn.name}' ایجاد شد."
                         )
 
                 # ارسال نوتیفیکیشن اگر ISP جدیدی ایجاد شده باشد
@@ -85,7 +85,7 @@ class Command(BaseCommand):
                     for user in users:
                         Notification.objects.create(
                             user=user,
-                            message=f"A new ISP '{isp.name}' has been added."
+                            message=f"یک آی اس پی جدید '{isp.name}' ایجاد شد."
                         )
 
                 # ارسال نوتیفیکیشن اگر کشور جدیدی ایجاد شده باشد
@@ -93,7 +93,7 @@ class Command(BaseCommand):
                     for user in user_is_staff:
                         Notification.objects.create(
                             user=user,
-                            message=f"A new Country '{server_country.name}' has been added."
+                            message=f"کشور جدید '{server_country.name}' ایجاد شد."
                         )
 
             print(f"{counter} from {count_data} Done!")
