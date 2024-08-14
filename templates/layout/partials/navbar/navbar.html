@@ -44,14 +44,14 @@
 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
   {% if not menu_horizontal %}
     <!-- Search -->
-    {#        <div class="navbar-nav align-items-center">#}
-    {#          <div class="nav-item navbar-search-wrapper mb-0">#}
-    {#            <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">#}
-    {#              <i class="ti ti-search ti-md me-2 h-mirror"></i>#}
-    {#              <span class="d-none d-md-inline-block text-muted">جستجو (/+Ctrl)</span>#}
-    {#            </a>#}
-    {#          </div>#}
-    {#        </div>#}
+    {#            <div class="navbar-nav align-items-center">#}
+    {#              <div class="nav-item navbar-search-wrapper mb-0">#}
+    {#                <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">#}
+    {#                  <i class="ti ti-search ti-md me-2 h-mirror"></i>#}
+    {#                  <span class="d-none d-md-inline-block text-muted">جستجو (/+Ctrl)</span>#}
+    {#                </a>#}
+    {#              </div>#}
+    {#            </div>#}
     <!-- /Search -->
   {% endif %}
   <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -92,11 +92,11 @@
     <!--/ Language -->
     {% if menu_horizontal %}
       <!-- Search -->
-      {#          <li class="nav-item navbar-search-wrapper me-2 me-xl-0">#}
-      {#            <a class="nav-link search-toggler" href="javascript:void(0);">#}
-      {#              <i class="ti ti-search ti-md"></i>#}
-      {#            </a>#}
-      {#          </li>#}
+      {#                <li class="nav-item navbar-search-wrapper me-2 me-xl-0">#}
+      {#                  <a class="nav-link search-toggler" href="javascript:void(0);">#}
+      {#                    <i class="ti ti-search ti-md"></i>#}
+      {#                  </a>#}
+      {#                </li>#}
       <!-- /Search -->
     {% endif %}
 
@@ -212,233 +212,233 @@
     <!-- Quick links -->
 
     <!-- Notification -->
-    {#          <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">#}
-    {#            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">#}
-    {#              <i class="ti ti-bell ti-md"></i>#}
-    {#              <span class="badge bg-danger rounded-pill badge-notifications">5</span>#}
-    {#            </a>#}
-    {#            <ul class="dropdown-menu dropdown-menu-end py-0">#}
-    {#              <li class="dropdown-menu-header border-bottom">#}
-    {#                <div class="dropdown-header d-flex align-items-center py-3">#}
-    {#                  <h5 class="text-body mb-0 me-auto">اعلانات</h5>#}
-    {#                  <a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="ti ti-mail-opened fs-4"></i></a>#}
-    {#                </div>#}
-    {#              </li>#}
-    {#              <li class="dropdown-notifications-list scrollable-container">#}
-    {#                <ul class="list-group list-group-flush">#}
-    {#                  <li class="list-group-item list-group-item-action dropdown-notifications-item">#}
-    {#                    <div class="d-flex">#}
-    {#                      <div class="flex-shrink-0 me-3">#}
-    {#                        <div class="avatar">#}
-    {#                          <img alt class="h-auto rounded-circle" src="{% static 'img/avatars/1.png'%}"/>#}
-    {#                        </div>#}
-    {#                      </div>#}
-    {#                      <div class="flex-grow-1">#}
-    {#                        <h6 class="mb-2">تبریک به شما 🎉</h6>#}
-    {#                        <p class="mb-1">نشان برترین فروشنده ماه رو گرفتید</p>#}
-    {#                        <small class="text-muted">الان</small>#}
-    {#                      </div>#}
-    {#                      <div class="flex-shrink-0 dropdown-notifications-actions">#}
-    {#                        <a class="dropdown-notifications-read" href="javascript:void(0)">#}
-    {#                          <span class="badge badge-dot"></span>#}
-    {#                        </a>#}
-    {#                        <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
-    {#                          <span class="ti ti-x"></span>#}
-    {#                        </a>#}
-    {#                      </div>#}
-    {#                    </div>#}
-    {#                  </li>#}
-    {#                  <li class="list-group-item list-group-item-action dropdown-notifications-item">#}
-    {#                    <div class="d-flex">#}
-    {#                      <div class="flex-shrink-0 me-3">#}
-    {#                        <div class="avatar">#}
-    {#                          <span class="avatar-initial rounded-circle bg-label-danger">ن‌م</span>#}
-    {#                        </div>#}
-    {#                      </div>#}
-    {#                      <div class="flex-grow-1">#}
-    {#                        <h6 class="mb-2">نوید محمدزاده</h6>#}
-    {#                        <p class="mb-1">درخواست شمارا پذیرفت.</p>#}
-    {#                        <small class="text-muted">1 ساعت قبل</small>#}
-    {#                      </div>#}
-    {#                      <div class="flex-shrink-0 dropdown-notifications-actions">#}
-    {#                        <a class="dropdown-notifications-read" href="javascript:void(0)">#}
-    {#                          <span class="badge badge-dot"></span>#}
-    {#                        </a>#}
-    {#                        <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
-    {#                          <span class="ti ti-x"></span>#}
-    {#                        </a>#}
-    {#                      </div>#}
-    {#                    </div>#}
-    {#                  </li>#}
-    {#                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">#}
-    {#                    <div class="d-flex">#}
-    {#                      <div class="flex-shrink-0 me-3">#}
-    {#                        <div class="avatar">#}
-    {#                          <img alt class="h-auto rounded-circle" src="{% static 'img/avatars/2.png'%}"/>#}
-    {#                        </div>#}
-    {#                      </div>#}
-    {#                      <div class="flex-grow-1">#}
-    {#                        <h6 class="mb-2">پیام جدید از بهاره ✉️</h6>#}
-    {#                        <p class="mb-1">شما یک پیام جدید از بهاره افشاری دارید</p>#}
-    {#                        <small class="text-muted">12 ساعت قبل</small>#}
-    {#                      </div>#}
-    {#                      <div class="flex-shrink-0 dropdown-notifications-actions">#}
-    {#                        <a class="dropdown-notifications-read" href="javascript:void(0)">#}
-    {#                          <span class="badge badge-dot"></span>#}
-    {#                        </a>#}
-    {#                        <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
-    {#                          <span class="ti ti-x"></span>#}
-    {#                        </a>#}
-    {#                      </div>#}
-    {#                    </div>#}
-    {#                  </li>#}
-    {#                  <li class="list-group-item list-group-item-action dropdown-notifications-item">#}
-    {#                    <div class="d-flex">#}
-    {#                      <div class="flex-shrink-0 me-3">#}
-    {#                        <div class="avatar">#}
-    {#                          <span class="avatar-initial rounded-circle bg-label-success">#}
-    {#                            <i class="ti ti-shopping-cart"></i>#}
-    {#                          </span>#}
-    {#                        </div>#}
-    {#                      </div>#}
-    {#                      <div class="flex-grow-1">#}
-    {#                        <h6 class="mb-2">ایول! سفارش جدید داری 🛒</h6>#}
-    {#                        <p class="mb-1">شرکت یلدا سفارشی جدید ثبت کرد</p>#}
-    {#                        <small class="text-muted">امروز</small>#}
-    {#                      </div>#}
-    {#                      <div class="flex-shrink-0 dropdown-notifications-actions">#}
-    {#                        <a class="dropdown-notifications-read" href="javascript:void(0)">#}
-    {#                          <span class="badge badge-dot"></span>#}
-    {#                        </a>#}
-    {#                        <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
-    {#                          <span class="ti ti-x"></span>#}
-    {#                        </a>#}
-    {#                      </div>#}
-    {#                    </div>#}
-    {#                  </li>#}
-    {#                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">#}
-    {#                    <div class="d-flex">#}
-    {#                      <div class="flex-shrink-0 me-3">#}
-    {#                        <div class="avatar">#}
-    {#                          <img alt class="h-auto rounded-circle" src="{% static 'img/avatars/9.png'%}"/>#}
-    {#                        </div>#}
-    {#                      </div>#}
-    {#                      <div class="flex-grow-1">#}
-    {#                        <h6 class="mb-2">اپلیکیشن بروزرسانی شد 🚀</h6>#}
-    {#                        <p class="mb-1">پروژه شما باموفقیت آپدیت شد.</p>#}
-    {#                        <small class="text-muted">دیروز</small>#}
-    {#                      </div>#}
-    {#                      <div class="flex-shrink-0 dropdown-notifications-actions">#}
-    {#                        <a class="dropdown-notifications-read" href="javascript:void(0)">#}
-    {#                          <span class="badge badge-dot"></span>#}
-    {#                        </a>#}
-    {#                        <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
-    {#                          <span class="ti ti-x"></span>#}
-    {#                        </a>#}
-    {#                      </div>#}
-    {#                    </div>#}
-    {#                  </li>#}
-    {#                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">#}
-    {#                    <div class="d-flex">#}
-    {#                      <div class="flex-shrink-0 me-3">#}
-    {#                        <div class="avatar">#}
-    {#                          <span class="avatar-initial rounded-circle bg-label-success">#}
-    {#                            <i class="ti ti-chart-pie"></i>#}
-    {#                          </span>#}
-    {#                        </div>#}
-    {#                      </div>#}
-    {#                      <div class="flex-grow-1">#}
-    {#                        <h6 class="mb-2">گزارش ماهانه دردسترس است</h6>#}
-    {#                        <p class="mb-1">گزارش درآمد ماه شهریور آماده است</p>#}
-    {#                        <small class="text-muted">2 روز قبل</small>#}
-    {#                      </div>#}
-    {#                      <div class="flex-shrink-0 dropdown-notifications-actions">#}
-    {#                        <a class="dropdown-notifications-read" href="javascript:void(0)">#}
-    {#                          <span class="badge badge-dot"></span>#}
-    {#                        </a>#}
-    {#                        <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
-    {#                          <span class="ti ti-x"></span>#}
-    {#                        </a>#}
-    {#                      </div>#}
-    {#                    </div>#}
-    {#                  </li>#}
-    {#                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">#}
-    {#                    <div class="d-flex">#}
-    {#                      <div class="flex-shrink-0 me-3">#}
-    {#                        <div class="avatar">#}
-    {#                          <img alt class="h-auto rounded-circle" src="{% static 'img/avatars/5.png'%}"/>#}
-    {#                        </div>#}
-    {#                      </div>#}
-    {#                      <div class="flex-grow-1">#}
-    {#                        <h6 class="mb-2">ارسال درخواست همکاری</h6>#}
-    {#                        <p class="mb-1">حسام درخواست همکاری فرستاد</p>#}
-    {#                        <small class="text-muted">1 هفته قبل</small>#}
-    {#                      </div>#}
-    {#                      <div class="flex-shrink-0 dropdown-notifications-actions">#}
-    {#                        <a class="dropdown-notifications-read" href="javascript:void(0)">#}
-    {#                          <span class="badge badge-dot"></span>#}
-    {#                        </a>#}
-    {#                        <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
-    {#                          <span class="ti ti-x"></span>#}
-    {#                        </a>#}
-    {#                      </div>#}
-    {#                    </div>#}
-    {#                  </li>#}
-    {#                  <li class="list-group-item list-group-item-action dropdown-notifications-item">#}
-    {#                    <div class="d-flex">#}
-    {#                      <div class="flex-shrink-0 me-3">#}
-    {#                        <div class="avatar">#}
-    {#                          <img alt class="h-auto rounded-circle" src="{% static 'img/avatars/6.png'%}"/>#}
-    {#                        </div>#}
-    {#                      </div>#}
-    {#                      <div class="flex-grow-1">#}
-    {#                        <h6 class="mb-2">پیام جدید از ترانه</h6>#}
-    {#                        <p class="mb-1">شما یک پیام جدید دارید</p>#}
-    {#                        <small class="text-muted">1 ماه قبل</small>#}
-    {#                      </div>#}
-    {#                      <div class="flex-shrink-0 dropdown-notifications-actions">#}
-    {#                        <a class="dropdown-notifications-read" href="javascript:void(0)">#}
-    {#                          <span class="badge badge-dot"></span>#}
-    {#                        </a>#}
-    {#                        <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
-    {#                          <span class="ti ti-x"></span>#}
-    {#                        </a>#}
-    {#                      </div>#}
-    {#                    </div>#}
-    {#                  </li>#}
-    {#                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">#}
-    {#                    <div class="d-flex">#}
-    {#                      <div class="flex-shrink-0 me-3">#}
-    {#                        <div class="avatar">#}
-    {#                          <span class="avatar-initial rounded-circle bg-label-warning">#}
-    {#                            <i class="ti ti-alert-triangle"></i>#}
-    {#                          </span>#}
-    {#                        </div>#}
-    {#                      </div>#}
-    {#                      <div class="flex-grow-1">#}
-    {#                        <h6 class="mb-2">میزان مصرف CPU بالاست</h6>#}
-    {#                        <p class="mb-1">درصد استفاده از CPU درحال حاضر 90%</p>#}
-    {#                        <small class="text-muted">1 ماه قبل</small>#}
-    {#                      </div>#}
-    {#                      <div class="flex-shrink-0 dropdown-notifications-actions">#}
-    {#                        <a class="dropdown-notifications-read" href="javascript:void(0)">#}
-    {#                          <span class="badge badge-dot"></span>#}
-    {#                        </a>#}
-    {#                        <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
-    {#                          <span class="ti ti-x"></span>#}
-    {#                        </a>#}
-    {#                      </div>#}
-    {#                    </div>#}
-    {#                  </li>#}
-    {#                </ul>#}
-    {#              </li>#}
-    {#              <li class="dropdown-menu-footer border-top">#}
-    {#                <a href="javascript:void(0);" class="dropdown-item d-flex justify-content-center text-primary p-2 h-px-40 mb-1 align-items-center">#}
-    {#                  نمایش همه اعلانات#}
-    {#                </a>#}
-    {#              </li>#}
-    {#            </ul>#}
-    {#          </li>#}
+              <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
+                <a class="nav-link dropdown-toggle hide-arrow" href="{% url "notification" %}" >
+                  <i class="ti ti-bell ti-md"></i>
+{#                  <span class="badge bg-danger rounded-pill badge-notifications">.</span>#}
+                </a>
+{#                <ul class="dropdown-menu dropdown-menu-end py-0">#}
+{#                  <li class="dropdown-menu-header border-bottom">#}
+{#                    <div class="dropdown-header d-flex align-items-center py-3">#}
+{#                      <h5 class="text-body mb-0 me-auto">اعلانات</h5>#}
+{#                      <a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="ti ti-mail-opened fs-4"></i></a>#}
+{#                    </div>#}
+{#                  </li>#}
+{#                  <li class="dropdown-notifications-list scrollable-container">#}
+{#                    <ul class="list-group list-group-flush">#}
+{#                      <li class="list-group-item list-group-item-action dropdown-notifications-item">#}
+{#                        <div class="d-flex">#}
+{#                          <div class="flex-shrink-0 me-3">#}
+{#                            <div class="avatar">#}
+{#                              <img alt class="h-auto rounded-circle" src="{% static 'img/avatars/1.png'%}"/>#}
+{#                            </div>#}
+{#                          </div>#}
+{#                          <div class="flex-grow-1">#}
+{#                            <h6 class="mb-2">تبریک به شما 🎉</h6>#}
+{#                            <p class="mb-1">نشان برترین فروشنده ماه رو گرفتید</p>#}
+{#                            <small class="text-muted">الان</small>#}
+{#                          </div>#}
+{#                          <div class="flex-shrink-0 dropdown-notifications-actions">#}
+{#                            <a class="dropdown-notifications-read" href="javascript:void(0)">#}
+{#                              <span class="badge badge-dot"></span>#}
+{#                            </a>#}
+{#                            <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
+{#                              <span class="ti ti-x"></span>#}
+{#                            </a>#}
+{#                          </div>#}
+{#                        </div>#}
+{#                      </li>#}
+{#                      <li class="list-group-item list-group-item-action dropdown-notifications-item">#}
+{#                        <div class="d-flex">#}
+{#                          <div class="flex-shrink-0 me-3">#}
+{#                            <div class="avatar">#}
+{#                              <span class="avatar-initial rounded-circle bg-label-danger">ن‌م</span>#}
+{#                            </div>#}
+{#                          </div>#}
+{#                          <div class="flex-grow-1">#}
+{#                            <h6 class="mb-2">نوید محمدزاده</h6>#}
+{#                            <p class="mb-1">درخواست شمارا پذیرفت.</p>#}
+{#                            <small class="text-muted">1 ساعت قبل</small>#}
+{#                          </div>#}
+{#                          <div class="flex-shrink-0 dropdown-notifications-actions">#}
+{#                            <a class="dropdown-notifications-read" href="javascript:void(0)">#}
+{#                              <span class="badge badge-dot"></span>#}
+{#                            </a>#}
+{#                            <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
+{#                              <span class="ti ti-x"></span>#}
+{#                            </a>#}
+{#                          </div>#}
+{#                        </div>#}
+{#                      </li>#}
+{#                      <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">#}
+{#                        <div class="d-flex">#}
+{#                          <div class="flex-shrink-0 me-3">#}
+{#                            <div class="avatar">#}
+{#                              <img alt class="h-auto rounded-circle" src="{% static 'img/avatars/2.png'%}"/>#}
+{#                            </div>#}
+{#                          </div>#}
+{#                          <div class="flex-grow-1">#}
+{#                            <h6 class="mb-2">پیام جدید از بهاره ✉️</h6>#}
+{#                            <p class="mb-1">شما یک پیام جدید از بهاره افشاری دارید</p>#}
+{#                            <small class="text-muted">12 ساعت قبل</small>#}
+{#                          </div>#}
+{#                          <div class="flex-shrink-0 dropdown-notifications-actions">#}
+{#                            <a class="dropdown-notifications-read" href="javascript:void(0)">#}
+{#                              <span class="badge badge-dot"></span>#}
+{#                            </a>#}
+{#                            <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
+{#                              <span class="ti ti-x"></span>#}
+{#                            </a>#}
+{#                          </div>#}
+{#                        </div>#}
+{#                      </li>#}
+{#                      <li class="list-group-item list-group-item-action dropdown-notifications-item">#}
+{#                        <div class="d-flex">#}
+{#                          <div class="flex-shrink-0 me-3">#}
+{#                            <div class="avatar">#}
+{#                              <span class="avatar-initial rounded-circle bg-label-success">#}
+{#                                <i class="ti ti-shopping-cart"></i>#}
+{#                              </span>#}
+{#                            </div>#}
+{#                          </div>#}
+{#                          <div class="flex-grow-1">#}
+{#                            <h6 class="mb-2">ایول! سفارش جدید داری 🛒</h6>#}
+{#                            <p class="mb-1">شرکت یلدا سفارشی جدید ثبت کرد</p>#}
+{#                            <small class="text-muted">امروز</small>#}
+{#                          </div>#}
+{#                          <div class="flex-shrink-0 dropdown-notifications-actions">#}
+{#                            <a class="dropdown-notifications-read" href="javascript:void(0)">#}
+{#                              <span class="badge badge-dot"></span>#}
+{#                            </a>#}
+{#                            <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
+{#                              <span class="ti ti-x"></span>#}
+{#                            </a>#}
+{#                          </div>#}
+{#                        </div>#}
+{#                      </li>#}
+{#                      <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">#}
+{#                        <div class="d-flex">#}
+{#                          <div class="flex-shrink-0 me-3">#}
+{#                            <div class="avatar">#}
+{#                              <img alt class="h-auto rounded-circle" src="{% static 'img/avatars/9.png'%}"/>#}
+{#                            </div>#}
+{#                          </div>#}
+{#                          <div class="flex-grow-1">#}
+{#                            <h6 class="mb-2">اپلیکیشن بروزرسانی شد 🚀</h6>#}
+{#                            <p class="mb-1">پروژه شما باموفقیت آپدیت شد.</p>#}
+{#                            <small class="text-muted">دیروز</small>#}
+{#                          </div>#}
+{#                          <div class="flex-shrink-0 dropdown-notifications-actions">#}
+{#                            <a class="dropdown-notifications-read" href="javascript:void(0)">#}
+{#                              <span class="badge badge-dot"></span>#}
+{#                            </a>#}
+{#                            <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
+{#                              <span class="ti ti-x"></span>#}
+{#                            </a>#}
+{#                          </div>#}
+{#                        </div>#}
+{#                      </li>#}
+{#                      <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">#}
+{#                        <div class="d-flex">#}
+{#                          <div class="flex-shrink-0 me-3">#}
+{#                            <div class="avatar">#}
+{#                              <span class="avatar-initial rounded-circle bg-label-success">#}
+{#                                <i class="ti ti-chart-pie"></i>#}
+{#                              </span>#}
+{#                            </div>#}
+{#                          </div>#}
+{#                          <div class="flex-grow-1">#}
+{#                            <h6 class="mb-2">گزارش ماهانه دردسترس است</h6>#}
+{#                            <p class="mb-1">گزارش درآمد ماه شهریور آماده است</p>#}
+{#                            <small class="text-muted">2 روز قبل</small>#}
+{#                          </div>#}
+{#                          <div class="flex-shrink-0 dropdown-notifications-actions">#}
+{#                            <a class="dropdown-notifications-read" href="javascript:void(0)">#}
+{#                              <span class="badge badge-dot"></span>#}
+{#                            </a>#}
+{#                            <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
+{#                              <span class="ti ti-x"></span>#}
+{#                            </a>#}
+{#                          </div>#}
+{#                        </div>#}
+{#                      </li>#}
+{#                      <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">#}
+{#                        <div class="d-flex">#}
+{#                          <div class="flex-shrink-0 me-3">#}
+{#                            <div class="avatar">#}
+{#                              <img alt class="h-auto rounded-circle" src="{% static 'img/avatars/5.png'%}"/>#}
+{#                            </div>#}
+{#                          </div>#}
+{#                          <div class="flex-grow-1">#}
+{#                            <h6 class="mb-2">ارسال درخواست همکاری</h6>#}
+{#                            <p class="mb-1">حسام درخواست همکاری فرستاد</p>#}
+{#                            <small class="text-muted">1 هفته قبل</small>#}
+{#                          </div>#}
+{#                          <div class="flex-shrink-0 dropdown-notifications-actions">#}
+{#                            <a class="dropdown-notifications-read" href="javascript:void(0)">#}
+{#                              <span class="badge badge-dot"></span>#}
+{#                            </a>#}
+{#                            <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
+{#                              <span class="ti ti-x"></span>#}
+{#                            </a>#}
+{#                          </div>#}
+{#                        </div>#}
+{#                      </li>#}
+{#                      <li class="list-group-item list-group-item-action dropdown-notifications-item">#}
+{#                        <div class="d-flex">#}
+{#                          <div class="flex-shrink-0 me-3">#}
+{#                            <div class="avatar">#}
+{#                              <img alt class="h-auto rounded-circle" src="{% static 'img/avatars/6.png'%}"/>#}
+{#                            </div>#}
+{#                          </div>#}
+{#                          <div class="flex-grow-1">#}
+{#                            <h6 class="mb-2">پیام جدید از ترانه</h6>#}
+{#                            <p class="mb-1">شما یک پیام جدید دارید</p>#}
+{#                            <small class="text-muted">1 ماه قبل</small>#}
+{#                          </div>#}
+{#                          <div class="flex-shrink-0 dropdown-notifications-actions">#}
+{#                            <a class="dropdown-notifications-read" href="javascript:void(0)">#}
+{#                              <span class="badge badge-dot"></span>#}
+{#                            </a>#}
+{#                            <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
+{#                              <span class="ti ti-x"></span>#}
+{#                            </a>#}
+{#                          </div>#}
+{#                        </div>#}
+{#                      </li>#}
+{#                      <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">#}
+{#                        <div class="d-flex">#}
+{#                          <div class="flex-shrink-0 me-3">#}
+{#                            <div class="avatar">#}
+{#                              <span class="avatar-initial rounded-circle bg-label-warning">#}
+{#                                <i class="ti ti-alert-triangle"></i>#}
+{#                              </span>#}
+{#                            </div>#}
+{#                          </div>#}
+{#                          <div class="flex-grow-1">#}
+{#                            <h6 class="mb-2">میزان مصرف CPU بالاست</h6>#}
+{#                            <p class="mb-1">درصد استفاده از CPU درحال حاضر 90%</p>#}
+{#                            <small class="text-muted">1 ماه قبل</small>#}
+{#                          </div>#}
+{#                          <div class="flex-shrink-0 dropdown-notifications-actions">#}
+{#                            <a class="dropdown-notifications-read" href="javascript:void(0)">#}
+{#                              <span class="badge badge-dot"></span>#}
+{#                            </a>#}
+{#                            <a class="dropdown-notifications-archive" href="javascript:void(0)">#}
+{#                              <span class="ti ti-x"></span>#}
+{#                            </a>#}
+{#                          </div>#}
+{#                        </div>#}
+{#                      </li>#}
+{#                    </ul>#}
+{#                  </li>#}
+{#                  <li class="dropdown-menu-footer border-top">#}
+{#                    <a href="javascript:void(0);" class="dropdown-item d-flex justify-content-center text-primary p-2 h-px-40 mb-1 align-items-center">#}
+{#                      نمایش همه اعلانات#}
+{#                    </a>#}
+{#                  </li>#}
+{#                </ul>#}
+              </li>
     <!--/ Notification -->
 
     <!-- User -->
