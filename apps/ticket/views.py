@@ -98,7 +98,7 @@ class NotificationView(TemplateView):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
 
         # دریافت تمام اعلان‌های کاربر فعلی
-        notifications = Notification.objects.filter(user=self.request.user)
+        notifications = Notification.objects.filter(user=self.request.user).order_by('-created_at')
 
         # اضافه کردن اعلان‌ها به context
         context['notifications'] = notifications

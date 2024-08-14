@@ -82,8 +82,7 @@
               {% endif %}
             </td>
             <td>
-              {{ notification.created_at|jformat:"%Y/%m/%d" }} | ساعت {{ notification.created_at|time:"H:i" }}
-            </td>
+              ساعت {{ notification.created_at|time:"H:i" }} | {{ notification.created_at|jformat:"%Y/%m/%d" }} </td>
           </tr>
         {% endfor %}
 

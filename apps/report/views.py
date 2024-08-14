@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 from web_project import TemplateLayout
 from apps.vpn.models import *
+from apps.ticket.models import *
 
 from django.db.models import Count
 import random
@@ -123,6 +124,11 @@ class ReportDashboardsView(TemplateView):
             modified_name = original_name.replace(' ', '')
             item.vpn.name2 = modified_name
 
+        notification_bool = False
+
+        notifications = Notification.objects.filter(user=self.request.user, is_read=False)
+        notification_bool = notifications.exists()
+
         context['filter'] = filter_dict
         context['last_test'] = last_test
 
@@ -130,6 +136,7 @@ class ReportDashboardsView(TemplateView):
         context['best_isp'] = best_isp
         context['best_oprator'] = best_oprator
         context['best_country'] = best_country
+        context['notification_bool'] = notification_bool
 
         return context
 

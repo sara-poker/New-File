@@ -93,6 +93,13 @@
       border-radius: 30px;
     }
 
+    #alert_mo {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      border: 1.5px solid #1ab8cc;
+      z-index: 5000;
+    }
 
   </style>
 {% endblock page_css %}
@@ -799,6 +806,11 @@
 
     </div>
   </div>
-
+  {% if notification_bool %}
+    <div id="alert_mo" class="alert alert-info alert-dismissible" role="alert"> اعلان جدیدی دریافت کرده اید! <a
+      class="alert-link" href="{% url "notification" %}">دیدن اعلان ها</a>
+      <button aria-label="بستن" class="btn-close" data-bs-dismiss="alert" type="button"></button>
+    </div>
+  {% endif %}
 {% endblock content %}
 
