@@ -8,6 +8,10 @@ from .models import *
 class MessageAdmin(admin.ModelAdmin):
     list_per_page = 30
 
+class NotificationAdmin(admin.ModelAdmin):
+    list_per_page = 30
+
 admin.site.register(Message,MessageAdmin)
+admin.site.register(Notification,NotificationAdmin)
 
 

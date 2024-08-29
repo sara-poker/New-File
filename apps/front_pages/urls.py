@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import FrontPagesView, GetAllVpn, AddItem, AddRecord
+from .views import FrontPagesView, GetAllVpn, AddItem, AddRecord, GetAllRecord
 
 urlpatterns = [
     path(
@@ -51,5 +51,10 @@ urlpatterns = [
         "api/addRecord",
         AddRecord.as_view(),
         name="add-item",
+    ),
+    path(
+        "api/getAllRecord",
+        GetAllRecord.as_view(),
+        name="get-all-record",
     )
 ]

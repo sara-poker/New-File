@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{% static 'vendor/libs/datatables-bs5/datatables.bootstrap5.css' %}" />
   <link rel="stylesheet" href="{% static 'vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css' %}" />
   <link rel="stylesheet" href="{% static 'vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/libs/spinkit/spinkit.css' %}" />
 {% endblock vendor_css %}
 
 {% block vendor_js %}
@@ -40,6 +41,14 @@
       color: #555 !important;
     }
 
+
+    .mzloading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
     #chartdiv2 {
       margin: 0 auto;
       width: 95%;
@@ -63,13 +72,6 @@
       font-weight: bold !important;
     }
 
-    td img {
-      transition: all .3s;
-    }
-
-    td img:hover {
-      opacity: .7;
-    }
 
     .card-header-mz {
       padding: 15px 15px 0;
@@ -91,6 +93,13 @@
       border-radius: 30px;
     }
 
+    #alert_mo {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      border: 1.5px solid #1ab8cc;
+      z-index: 5000;
+    }
 
   </style>
 {% endblock page_css %}
@@ -361,6 +370,116 @@
 
     }); // end am5.ready()
   </script>
+
+  <script>
+    async function fetchData() {
+      try {
+        const response = await fetch(`${window.location.origin}/api/getAllRecord`);
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    async function populateTable() {
+      const data = await fetchData();
+      const tableBody = document.querySelector('table.datatables-direct-basic tbody');
+      tableBody.innerHTML = ''; // پاک کردن محتواهای قبلی
+
+      // برعکس کردن ترتیب داده‌ها
+      data.slice(0, 12).reverse().forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.name2}.png" width="32"></td>
+          <td>${item.vpn_name.substring(0, 23)}</td>
+          <td>${translateOperator(item.oprator)}</td>
+          <td>${item.city}</td>
+          <td>${translateStatus(item.status)}</td>
+          <td>${item.date}</td>
+          <td>${item.time}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function translateOperator(operator) {
+      switch (operator) {
+        case 'Irancell':
+          return 'ایرانسل';
+        case 'MCI':
+          return 'همراه اول';
+        case 'TCI':
+          return 'مخابرات';
+        case 'RighTel':
+          return 'رایتل';
+        default:
+          return '';
+      }
+    }
+
+    function translateStatus(status) {
+      switch (status) {
+        case 'Filter':
+          return '<span class="badge bg-label-success">فیلتر</span>';
+        case 'Without Filter':
+          return '<span class="badge bg-label-danger">بدون فیلتر</span>';
+        default:
+          return '';
+      }
+    }
+
+    async function updateTablePeriodically() {
+      let data = await fetchData();
+      let index = 12; // شروع از رکورد سیزدهم
+
+      function updateTable() {
+        if (index >= data.length) index = 0; // اگر به انتهای داده‌ها رسیدیم، برگرد به اول
+
+        const tableBody = document.querySelector('table.datatables-direct-basic tbody');
+        const newRow = document.createElement('tr');
+        const item = data[index];
+
+        // نمایش لودینگ
+        $('.mzloading').show();
+
+        newRow.innerHTML = `
+          <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.name2}.png" width="32"></td>
+          <td>${item.vpn_name.substring(0, 23)}</td>
+          <td>${translateOperator(item.oprator)}</td>
+          <td>${item.city}</td>
+          <td>${translateStatus(item.status)}</td>
+          <td>${item.date}</td>
+          <td>${item.time}</td>
+        `;
+
+        tableBody.insertBefore(newRow, tableBody.firstChild); // رکورد جدید رو به اول اضافه کن
+        if (tableBody.rows.length > 12) {
+          tableBody.deleteRow(tableBody.rows.length - 1); // اگر بیش از ۱۲ رکورد شد، آخری رو حذف کن
+        }
+
+        // پنهان کردن لودینگ بعد از نیم ثانیه
+        setTimeout(function() {
+          $('.mzloading').hide();
+        }, 700);
+
+        index++; // برو به رکورد بعدی
+        const randomInterval = Math.floor(Math.random() * (12000 - 9000 + 1)) + 9000;
+        setTimeout(updateTable, randomInterval); // به‌روزرسانی بعدی با زمان تصادفی
+      }
+
+      updateTable(); // اولین بار اجرا
+    }
+
+    $(document).ready(function() {
+      $('.mzloading').hide(); // مخفی کردن لودینگ در ابتدا
+      populateTable(); // اولین بار جدول رو پر می‌کنیم
+      updateTablePeriodically();
+    });
+  </script>
+
+
+
 {% endblock page_js %}
 
 {% block content %}
@@ -372,60 +491,24 @@
         <h5 class="card-header"> آخرین تست های انجام شده</h5>
         <div class="card-datatable table-responsive pt-0 w-100">
           <table class="datatables-direct-basic table">
+            <div class="container-fluid h-100 mzloading">
+              <div class="sk-bounce sk-primary">
+                <div class="sk-bounce-dot"></div>
+                <div class="sk-bounce-dot"></div>
+              </div>
+            </div>
             <thead>
             <tr>
               <th>آیکون</th>
               <th>نام</th>
               <th>اپراتور</th>
+              <th>استان</th>
               <th>وضعیت</th>
               <th>تاریخ</th>
               <th>ساعت</th>
             </tr>
             </thead>
             <tbody>
-            {% for item in last_test %}
-
-              <tr>
-                <td>
-                  <a href="/report/vpn/{{ item.vpn.id }}"><img alt="User" class="rounded-circle"
-                                                               src="static/img/vpnIcon/{{ item.vpn.name2 }}.png"
-                                                               width="32"></a>
-                </td>
-                <td>
-                  <a href="/report/vpn/{{ item.vpn.id }}">{{ item.vpn.name }}</a>
-                </td>
-                <td>
-                  {% if item.oprator == "Irancell" %}
-                    ایرانسل
-                  {% endif %}
-                  {% if item.oprator == "MCI" %}
-                    همراه اول
-                  {% endif %}
-                  {% if item.oprator == "TCI" %}
-                    مخابرات
-                  {% endif %}
-                  {% if item.oprator == "RighTel" %}
-                    رایتل
-                  {% endif %}
-                </td>
-                <td>
-                  {% if item.status == "Filter" %}
-                    {#                    فیلتر#}
-                    <span class="badge  bg-label-success">فیلتر</span>
-                  {% endif %}
-                  {% if item.status == "Without Filter" %}
-                    {#                    بدون فیلتر#}
-                    <span class="badge  bg-label-danger">بدون فیلتر</span>
-                  {% endif %}
-                </td>
-                <td>
-                  {{ item.date }}
-                </td>
-                <td>
-                  {{ item.time }}
-                </td>
-              </tr>
-            {% endfor %}
             </tbody>
           </table>
         </div>
@@ -723,6 +806,11 @@
 
     </div>
   </div>
-
+  {% if notification_bool %}
+    <div id="alert_mo" class="alert alert-info alert-dismissible" role="alert"> اعلان جدیدی دریافت کرده اید! <a
+      class="alert-link" href="{% url "notification" %}">دیدن اعلان ها</a>
+      <button aria-label="بستن" class="btn-close" data-bs-dismiss="alert" type="button"></button>
+    </div>
+  {% endif %}
 {% endblock content %}
 

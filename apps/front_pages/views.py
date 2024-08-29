@@ -60,7 +60,7 @@ class GetAllVpn(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        vpn = Vpn.objects.exclude(platform="Telegram")
+        vpn = Vpn.objects.exclude(platform="Telegram").order_by("id")
         selected_country = self.request.GET.get('country')
         selected_country_server = self.request.GET.get('server_country')
 
@@ -188,3 +188,13 @@ class AddRecord(APIView):
             return Response(online_test_serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(online_test_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetAllRecord(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        online_test = OnlineTest.objects.all().order_by('-id')[:50]
+        online_test = online_test[::-1]
+        online_test_serializer = OnlineTestGetSerializer(online_test, many=True)
+        return Response(online_test_serializer.data, status=status.HTTP_200_OK)
