@@ -66,7 +66,7 @@ class Command(BaseCommand):
                     server_Longitude=data[23] if not pd.isna(data[23]) else None,
                     ping_speed=ping,
                     ttl=ttl,
-                    proxy_port=data[31] if not pd.isna(data[31]) else None,
+                    proxy_port= data[31] if len(data) > 31 and not pd.isna(data[31]) else None,
                     proxy_secret=data[32] if not pd.isna(data[32]) else None,
                 )
 
