@@ -52,16 +52,21 @@ menu_file = {
 
             ]
         },
-{
+        {
             "name": "پشتیبانی",
             "icon": "menu-icon tf-icons ti ti-help",
             "slug": "support",
-            "submenu":[
+            "submenu": [
                 {
                     "url": "support",
                     "name": "ارسال تیکت",
                     "slug": "support"
                 },
+                {
+                    "url": "notification",
+                    "name": "اعلان ها",
+                    "slug": "notification"
+                }
             ]
         }
     ]
@@ -117,12 +122,17 @@ menu_file2 = {
             "name": "پشتیبانی",
             "icon": "menu-icon tf-icons ti ti-help",
             "slug": "support",
-            "submenu":[
+            "submenu": [
                 {
                     "url": "all_ticket",
                     "name": "تیکت ها",
                     "slug": "all_ticket"
                 },
+                {
+                    "url": "notification",
+                    "name": "اعلان ها",
+                    "slug": "notification"
+                }
             ]
         }
     ]

@@ -2,7 +2,6 @@ from django.urls import path
 from .views import *
 from django.contrib.auth.decorators import login_required
 
-
 urlpatterns = [
 
     path(
@@ -19,6 +18,13 @@ urlpatterns = [
         "ticket/support",
         login_required(UserView.as_view(template_name="support.html")),
         name="support",
-    )
-
+    ),
+    path(
+        "notification",
+        login_required(NotificationView.as_view(template_name="notification.html")),
+        name="notification",
+    ),
+    path('notification/update-status',
+         login_required(UpdateNotificationStatusView.as_view()),
+         name='update_notification_status')
 ]

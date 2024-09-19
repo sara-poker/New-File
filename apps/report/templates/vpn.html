@@ -195,8 +195,7 @@
       if (dt_basic_table.length) {
         dt_basic = dt_basic_table.DataTable({
           ajax: {
-            url: 'http://localhost:8000/api/getAllVpn?country={{ selected_country }}&server_country={{ selected_country_server }}', // لینک API
-            // url: 'http://isadid.com/api/getAllVpn?country={{ selected_country }}&server_country={{ selected_country_server }}', // لینک API/
+            url: window.location.origin + '/api/getAllVpn?country={{ selected_country }}&server_country={{ selected_country_server }}', // لینک API/
             dataSrc: '' // اگر پاسخ API به صورت لیستی از اشیاء JSON است، این گزینه را خالی بگذارید
           },
           language: {
