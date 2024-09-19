@@ -400,7 +400,7 @@ class VpnByIdView(TemplateView):
             original_name = item.name
             modified_name = original_name.replace(' ', '')
             item.name2 = modified_name
-
+        # s
         context['country_server'] = country_server
         context['country'] = country
 
