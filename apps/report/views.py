@@ -105,7 +105,7 @@ class ReportDashboardsView(TemplateView):
 
         best_vpn_id = max(vpn_dict, key=vpn_dict.get)
         best_vpn = Vpn.objects.filter(pk=best_vpn_id).first()
-        best_isp = test.values('server_isp').annotate(count=Count('id')).exclude(server_isp='nan').order_by(
+        best_isp = test.values('server_isp').annotate(count=Count('id')).exclude(server_isp=None).order_by(
             '-count').first()
 
         best_oprator = test.values('oprator').annotate(count=Count('id')).exclude(status="Filter").order_by(
@@ -291,7 +291,7 @@ class IspView(TemplateView):
     # Predefined function
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
-        test = Test.objects
+        test = Test.objects.exclude(server_isp=None)
         vpn = Vpn.objects.filter()
 
         country_server_id = list(test.values_list('server_country', flat=True).distinct())
