@@ -105,7 +105,7 @@ class ReportDashboardsView(TemplateView):
 
         best_vpn_id = max(vpn_dict, key=vpn_dict.get)
         best_vpn = Vpn.objects.filter(pk=best_vpn_id).first()
-        best_isp = test.values('server_isp').annotate(count=Count('id')).exclude(server_isp='nan').order_by(
+        best_isp = test.values('server_isp').annotate(count=Count('id')).exclude(server_isp=None).order_by(
             '-count').first()
 
         best_oprator = test.values('oprator').annotate(count=Count('id')).exclude(status="Filter").order_by(
@@ -291,7 +291,7 @@ class IspView(TemplateView):
     # Predefined function
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
-        test = Test.objects
+        test = Test.objects.exclude(server_isp=None)
         vpn = Vpn.objects.filter()
 
         country_server_id = list(test.values_list('server_country', flat=True).distinct())
@@ -383,25 +383,18 @@ class VpnByIdView(TemplateView):
         if selected_date_str:
             tests = filter_date(selected_date_str, tests)
 
-        server_ips = set(tests.values_list('server_ip', flat=True).distinct())
-        server_ips = list(server_ips)
-        server_ips = [ip for ip in server_ips if ip != 'nan']
+        server_ips = list(tests.values_list('server_ip', flat=True).exclude(server_ip__isnull=True).distinct())
         server_ip_count = len(server_ips)
 
-        server_isps = set(tests.values_list('server_isp', flat=True).distinct())
-        server_isps = list(server_isps)
-        server_isps = [ip for ip in server_isps if ip != 'nan']
+        server_isps = list(tests.values_list('server_isp', flat=True).exclude(server_isp__isnull=True).distinct())
         server_isp_count = len(server_isps)
 
-        server_regions = set(tests.values_list('server_region', flat=True).distinct())
-        server_regions = list(server_regions)
-        server_regions = [ip for ip in server_regions if ip != 'nan']
+        server_regions = list(
+            tests.values_list('server_region', flat=True).exclude(server_region__isnull=True).distinct())
         server_region_count = len(server_regions)
 
-        server_countries_id = list(tests.values_list('server_country', flat=True).distinct())
-        server_countries_id = [ip for ip in server_countries_id if ip != 166]
-        server_countries = Country.objects.filter(id__in=server_countries_id)
-        server_country_count = len(server_countries)
+        server_countries = Country.objects.filter(id__in=tests.values_list('server_country', flat=True).distinct())
+        server_country_count = server_countries.count()
 
         for item in vpn:
             original_name = item.name
