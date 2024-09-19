@@ -51,7 +51,7 @@ class Command(BaseCommand):
                 Test.objects.create(
                     date=int(data[0]) if not pd.isna(data[0]) else None,
                     time=data[7] if not pd.isna(data[7]) else None,
-                    city=data[8] if not pd.isna(data[8]) else None,
+                    city=data[8].encode('utf-8', 'ignore').decode('utf-8') if not pd.isna(data[8]) else None,
                     vpn=vpn,
                     oprator=data[12] if not pd.isna(data[12]) else None,
                     status=data[14] if not pd.isna(data[14]) else None,
@@ -66,7 +66,7 @@ class Command(BaseCommand):
                     server_Longitude=data[23] if not pd.isna(data[23]) else None,
                     ping_speed=ping,
                     ttl=ttl,
-                    proxy_port= data[31] if len(data) > 31 and not pd.isna(data[31]) else None,
+                    proxy_port=data[31] if len(data) > 31 and not pd.isna(data[31]) else None,
                     proxy_secret=data[32] if not pd.isna(data[32]) else None,
                 )
 
