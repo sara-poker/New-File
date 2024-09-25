@@ -47,10 +47,12 @@ class Command(BaseCommand):
                 server_country, country_created = Country.objects.get_or_create(
                     name=server_country_name) if server_country_name else (None, False)
 
+
+
                 # ایجاد Test
                 Test.objects.create(
                     date=int(data[0]) if not pd.isna(data[0]) else None,
-                    time=data[7] if not pd.isna(data[7]) else None,
+                    time="00:00:00",
                     city=data[8].encode('utf-8', 'ignore').decode('utf-8') if not pd.isna(data[8]) else None,
                     vpn=vpn,
                     oprator=data[12] if not pd.isna(data[12]) else None,
