@@ -32,7 +32,7 @@ class Command(BaseCommand):
 
                     # ایجاد یا دریافت VPN
                     vpn, vpn_created = Vpn.objects.get_or_create(
-                        name=name,
+                        name=name.encode('utf-8', 'ignore').decode('utf-8') ,
                         defaults={
                             "platform": platform,
                             "vpn_maker": vpn_maker,
@@ -52,7 +52,7 @@ class Command(BaseCommand):
                     # ایجاد Test
                     Test.objects.create(
                         date=int(data[0]) if not pd.isna(data[0]) else None,
-                        time="00:00:00",
+                        time=data[7],
                         city=data[8].encode('utf-8', 'ignore').decode('utf-8') if not pd.isna(data[8]) else None,
                         vpn=vpn,
                         oprator=data[12] if not pd.isna(data[12]) else None,
