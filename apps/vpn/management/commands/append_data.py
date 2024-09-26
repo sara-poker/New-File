@@ -6,6 +6,7 @@ from apps.vpn.models import Vpn, Country, Isp, Test
 from apps.ticket.models import Notification  # مسیر صحیح مدل Notification
 from django.contrib.auth.models import User
 
+
 class Command(BaseCommand):
     help = 'Your help message for this command'
 
@@ -13,7 +14,7 @@ class Command(BaseCommand):
         # خواندن داده‌ها از فایل اکسل
         excel_data = pd.read_excel(BASE_DIR / 'data.xlsx').fillna(value=pd.NA).values.tolist()
         count_data = len(excel_data)
-
+        err_count = 0
         for counter, data in enumerate(excel_data, start=1):
             try:
                 with transaction.atomic():
@@ -35,7 +36,8 @@ class Command(BaseCommand):
                         defaults={
                             "platform": platform,
                             "vpn_maker": vpn_maker,
-                            "vpn_country": Country.objects.get_or_create(name=country_name)[0] if country_name else None,
+                            "vpn_country": Country.objects.get_or_create(name=country_name)[
+                                0] if country_name else None,
                             "vpn_normal_user_fee": vpn_normal_user_fee
                         }
                     )
@@ -100,4 +102,7 @@ class Command(BaseCommand):
 
             except Exception as e:
                 self.stdout.write(self.style.ERROR(f"Error processing row {counter}: {e}"))
+                err_count += 1
                 continue  # ادامه به ردیف بعدی در صورت بروز خطا
+
+        print("the count of Error>>", err_count)
