@@ -4,8 +4,6 @@ from apps.vpn.models import *
 from apps.ticket.models import *
 
 from django.db.models import Count
-import random
-
 
 def convert_date(date):
     date = date.replace(" ", "")
