@@ -214,7 +214,13 @@
                 var name = full['name'];
                 var name2 = full['name2'];
                 if (id) {
-                  return '<a href="/report/vpn/' + id + '"><img src="' + assetsPath + 'img/vpnIcon/' + name2 + '.png' + '" alt="Avatar" width="60" class="rounded-circle"></a>';
+                  return (
+                    '<a href="/report/vpn/' + id + '">' +
+                    '<img src="' + assetsPath + 'img/vpnIcon/' + name2 + '.png' + '" ' +
+                    'alt="Avatar" width="60" class="rounded-circle" ' +
+                    'onerror="this.onerror=null; this.src=\'' + assetsPath + 'img/vpnIcon/default.png\';">' +
+                    '</a>'
+                  );
                 } else {
                   return '';
                 }
