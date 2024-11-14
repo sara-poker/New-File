@@ -4,7 +4,6 @@ from apps.vpn.models import *
 from apps.ticket.models import *
 
 from django.db.models import Count
-import random
 
 
 def convert_date(date):
@@ -114,9 +113,8 @@ class ReportDashboardsView(TemplateView):
         test = test.exclude(vpn__vpn_country=None)
         best_country_id = test.values('vpn__vpn_country').annotate(count=Count('id')).exclude(
             status="Filter").order_by(
-            '-count')[1]
+            '-count')[0]
 
-        print(">", best_country_id)
         best_country = Country.objects.get(id=best_country_id['vpn__vpn_country'])
 
         for item in last_test:
@@ -310,8 +308,6 @@ class IspView(TemplateView):
         if selected_date_str:
             test = filter_date_year(selected_date_str, test)
 
-        print("count>>", test.count())
-
         if selected_vpn:
             test = filter_vpn(selected_vpn, test)
 
@@ -321,10 +317,8 @@ class IspView(TemplateView):
         if selected_country:
             test = filter_country(selected_country, test)
 
-        isp = list(test.values_list('server_isp', flat=True).distinct())
-        isp = [item for item in isp if item != 'nan']
-        isp_list = Isp.objects.filter(name__in=isp)
-
+        main_isp = Isp.objects.filter(pk=self.kwargs['pk'])[0]
+        main_isp.name2 = main_isp.name.replace(" ", "")
         test_data = test.values('server_isp', 'server_country__name').annotate(server_count=Count('id')).exclude(
             server_isp='nan')
 
@@ -339,10 +333,31 @@ class IspView(TemplateView):
                 data[isp] = {}
             data[isp][country_m] = count
 
+        test = test.filter(server_isp=main_isp.name)
+
+        isp_ip = test.values('server_ip').distinct()
+        isp_country = test.values('server_country__persian_name').distinct()
+        isp_vpn = test.values('vpn__name').distinct()
+
+
+        count_ip = isp_ip.count()
+        count_country = isp_country.count()
+        count_vpn = isp_vpn.count()
+
+
         context['vpn'] = vpn
         context['country_server'] = country_server
         context['country'] = country
         context['data'] = data
+        context['isp'] = main_isp
+
+        context['isp_ip'] = isp_ip
+        context['isp_vpn'] = isp_vpn
+        context['isp_country'] = isp_country
+
+        context['count_ip'] = count_ip
+        context['count_country'] = count_country
+        context['count_vpn'] = count_vpn
 
         context['selected_date'] = selected_date_str
         context['selected_country_server'] = selected_country_server
@@ -400,7 +415,7 @@ class VpnByIdView(TemplateView):
             original_name = item.name
             modified_name = original_name.replace(' ', '')
             item.name2 = modified_name
-
+        # s
         context['country_server'] = country_server
         context['country'] = country
 

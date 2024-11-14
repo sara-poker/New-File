@@ -35,7 +35,8 @@ menu_file = {
                     "slug": "dashboard-analytics"
                 },
                 {
-                    "url": "isp",
+                    "url": "/report/isp/1",
+                    "external": True,
                     "name": "ارائه دهندگان خدمات اینترنتی",
                     "slug": "dashboard-analytics"
                 },
@@ -101,7 +102,8 @@ menu_file2 = {
                     "slug": "dashboard-analytics"
                 },
                 {
-                    "url": "isp",
+                    "url": "/report/isp/1",
+                    "external": True,
                     "name": "ارائه دهندگان خدمات اینترنتی",
                     "slug": "dashboard-analytics"
                 },

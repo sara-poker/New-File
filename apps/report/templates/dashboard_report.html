@@ -391,13 +391,12 @@
       data.slice(0, 12).reverse().forEach(item => {
         const row = document.createElement('tr');
         row.innerHTML = `
-          <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.name2}.png" width="32"></td>
+          <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.name2}.png" width="32" onerror="this.onerror=null; this.src=\'' + assetsPath + 'img/vpnIcon/default.png\';" ></td>
           <td>${item.vpn_name.substring(0, 23)}</td>
           <td>${translateOperator(item.oprator)}</td>
           <td>${item.city}</td>
           <td>${translateStatus(item.status)}</td>
           <td>${item.date}</td>
-          <td>${item.time}</td>
         `;
         tableBody.appendChild(row);
       });
@@ -450,7 +449,6 @@
           <td>${item.city}</td>
           <td>${translateStatus(item.status)}</td>
           <td>${item.date}</td>
-          <td>${item.time}</td>
         `;
 
         tableBody.insertBefore(newRow, tableBody.firstChild); // رکورد جدید رو به اول اضافه کن
@@ -505,7 +503,6 @@
               <th>استان</th>
               <th>وضعیت</th>
               <th>تاریخ</th>
-              <th>ساعت</th>
             </tr>
             </thead>
             <tbody>

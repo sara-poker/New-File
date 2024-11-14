@@ -23,9 +23,8 @@ urlpatterns = [
         login_required(VpnCtreatorView.as_view(template_name="vpn_ctreator.html")),
         name="vpn_ctreator",
     ),
-
     path(
-        "report/isp",
+        "report/isp/<int:pk>",
         login_required(IspView.as_view(template_name="isp.html")),
         name="isp",
     ),

@@ -6,7 +6,10 @@ $(function() {
 
   if (dt_basic_table.length) {
     dt_basic = dt_basic_table.DataTable({
-      ajax: assetsPath + 'json/isp_table.json',
+      ajax: {
+        url: window.location.origin + '/api/getAllISP', // لینک API/
+        dataSrc: '' // اگر پاسخ API به صورت لیستی از اشیاء JSON است، این گزینه را خالی بگذارید
+      },
       language: {
         url: assetsPath + 'json/i18n/datatables-bs5/fa.json'
       },
@@ -20,8 +23,16 @@ $(function() {
           responsivePriority: 1,
           render: function(data, type, full, meta) {
             var id = full['id'];
+            var name = full['name'];
+            var name2 = full['name2'];
             if (id) {
-              return '<a href="#"><img src="' + assetsPath + 'img/ispLOGO/RGB/' + id + ".png" + '" alt="Avatar" width="60" class="rounded-circle"></a>';
+              return (
+                    '<a href="/report/isp/' + id + '">' +
+                    '<img src="' + assetsPath + 'img/ispLOGO/RGB/' + name2 + '.png' + '" ' +
+                    'alt="Avatar" width="60" class="rounded-circle" ' +
+                    'onerror="this.onerror=null; this.src=\'' + assetsPath + 'img/vpnIcon/default.png\';">' +
+                    '</a>'
+                  );
             } else {
               return '';
             }
@@ -31,7 +42,7 @@ $(function() {
           // For vpn Name with link
           data: 'name',
           render: function(data, type, full, meta) {
-            return  data ;
+            return data;
           }
         }
       ],

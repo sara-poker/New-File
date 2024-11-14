@@ -456,7 +456,7 @@ eval("//! moment.js locale configuration\n//! locale : Basque [eu]\n//! author :
   \******************************************/
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
-eval("//! moment.js locale configuration\n//! locale : Persian [fa]\n//! author : Ebrahim Byagowi : https://github.com/ebraminio\n\n;(function (global, factory) {\n    true ? factory(__webpack_require__(/*! ../moment */ \"./node_modules/moment/moment.js\")) :\n   0\n}(this, (function (moment) { 'use strict';\n\n    //! moment.js locale configuration\n\n    var symbolMap = {\n            1: '۱',\n            2: '۲',\n            3: '۳',\n            4: '۴',\n            5: '۵',\n            6: '۶',\n            7: '۷',\n            8: '۸',\n            9: '۹',\n            0: '۰',\n        },\n        numberMap = {\n            '۱': '1',\n            '۲': '2',\n            '۳': '3',\n            '۴': '4',\n            '۵': '5',\n            '۶': '6',\n            '۷': '7',\n            '۸': '8',\n            '۹': '9',\n            '۰': '0',\n        };\n\n    var fa = moment.defineLocale('fa', {\n        months: 'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split(\n            '_'\n        ),\n        monthsShort:\n            'ژانویه_فوریه_مارس_آوریل_مه_ژوئن_ژوئیه_اوت_سپتامبر_اکتبر_نوامبر_دسامبر'.split(\n                '_'\n            ),\n        weekdays:\n            'یک\\u200cشنبه_دوشنبه_سه\\u200cشنبه_چهارشنبه_پنج\\u200cشنبه_جمعه_شنبه'.split(\n                '_'\n            ),\n        weekdaysShort:\n            'یک\\u200cشنبه_دوشنبه_سه\\u200cشنبه_چهارشنبه_پنج\\u200cشنبه_جمعه_شنبه'.split(\n                '_'\n            ),\n        weekdaysMin: 'ی_د_س_چ_پ_ج_ش'.split('_'),\n        weekdaysParseExact: true,\n        longDateFormat: {\n            LT: 'HH:mm',\n            LTS: 'HH:mm:ss',\n            L: 'DD/MM/YYYY',\n            LL: 'D MMMM YYYY',\n            LLL: 'D MMMM YYYY HH:mm',\n            LLLL: 'dddd, D MMMM YYYY HH:mm',\n        },\n        meridiemParse: /قبل از ظهر|بعد از ظهر/,\n        isPM: function (input) {\n            return /بعد از ظهر/.test(input);\n        },\n        meridiem: function (hour, minute, isLower) {\n            if (hour < 12) {\n                return 'قبل از ظهر';\n            } else {\n                return 'بعد از ظهر';\n            }\n        },\n        calendar: {\n            sameDay: '[امروز ساعت] LT',\n            nextDay: '[فردا ساعت] LT',\n            nextWeek: 'dddd [ساعت] LT',\n            lastDay: '[دیروز ساعت] LT',\n            lastWeek: 'dddd [پیش] [ساعت] LT',\n            sameElse: 'L',\n        },\n        relativeTime: {\n            future: 'در %s',\n            past: '%s پیش',\n            s: 'چند ثانیه',\n            ss: '%d ثانیه',\n            m: 'یک دقیقه',\n            mm: '%d دقیقه',\n            h: 'یک ساعت',\n            hh: '%d ساعت',\n            d: 'یک روز',\n            dd: '%d روز',\n            M: 'یک ماه',\n            MM: '%d ماه',\n            y: 'یک سال',\n            yy: '%d سال',\n        },\n        preparse: function (string) {\n            return string\n                .replace(/[۰-۹]/g, function (match) {\n                    return numberMap[match];\n                })\n                .replace(/،/g, ',');\n        },\n        postformat: function (string) {\n            return string\n                .replace(/\\d/g, function (match) {\n                    return symbolMap[match];\n                })\n                .replace(/,/g, '،');\n        },\n        dayOfMonthOrdinalParse: /\\d{1,2}م/,\n        ordinal: '%dم',\n        week: {\n            dow: 6, // Saturday is the first day of the week.\n            doy: 12, // The week that contains Jan 12th is the first week of the year.\n        },\n    });\n\n    return fa;\n\n})));\n\n\n//# sourceURL=webpack://Vuexy/./node_modules/moment/locale/fa.js?");
+eval("//! moment.js locale configuration\n//! locale : Persian [fa]\n//! author : Ebrahim Byagowi : https://github.com/ebraminio\n\n;(function (global, factory) {\n    true ? factory(__webpack_require__(/*! ../moment */ \"./node_modules/moment/moment.js\")) :\n   0\n}(this, (function (moment) { 'use strict';\n\n    //! moment.js locale configuration\n\n    var symbolMap = {\n            1: '۱',\n            2: '۲',\n            3: '۳',\n            4: '۴',\n            5: '۵',\n            6: '۶',\n            7: '۷',\n            8: '۸',\n            9: '۹',\n            0: '۰',\n        },\n        numberMap = {\n            '۱': '1',\n            '۲': '2',\n            '۳': '3',\n            '۴': '4',\n            '۵': '5',\n            '۶': '6',\n            '۷': '7',\n            '۸': '8',\n            '۹': '9',\n            '۰': '0',\n        };\n\n    var fa = moment.defineLocale('fa', {\n        months: 'فروردین_اردیبهشت_خرداد_تیر_مرداد_شهریور_مهر_آبان_آذر_دی_بهمن_اسفند'.split(\n            '_'\n        ),\n        monthsShort:\n            'فروردین_اردیبهشت_خرداد_تیر_مرداد_شهریور_مهر_آبان_آذر_دی_بهمن_اسفند'.split(\n                '_'\n            ),\n        weekdays:\n            'یک\\u200cشنبه_دوشنبه_سه\\u200cشنبه_چهارشنبه_پنج\\u200cشنبه_جمعه_شنبه'.split(\n                '_'\n            ),\n        weekdaysShort:\n            'یک\\u200cشنبه_دوشنبه_سه\\u200cشنبه_چهارشنبه_پنج\\u200cشنبه_جمعه_شنبه'.split(\n                '_'\n            ),\n        weekdaysMin: 'ی_د_س_چ_پ_ج_ش'.split('_'),\n        weekdaysParseExact: true,\n        longDateFormat: {\n            LT: 'HH:mm',\n            LTS: 'HH:mm:ss',\n            L: 'DD/MM/YYYY',\n            LL: 'D MMMM YYYY',\n            LLL: 'D MMMM YYYY HH:mm',\n            LLLL: 'dddd, D MMMM YYYY HH:mm',\n        },\n        meridiemParse: /قبل از ظهر|بعد از ظهر/,\n        isPM: function (input) {\n            return /بعد از ظهر/.test(input);\n        },\n        meridiem: function (hour, minute, isLower) {\n            if (hour < 12) {\n                return 'قبل از ظهر';\n            } else {\n                return 'بعد از ظهر';\n            }\n        },\n        calendar: {\n            sameDay: '[امروز ساعت] LT',\n            nextDay: '[فردا ساعت] LT',\n            nextWeek: 'dddd [ساعت] LT',\n            lastDay: '[دیروز ساعت] LT',\n            lastWeek: 'dddd [پیش] [ساعت] LT',\n            sameElse: 'L',\n        },\n        relativeTime: {\n            future: 'در %s',\n            past: '%s پیش',\n            s: 'چند ثانیه',\n            ss: '%d ثانیه',\n            m: 'یک دقیقه',\n            mm: '%d دقیقه',\n            h: 'یک ساعت',\n            hh: '%d ساعت',\n            d: 'یک روز',\n            dd: '%d روز',\n            M: 'یک ماه',\n            MM: '%d ماه',\n            y: 'یک سال',\n            yy: '%d سال',\n        },\n        preparse: function (string) {\n            return string\n                .replace(/[۰-۹]/g, function (match) {\n                    return numberMap[match];\n                })\n                .replace(/،/g, ',');\n        },\n        postformat: function (string) {\n            return string\n                .replace(/\\d/g, function (match) {\n                    return symbolMap[match];\n                })\n                .replace(/,/g, '،');\n        },\n        dayOfMonthOrdinalParse: /\\d{1,2}م/,\n        ordinal: '%dم',\n        week: {\n            dow: 6, // Saturday is the first day of the week.\n            doy: 12, // The week that contains Jan 12th is the first week of the year.\n        },\n    });\n\n    return fa;\n\n})));\n\n\n//# sourceURL=webpack://Vuexy/./node_modules/moment/locale/fa.js?");
 
 /***/ }),
 
@@ -1404,7 +1404,7 @@ eval("/* module decorator */ module = __webpack_require__.nmd(module);\n//! mome
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -1418,17 +1418,17 @@ eval("/* module decorator */ module = __webpack_require__.nmd(module);\n//! mome
 /******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 	
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
@@ -1441,7 +1441,7 @@ eval("/* module decorator */ module = __webpack_require__.nmd(module);\n//! mome
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -1453,12 +1453,12 @@ eval("/* module decorator */ module = __webpack_require__.nmd(module);\n//! mome
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -1469,7 +1469,7 @@ eval("/* module decorator */ module = __webpack_require__.nmd(module);\n//! mome
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
 /******/ 		__webpack_require__.nmd = (module) => {
@@ -1478,14 +1478,14 @@ eval("/* module decorator */ module = __webpack_require__.nmd(module);\n//! mome
 /******/ 			return module;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /************************************************************************/
-/******/ 	
+/******/
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = __webpack_require__("./libs/moment/moment.js");
-/******/ 	
+/******/
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;
