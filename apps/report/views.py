@@ -335,9 +335,13 @@ class IspView(TemplateView):
 
         test = test.filter(server_isp=main_isp.name)
 
-        count_ip = test.values('server_ip').distinct().count()
-        count_country = test.values('server_country').distinct().count()
-        count_vpn = test.values('vpn').distinct().count()
+        isp_ip = test.values('server_ip').distinct()
+        isp_country = test.values('server_country').distinct()
+        isp_vpn = test.values('vpn').distinct()
+
+        count_ip = isp_ip.count()
+        count_country = isp_country.count()
+        count_vpn = isp_vpn.count()
 
 
         context['vpn'] = vpn
@@ -345,6 +349,10 @@ class IspView(TemplateView):
         context['country'] = country
         context['data'] = data
         context['isp'] = main_isp
+
+        context['isp_ip'] = isp_ip
+        context['isp_vpn'] = isp_vpn
+        context['isp_country'] = isp_country
 
         context['count_ip'] = count_ip
         context['count_country'] = count_country
