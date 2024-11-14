@@ -463,7 +463,7 @@
                         '<a href="/report/isp/' + id + '">' +
                         '<img src="' + assetsPath + 'img/ispLogo/RGB/' + name2 + '.png' + '" ' +
                         'alt="Avatar" width="60" class="rounded-circle" ' +
-                        {#'onerror="this.onerror=null; this.src=\'' + assetsPath + 'img/vpnIcon/default.png\';">' +#}
+                        'onerror="this.onerror=null; this.src=\'' + assetsPath + 'img/vpnIcon/default.png\';">' +
                         '</a>'
                       );
                     } else {
@@ -682,7 +682,7 @@
                       <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
                         <img src="{% static 'img/ispLogo/RGB/' %}{{ isp.name2 }}.png"
                              alt="user image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img"
-{#                             onerror="this.onerror=null; this.src='{% static 'img/vpnIcon/default.png' %}';"#}
+                             onerror="this.onerror=null; this.src='{% static 'img/vpnIcon/default.png' %}';"
                         >
                       </div>
                       <div class="flex-grow-1 mt-3 mt-sm-5">
