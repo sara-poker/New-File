@@ -5,6 +5,7 @@ from apps.ticket.models import *
 
 from django.db.models import Count
 
+
 def convert_date(date):
     date = date.replace(" ", "")
     year = date[:4]
@@ -307,8 +308,6 @@ class IspView(TemplateView):
         if selected_date_str:
             test = filter_date_year(selected_date_str, test)
 
-
-
         if selected_vpn:
             test = filter_vpn(selected_vpn, test)
 
@@ -319,7 +318,7 @@ class IspView(TemplateView):
             test = filter_country(selected_country, test)
 
         main_isp = Isp.objects.filter(pk=self.kwargs['pk'])[0]
-        main_isp.name2 = main_isp.name.replace(" ","")
+        main_isp.name2 = main_isp.name.replace(" ", "")
         test_data = test.values('server_isp', 'server_country__name').annotate(server_count=Count('id')).exclude(
             server_isp='nan')
 
@@ -334,11 +333,22 @@ class IspView(TemplateView):
                 data[isp] = {}
             data[isp][country_m] = count
 
+        test = test.filter(server_isp=main_isp.name)
+
+        count_ip = test.values('server_ip').distinct().count()
+        count_country = test.values('server_country').distinct().count()
+        count_vpn = test.values('vpn').distinct().count()
+
+
         context['vpn'] = vpn
         context['country_server'] = country_server
         context['country'] = country
         context['data'] = data
         context['isp'] = main_isp
+
+        context['count_ip'] = count_ip
+        context['count_country'] = count_country
+        context['count_vpn'] = count_vpn
 
         context['selected_date'] = selected_date_str
         context['selected_country_server'] = selected_country_server

@@ -413,133 +413,128 @@
     }(jQuery));
 
     $('#cuntry_number h1').count({
-      startValue: 0,
-      endValue: 30,
+      startValue: -40,
+      endValue: {{ count_ip }},
       durationValue: 1800
     });
     $('#server_number h1').count({
-      startValue: 0,
-      endValue: 5,
+      startValue: -34,
+      endValue: {{ count_country }},
       durationValue: 1800
     });
     $('#isp_number h1').count({
-      startValue: 0,
-      endValue: 18,
-      durationValue: 1800
-    });
-    $('#ip_number h1').count({
-      startValue: 0,
-      endValue: 80,
+      startValue: -50,
+      endValue: {{ count_vpn }},
       durationValue: 1800
     });
   </script>
 
   <script src="{% static 'js/forms-pickers-jalali.js' %}"></script>
-    <script>
-      $(function() {
-        var dt_basic_table = $('.datatables-basic');
-
-        // DataTable with buttons
-        // --------------------------------------------------------------------
-
-        if (dt_basic_table.length) {
-          dt_basic = dt_basic_table.DataTable({
-            ajax: {
-              url: window.location.origin + '/api/getAllIsp', // لینک API/
-              dataSrc: '' // اگر پاسخ API به صورت لیستی از اشیاء JSON است، این گزینه را خالی بگذارید
-            },
-            language: {
-              url: assetsPath + 'json/i18n/datatables-bs5/fa.json'
-            },
-            columns: [
-              { data: '' },
-              {
-                // For Avatar image
-                targets: 0,
-                orderable: false,
-                searchable: false,
-                responsivePriority: 1,
-                render: function(data, type, full, meta) {
-                  var id = full['id'];
-                  var name = full['name'];
-                  var name2 = full['name2'];
-                  if (id) {
-                    return (
-                      '<a href="/report/isp/' + id + '">' +
-                      '<img src="' + assetsPath + 'img/ispLOGO/RGB/' + name2 + '.png' + '" ' +
-                      'alt="Avatar" width="60" class="rounded-circle" ' +
-                      'onerror="this.onerror=null; this.src=\'' + assetsPath + 'img/vpnIcon/default.png\';">' +
-                      '</a>'
-                    );
-                  } else {
-                    return '';
-                  }
-                }
-              },
-              {
-                // For vpn Name with link
-                data: 'name',
-                render: function(data, type, full, meta) {
-                  return '<a href="/report/isp/' + full['id'] + '">' + data + '</a>';
-                }
-              }
-            ],
-            columnDefs: [
-              {
-                // For Responsive
-                className: 'control',
-                orderable: false,
-                searchable: false,
-                responsivePriority: 2,
-                targets: 0,
-                render: function(data, type, full, meta) {
-                  return '';
-                }
-              }
-            ],
-            order: [[1, 'asc']],
-            dom: '<"card-header flex-column flex-md-row"<"head-label text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-            displayLength: 7,
-            lengthMenu: [7, 10, 25, 50, 75, 100],
-            responsive: {
-              details: {
-                display: $.fn.dataTable.Responsive.display.modal({
-                  header: function(row) {
-                    var data = row.data();
-                    return 'جزئیات ' + data['name'];
-                  }
-                }),
-                type: 'column',
-                renderer: function(api, rowIdx, columns) {
-
-                  var data = $.map(columns, function(col, i) {
-                    console.log('col>>', col);
-                    return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-                      ? '<tr data-dt-row="' +
-                      col.rowIndex +
-                      '" data-dt-column="' +
-                      col.columnIndex +
-                      '">' +
-                      '<td>' +
-                      col.title +
-                      ':' +
-                      '</td> ' +
-                      '<td>' +
-                      col.data +
-                      '</td>' +
-                      '</tr>'
-                      : '';
-                  }).join('');
-
-                  return data ? $('<table class="table"/><tbody />').append(data) : false;
-                }
-              }
-            }
-          });
-          $('div.head-label').html('<h5 class="card-title mb-0">جدول داده با کلید</h5>');
-        }
-      });
-    </script>
+{#    <script>#}
+  {#      $(function() {#}
+  {#        var dt_basic_table = $('.datatables-basic');#}
+  {##}
+  {#        // DataTable with buttons#}
+  {#        // --------------------------------------------------------------------#}
+  {##}
+  {#        if (dt_basic_table.length) {#}
+  {#          dt_basic = dt_basic_table.DataTable({#}
+  {#            ajax: {#}
+  {#              url: window.location.origin + '/api/getAllIsp', // لینک API/#}
+  {#              dataSrc: '' // اگر پاسخ API به صورت لیستی از اشیاء JSON است، این گزینه را خالی بگذارید#}
+  {#            },#}
+  {#            language: {#}
+  {#              url: assetsPath + 'json/i18n/datatables-bs5/fa.json'#}
+  {#            },#}
+  {#            columns: [#}
+  {#              { data: '' },#}
+  {#              {#}
+  {#                // For Avatar image#}
+  {#                targets: 0,#}
+  {#                orderable: false,#}
+  {#                searchable: false,#}
+  {#                responsivePriority: 1,#}
+  {#                render: function(data, type, full, meta) {#}
+  {#                  var id = full['id'];#}
+  {#                  var name = full['name'];#}
+  {#                  var name2 = full['name2'];#}
+  {#                  if (id) {#}
+  {#                    return (#}
+  {#                      '<a href="/report/isp/' + id + '">' +#}
+  {#                      '<img src="' + assetsPath + 'img/ispLOGO/RGB/' + name2 + '.png' + '" ' +#}
+  {#                      'alt="Avatar" width="60" class="rounded-circle" ' +#}
+  {#                      'onerror="this.onerror=null; this.src=\'' + assetsPath + 'img/vpnIcon/default.png\';">' +#}
+  {#                      '</a>'#}
+  {#                    );#}
+  {#                  } else {#}
+  {#                    return '';#}
+  {#                  }#}
+  {#                }#}
+  {#              },#}
+  {#              {#}
+  {#                // For vpn Name with link#}
+  {#                data: 'name',#}
+  {#                render: function(data, type, full, meta) {#}
+  {#                  return '<a href="/report/isp/' + full['id'] + '">' + data + '</a>';#}
+  {#                }#}
+  {#              }#}
+  {#            ],#}
+  {#            columnDefs: [#}
+  {#              {#}
+  {#                // For Responsive#}
+  {#                className: 'control',#}
+  {#                orderable: false,#}
+  {#                searchable: false,#}
+  {#                responsivePriority: 2,#}
+  {#                targets: 0,#}
+  {#                render: function(data, type, full, meta) {#}
+  {#                  return '';#}
+  {#                }#}
+  {#              }#}
+  {#            ],#}
+  {#            order: [[1, 'asc']],#}
+  {#            dom: '<"card-header flex-column flex-md-row"<"head-label text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',#}
+  {#            displayLength: 7,#}
+  {#            lengthMenu: [7, 10, 25, 50, 75, 100],#}
+  {#            responsive: {#}
+  {#              details: {#}
+  {#                display: $.fn.dataTable.Responsive.display.modal({#}
+  {#                  header: function(row) {#}
+  {#                    var data = row.data();#}
+  {#                    return 'جزئیات ' + data['name'];#}
+  {#                  }#}
+  {#                }),#}
+  {#                type: 'column',#}
+  {#                renderer: function(api, rowIdx, columns) {#}
+  {##}
+  {#                  var data = $.map(columns, function(col, i) {#}
+  {#                    console.log('col>>', col);#}
+  {#                    return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)#}
+  {#                      ? '<tr data-dt-row="' +#}
+  {#                      col.rowIndex +#}
+  {#                      '" data-dt-column="' +#}
+  {#                      col.columnIndex +#}
+  {#                      '">' +#}
+  {#                      '<td>' +#}
+  {#                      col.title +#}
+  {#                      ':' +#}
+  {#                      '</td> ' +#}
+  {#                      '<td>' +#}
+  {#                      col.data +#}
+  {#                      '</td>' +#}
+  {#                      '</tr>'#}
+  {#                      : '';#}
+  {#                  }).join('');#}
+  {##}
+  {#                  return data ? $('<table class="table"/><tbody />').append(data) : false;#}
+  {#                }#}
+  {#              }#}
+  {#            }#}
+  {#          });#}
+  {#          $('div.head-label').html('<h5 class="card-title mb-0">جدول داده با کلید</h5>');#}
+  {#        }#}
+  {#      });#}
+  {#    </script>#}
 
 {% endblock page_js %}
 
@@ -732,7 +727,7 @@
               </div>
 
               <div class="row g-4">
-                <div class="col-xl-3 col-lg-6 col-md-6 ">
+                <div class="col-xl-4 col-lg-6 col-md-6 ">
                   <div class="card number_dy" id="cuntry_number">
                     <div class="card-body text-center">
                       <div class="dropdown btn-pinned">
@@ -760,7 +755,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-xl-3 col-lg-6 col-md-6">
+                <div class="col-xl-4 col-lg-6 col-md-6">
                   <div class="card number_dy" id="server_number">
                     <div class="card-body text-center">
                       <div class="dropdown btn-pinned">
@@ -788,7 +783,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-xl-3 col-lg-6 col-md-6">
+                <div class="col-xl-4 col-lg-12 col-md-12">
                   <div class="card number_dy" id="isp_number">
                     <div class="card-body text-center">
                       <div class="dropdown btn-pinned">
@@ -812,34 +807,6 @@
                       <br>
                       <br>
                       <h5>تعداد ابزار گریز های جمایت شده</h5>
-                      <br>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                  <div class="card number_dy" id="ip_number">
-                    <div class="card-body text-center">
-                      <div class="dropdown btn-pinned">
-                        <button aria-expanded="false" class="btn dropdown-toggle hide-arrow p-0"
-                                data-bs-toggle="dropdown"
-                                type="button">
-                          <i class="ti ti-dots-vertical text-muted"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                          <li>
-                            <a class="dropdown-item" href="javascript:void(0);">اطلاعات بیشتر</a>
-                          </li>
-                        </ul>
-                      </div>
-                      <br>
-                      <br><br>
-                      <div class="mx-auto my-3">
-                        <h1></h1>
-                      </div>
-                      <br>
-                      <br>
-                      <br>
-                      <h5>کیفیت سرویس دهی</h5>
                       <br>
                     </div>
                   </div>
