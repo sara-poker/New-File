@@ -318,7 +318,8 @@ class IspView(TemplateView):
         if selected_country:
             test = filter_country(selected_country, test)
 
-        isp = Isp.objects.filter(pk=self.kwargs['pk'])
+        main_isp = Isp.objects.filter(pk=self.kwargs['pk'])[0]
+        main_isp.name2 = main_isp.name.replace(" ","")
         test_data = test.values('server_isp', 'server_country__name').annotate(server_count=Count('id')).exclude(
             server_isp='nan')
 
@@ -337,7 +338,7 @@ class IspView(TemplateView):
         context['country_server'] = country_server
         context['country'] = country
         context['data'] = data
-        context['isp'] = isp
+        context['isp'] = main_isp
 
         context['selected_date'] = selected_date_str
         context['selected_country_server'] = selected_country_server
