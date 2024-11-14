@@ -430,7 +430,7 @@
   </script>
 
   <script src="{% static 'js/forms-pickers-jalali.js' %}"></script>
-{#    <script>#}
+  {#    <script>#}
   {#      $(function() {#}
   {#        var dt_basic_table = $('.datatables-basic');#}
   {##}
@@ -732,15 +732,10 @@
                     <div class="card-body text-center">
                       <div class="dropdown btn-pinned">
                         <button aria-expanded="false" class="btn dropdown-toggle hide-arrow p-0"
-                                data-bs-toggle="dropdown"
-                                type="button">
+                                data-bs-target="#modalCenter1"
+                                data-bs-toggle="modal" type="button">
                           <i class="ti ti-dots-vertical text-muted"></i>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                          <li>
-                            <a class="dropdown-item" href="javascript:void(0);">اطلاعات بیشتر</a>
-                          </li>
-                        </ul>
                       </div>
                       <br>
                       <br><br>
@@ -752,6 +747,27 @@
                       <br>
                       <h5>تعداد آی.پی های شناسایی شده</h5>
                       <br>
+                    </div>
+                    <div aria-hidden="true" class="modal fade" id="modalCenter1" tabindex="-1">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="modalCenterTitle">کشور های خدمات سرور</h5>
+                            <button aria-label="بستن" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                          </div>
+                          <div class="modal-body">
+                            {% for item in isp_ip %}
+                              <ul>
+                                <li>{{ item.server_ip }}</li>
+                              </ul>
+                            {% endfor %}
+
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-label-secondary" data-bs-dismiss="modal" type="button"> بستن</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
