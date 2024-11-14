@@ -826,8 +826,8 @@
                     <div class="card-body text-center">
                       <div class="dropdown btn-pinned">
                         <button aria-expanded="false" class="btn dropdown-toggle hide-arrow p-0"
-                                data-bs-toggle="dropdown"
-                                type="button">
+                                data-bs-target="#modalCenter3"
+                                data-bs-toggle="modal" type="button">
                           <i class="ti ti-dots-vertical text-muted"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -846,6 +846,27 @@
                       <br>
                       <h5>تعداد ابزار گریز های جمایت شده</h5>
                       <br>
+                    </div>
+                    <div aria-hidden="true" class="modal fade" id="modalCenter3" tabindex="-1">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="modalCenterTitle">ابزار های گریز حمایت شده </h5>
+                            <button aria-label="بستن" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                          </div>
+                          <div class="modal-body">
+                            {% for item in isp_vpn %}
+                              <ul>
+                                <li>{{ item.vpn__name }}</li>
+                              </ul>
+                            {% endfor %}
+
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-label-secondary" data-bs-dismiss="modal" type="button"> بستن</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

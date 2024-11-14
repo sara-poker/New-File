@@ -337,7 +337,7 @@ class IspView(TemplateView):
 
         isp_ip = test.values('server_ip').distinct()
         isp_country = test.values('server_country__persian_name').distinct()
-        isp_vpn = test.values('vpn').distinct()
+        isp_vpn = test.values('vpn__name').distinct()
 
 
         count_ip = isp_ip.count()
