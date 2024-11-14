@@ -307,7 +307,7 @@ class IspView(TemplateView):
         if selected_date_str:
             test = filter_date_year(selected_date_str, test)
 
-        print("count>>", test.count())
+
 
         if selected_vpn:
             test = filter_vpn(selected_vpn, test)
@@ -320,7 +320,6 @@ class IspView(TemplateView):
 
         isp = list(test.values_list('server_isp', flat=True).distinct())
         isp = [item for item in isp if item != 'nan']
-        isp_list = Isp.objects.filter(name__in=isp)
 
         test_data = test.values('server_isp', 'server_country__name').annotate(server_count=Count('id')).exclude(
             server_isp='nan')

@@ -78,6 +78,22 @@ class GetAllVpn(APIView):
         serializer = VpnSerializerr(vpn, many=True)
         return Response(serializer.data)
 
+class GetAllIsp(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        isp = Isp.objects.all().order_by("id")
+        # selected_country = self.request.GET.get('country')
+        # selected_country_server = self.request.GET.get('server_country')
+        #
+        # if selected_country:
+        #     vpn = filter_country(selected_country, vpn)
+        #
+        # if selected_country_server:
+        #     vpn = filter_country_server(selected_country_server, vpn)
+
+        serializer = IspSerializerr(isp, many=True)
+        return Response(serializer.data)
 
 class AddItem(APIView):
     permission_classes = [AllowAny]
