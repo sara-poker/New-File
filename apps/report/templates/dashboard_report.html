@@ -443,7 +443,7 @@
         $('.mzloading').show();
 
         newRow.innerHTML = `
-          <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.name2}.png" width="32"></td>
+          <td><img alt="User" class="rounded-circle" src="static/img/vpnIcon/${item.name2}.png" width="32" onerror="this.onerror=null; this.src=\'' + assetsPath + 'img/vpnIcon/default.png\';"></td>
           <td>${item.vpn_name.substring(0, 23)}</td>
           <td>${translateOperator(item.oprator)}</td>
           <td>${item.city}</td>
