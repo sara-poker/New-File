@@ -25,7 +25,7 @@ class Command(BaseCommand):
         for item in data:
             try:
                 # به‌روزرسانی URL
-                isp = Isp.objects.get(id=item['id'])
+                isp = Isp.objects.get(name=item['name'])
                 isp.url = item['url']
 
                 # پیدا کردن کشور با توجه به نام
