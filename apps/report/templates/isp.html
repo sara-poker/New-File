@@ -480,7 +480,7 @@
               // For vpn Name with link
               data: 'name',
               render: function(data, type, full, meta) {
-                return '<a href="/report/vpn/' + full['id'] + '">' + data + '</a>';
+                return '<a href="/report/isp/' + full['id'] + '">' + data + '</a>';
               }
             }
           ],
@@ -631,14 +631,14 @@
     <div class="nav-align-top mb-4">
       <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
         <li class="nav-item">
-          <button aria-controls="navs-pills-justified-home" aria-selected="true" class="nav-link active"
+          <button aria-controls="navs-pills-justified-home" aria-selected="true" class="nav-link"
                   data-bs-target="#navs-pills-justified-home" data-bs-toggle="tab" role="tab" type="button">
             <i class="tf-icons ti ti-table-alias ti-xs me-1"></i>
             نمودار پراکندگی
           </button>
         </li>
         <li class="nav-item">
-          <button aria-controls="navs-pills-justified-profile" aria-selected="false" class="nav-link"
+          <button aria-controls="navs-pills-justified-profile" aria-selected="false" class="nav-link active"
                   data-bs-target="#navs-pills-justified-profile" data-bs-toggle="tab" role="tab" type="button">
             <i class="tf-icons ti ti-checklist ti-xs me-1"></i>
             لیست
@@ -646,12 +646,12 @@
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+        <div class="tab-pane fade " id="navs-pills-justified-home" role="tabpanel">
           <div class="ps-3 pe-3">
             <div id="chartdiv"></div>
           </div>
         </div>
-        <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
+        <div class="tab-pane fade show active" id="navs-pills-justified-profile" role="tabpanel">
 
 
           <div class="row">
