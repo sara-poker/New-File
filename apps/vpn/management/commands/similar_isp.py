@@ -1,60 +1,42 @@
-# در فایل custom_commands/management/commands/merge_fields.py
-
+import json
 from django.core.management.base import BaseCommand
-from apps.vpn.models import Vpn, Test
+from apps.vpn.models import Isp, Country
 
-
-def is_similar(str1, str2, threshold):
-    len_str1 = len(str1)
-    len_str2 = len(str2)
-
-    # Initialize the matrix
-    matrix = [[0] * (len_str2 + 1) for _ in range(len_str1 + 1)]
-
-    # Fill in the first row
-    for i in range(len_str1 + 1):
-        matrix[i][0] = i
-
-    # Fill in the first column
-    for j in range(len_str2 + 1):
-        matrix[0][j] = j
-
-    # Fill in the rest of the matrix
-    for i in range(1, len_str1 + 1):
-        for j in range(1, len_str2 + 1):
-            cost = 0 if str1[i - 1] == str2[j - 1] else 1
-            matrix[i][j] = min(matrix[i - 1][j] + 1,  # deletion
-                               matrix[i][j - 1] + 1,  # insertion
-                               matrix[i - 1][j - 1] + cost)  # substitution
-
-    # Calculate similarity ratio
-    similarity_ratio = (len_str1 + len_str2 - matrix[len_str1][len_str2]) / (len_str1 + len_str2)
-
-    return similarity_ratio >= threshold
-
+from config.settings import BASE_DIR
 
 class Command(BaseCommand):
-    help = 'Merge similar fields in a database column'
-
-    def add_arguments(self, parser):
-        parser.add_argument('column_name', type=str, help='Name of the column to be processed')
-        parser.add_argument('--similarity_threshold', type=float, default=0.8, help='Threshold for similarity')
+    help = 'Update Isp data from JSON'
 
     def handle(self, *args, **kwargs):
-        column_name = kwargs['column_name']
-        similarity_threshold = kwargs['similarity_threshold']
+        # آدرس فایل JSON را در اینجا مشخص کنید
+        json_file_path = BASE_DIR / 'isp.json'
 
-        # Logic to merge similar fields
-        records = Test.objects.all()
-        for record in records:
-            # Get values of the specified column
-            column_values = [getattr(record, column_name) for record in records]
+        try:
+            # خواندن داده‌ها از فایل JSON
+            with open(json_file_path, 'r', encoding='utf-8') as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            self.stdout.write(self.style.ERROR(f'File not found: {json_file_path}'))
+            return
+        except json.JSONDecodeError:
+            self.stdout.write(self.style.ERROR('Error decoding JSON'))
+            return
 
-            # Compare each value with others and merge if similar
-            for i in range(len(column_values)):
-                for j in range(i + 1, len(column_values)):
-                    if is_similar(column_values[i], column_values[j], similarity_threshold):
-                        # Merge the similar fields (you need to implement this part)
-                        pass
+        for item in data:
+            try:
+                # به‌روزرسانی URL
+                isp = Isp.objects.get(id=item['id'])
+                isp.url = item['url']
 
-        self.stdout.write(self.style.SUCCESS('Fields merged successfully'))
+                # پیدا کردن کشور با توجه به نام
+                country = Country.objects.get(name=item['country_id'])
+                isp.country = country
+
+                isp.save()
+                self.stdout.write(self.style.SUCCESS(f'Successfully updated ISP: {isp.name}'))
+            except Country.DoesNotExist:
+                self.stdout.write(self.style.ERROR(f'Country does not exist: {item["country_id"]}'))
+            except Isp.DoesNotExist:
+                self.stdout.write(self.style.ERROR(f'ISP does not exist with id: {item["id"]}'))
+            except Exception as e:
+                self.stdout.write(self.style.ERROR(f'Error updating ISP {item["id"]}: {str(e)}'))
