@@ -435,7 +435,111 @@
   </script>
 
   <script src="{% static 'js/forms-pickers-jalali.js' %}"></script>
-  <script src="{% static 'js/table-isp.js' %}"></script>
+  <script>
+    $(function() {
+      var dt_basic_table = $('.datatables-basic');
+
+      // DataTable with buttons
+      // --------------------------------------------------------------------
+
+      if (dt_basic_table.length) {
+        dt_basic = dt_basic_table.DataTable({
+          ajax: {
+            url: window.location.origin + '/api/getAllIsp', // لینک API/
+            dataSrc: '' // اگر پاسخ API به صورت لیستی از اشیاء JSON است، این گزینه را خالی بگذارید
+          },
+          language: {
+            url: assetsPath + 'json/i18n/datatables-bs5/fa.json'
+          },
+          columns: [
+            { data: '' },
+            {
+              // For Avatar image
+              targets: 0,
+              orderable: false,
+              searchable: false,
+              responsivePriority: 1,
+              render: function(data, type, full, meta) {
+                var id = full['id'];
+                var name = full['name'];
+                var name2 = full['name2'];
+                if (id) {
+                  return (
+                    '<a href="/report/isp/' + id + '">' +
+                    '<img src="' + assetsPath + 'img/ispLOGO/RGB/' + name2 + '.png' + '" ' +
+                    'alt="Avatar" width="60" class="rounded-circle" ' +
+                    'onerror="this.onerror=null; this.src=\'' + assetsPath + 'img/vpnIcon/default.png\';">' +
+                    '</a>'
+                  );
+                } else {
+                  return '';
+                }
+              }
+            },
+            {
+              // For vpn Name with link
+              data: 'name',
+              render: function(data, type, full, meta) {
+                return '<a href="/report/vpn/' + full['id'] + '">' + data + '</a>';
+              }
+            }
+          ],
+          columnDefs: [
+            {
+              // For Responsive
+              className: 'control',
+              orderable: false,
+              searchable: false,
+              responsivePriority: 2,
+              targets: 0,
+              render: function(data, type, full, meta) {
+                return '';
+              }
+            }
+          ],
+          order: [[1, 'asc']],
+          dom: '<"card-header flex-column flex-md-row"<"head-label text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+          displayLength: 7,
+          lengthMenu: [7, 10, 25, 50, 75, 100],
+          responsive: {
+            details: {
+              display: $.fn.dataTable.Responsive.display.modal({
+                header: function(row) {
+                  var data = row.data();
+                  return 'جزئیات ' + data['name'];
+                }
+              }),
+              type: 'column',
+              renderer: function(api, rowIdx, columns) {
+
+                var data = $.map(columns, function(col, i) {
+                  console.log('col>>', col);
+                  return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+                    ? '<tr data-dt-row="' +
+                    col.rowIndex +
+                    '" data-dt-column="' +
+                    col.columnIndex +
+                    '">' +
+                    '<td>' +
+                    col.title +
+                    ':' +
+                    '</td> ' +
+                    '<td>' +
+                    col.data +
+                    '</td>' +
+                    '</tr>'
+                    : '';
+                }).join('');
+
+                return data ? $('<table class="table"/><tbody />').append(data) : false;
+              }
+            }
+          }
+        });
+        $('div.head-label').html('<h5 class="card-title mb-0">جدول داده با کلید</h5>');
+      }
+    });
+  </script>
 
 {% endblock page_js %}
 
@@ -466,16 +570,16 @@
 
               </select>
             </div>
-{#            <div class="col-md-3">#}
-{#              <label class="form-label" for="select2Success">اپراتور</label>#}
-{#              <div class="select2-success">#}
-{#                <select class="select2 form-select" id="select2Success" multiple disabled>#}
-{#                  <option value="1" selected>ایرانسل</option>#}
-{#                  <option value="2" selected>همراه اول</option>#}
-{#                  <option value="3" selected>رایتل</option>#}
-{#                </select>#}
-{#              </div>#}
-{#            </div>#}
+            {#            <div class="col-md-3">#}
+            {#              <label class="form-label" for="select2Success">اپراتور</label>#}
+            {#              <div class="select2-success">#}
+            {#                <select class="select2 form-select" id="select2Success" multiple disabled>#}
+            {#                  <option value="1" selected>ایرانسل</option>#}
+            {#                  <option value="2" selected>همراه اول</option>#}
+            {#                  <option value="3" selected>رایتل</option>#}
+            {#                </select>#}
+            {#              </div>#}
+            {#            </div>#}
             <div class="col-md-3">
               <label class="form-label" for="select2Basic">نام ابزار گریز:</label>
               <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" name="vpn">
@@ -559,8 +663,8 @@
                     <thead>
                     <tr>
                       <th></th>
-                      <th>لوگو ها</th>
-                      <th>نام آی.آس.پی</th>
+                      <th></th>
+                      <th>نام vpn</th>
                     </tr>
                     </thead>
                     <tbody>
