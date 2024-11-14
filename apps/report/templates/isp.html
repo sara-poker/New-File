@@ -776,9 +776,10 @@
                     <div class="card-body text-center">
                       <div class="dropdown btn-pinned">
                         <button aria-expanded="false" class="btn dropdown-toggle hide-arrow p-0"
-                                data-bs-toggle="dropdown"
-                                type="button">
+                                data-bs-target="#modalCenter2"
+                                data-bs-toggle="modal" type="button">
                           <i class="ti ti-dots-vertical text-muted"></i>
+                        </button>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                           <li>
@@ -796,6 +797,27 @@
                       <br>
                       <h5>کشور های شناسایی شده</h5>
                       <br>
+                    </div>
+                    <div aria-hidden="true" class="modal fade" id="modalCenter2" tabindex="-1">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="modalCenterTitle">سرور ابزار گریز (شهر)</h5>
+                            <button aria-label="بستن" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                          </div>
+                          <div class="modal-body">
+                            {% for item in isp_country %}
+                              <ul>
+                                <li>{{ item.server_country__persian_name }}</li>
+                              </ul>
+                            {% endfor %}
+
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-label-secondary" data-bs-dismiss="modal" type="button"> بستن</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
