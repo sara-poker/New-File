@@ -21,7 +21,7 @@ class IspSerializerr(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_name2(self, obj):
-        return obj.name.replace(' ', '').lower()
+        return obj.name.replace(' ', '')
 
 class VpnSerializer(serializers.ModelSerializer):
     class Meta:
