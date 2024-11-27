@@ -273,22 +273,36 @@ class LinerChartView(TemplateView):
 class VpnCtreatorView(TemplateView):
     # Predefined function
     def get_context_data(self, **kwargs):
+        # دریافت تعداد VPN‌ها بر اساس کشور به صورت مستقیم
         vpn_counts_by_country = Vpn.objects.values('vpn_country').annotate(count=Count('vpn_country')).order_by(
             '-count')
-        print(vpn_counts_by_country)
-        data_country = list(vpn_counts_by_country)
+
+        # استخراج شناسه‌های کشورها
+        country_ids = [item['vpn_country'] for item in vpn_counts_by_country]
+
+        # واکشی تمام کشورها به صورت یکجا
+        countries = Country.objects.filter(id__in=country_ids).only('id', 'name', 'country_id', 'continent',
+                                                                    'persian_name')
+
+        # ساخت دیکشنری برای جستجو سریع کشورها بر اساس id
+        country_dict = {country.id: country for country in countries}
+
+        # ایجاد لیست داده‌ها بر اساس اطلاعات موجود در country_dict
         country_list = []
-        for item in data_country:
-            country = Country.objects.filter(id=item['vpn_country'])
+        for item in vpn_counts_by_country:
+            country_id = item['vpn_country']
+            country = country_dict.get(country_id)
             if country:
                 data = {
-                    "name": country[0].name,
-                    "country_id": country[0].country_id,
-                    "continent": country[0].continent,
+                    "name": country.name,
+                    "country_id": country.country_id,
+                    "continent": country.continent,
                     "value": item['count'],
-                    "persian_name": country[0].persian_name
+                    "persian_name": country.persian_name
                 }
                 country_list.append(data)
+
+        # اضافه کردن داده‌ها به context
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
         context['country_data'] = country_list
         return context
