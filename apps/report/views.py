@@ -3,7 +3,7 @@ from web_project import TemplateLayout
 from apps.vpn.models import *
 from apps.ticket.models import *
 
-from django.db.models import Count
+from django.db.models import Count, Q
 
 
 def convert_date(date):
@@ -103,8 +103,10 @@ class ReportDashboardsView(TemplateView):
         best_vpn = Vpn.objects.only('id', 'name').filter(pk=best_vpn_id).first() if best_vpn_id else None
 
         # ISP و اپراتور
-        best_isp = test.values('server_isp').annotate(count=Count('id')).exclude(server_isp=None).order_by('-count').first()
-        best_oprator = test.values('oprator').annotate(count=Count('id')).exclude(status="Filter").order_by('-count').first()
+        best_isp = test.values('server_isp').annotate(count=Count('id')).exclude(server_isp=None).order_by(
+            '-count').first()
+        best_oprator = test.values('oprator').annotate(count=Count('id')).exclude(status="Filter").order_by(
+            '-count').first()
 
         # کشور برتر
         best_country_data = (
@@ -138,33 +140,39 @@ class ReportDashboardsView(TemplateView):
         return context
 
 
-
 class LinerChartView(TemplateView):
     # Predefined function
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
-        vpn = Vpn.objects.filter()
-        all_test = Test.objects.filter()
-        country_server_id = list(all_test.values_list('server_country', flat=True).distinct())
-        country_server_id = [item for item in country_server_id if item != 'nan']
-        country_server = Country.objects.filter(id__in=country_server_id).order_by('persian_name')
 
-        province = list(all_test.values_list('city', flat=True).distinct())
-        province = [item for item in province if item != 'nan']
-        province = [item for item in province if item != 'تهران']
+        # استفاده از only() برای کاهش مقدار داده‌ها
+        vpn = Vpn.objects.only('id', 'vpn_country')  # تنها فیلدهای مورد نیاز را بارگذاری می‌کنیم
+        all_test = Test.objects.only('date', 'oprator', 'status', 'city',
+                                     'server_country')  # فیلترهای محدودتر برای کاهش بار
 
-        country_id = list(vpn.values_list('vpn_country', flat=True).distinct())
-        country_id = [item for item in country_id if item != 'nan']
-        country = Country.objects.filter(id__in=country_id).order_by('persian_name')
+        # کشور سرور و استان‌ها فقط برای فیلترها
+        country_server_ids = list(all_test.values_list('server_country', flat=True).distinct())
+        country_server_ids = [item for item in country_server_ids if item != 'nan']
+        country_server = Country.objects.filter(id__in=country_server_ids).order_by('persian_name')
 
+        province_ids = list(all_test.values_list('city', flat=True).distinct())
+        province_ids = [item for item in province_ids if item != 'nan' and item != 'تهران']
+
+        country_ids = list(vpn.values_list('vpn_country', flat=True).distinct())
+        country_ids = [item for item in country_ids if item != 'nan']
+        country = Country.objects.filter(id__in=country_ids).order_by('persian_name')
+
+        # دریافت مقادیر فیلتر از URL
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
         selected_province = self.request.GET.get('province')
         selected_country_server = self.request.GET.get('server_country')
         selected_country = self.request.GET.get('country')
 
+        # بدون فیلتر
         no_filter = all_test.filter(status='Without Filter').order_by('date')
 
+        # اعمال فیلترها
         if selected_date_str:
             all_test = filter_date(selected_date_str, all_test)
             no_filter = filter_date(selected_date_str, no_filter)
@@ -189,11 +197,12 @@ class LinerChartView(TemplateView):
             no_filter = filter_province(selected_province, no_filter)
             all_test = filter_province(selected_province, all_test)
 
-        # hello
+        # کاهش زمان با استفاده از groupby و تجمیع داده‌ها به صورت مستقیم
         results = []
         data_dict = {}
-        for test in no_filter:
 
+        # فیلتر کردن و محاسبه شمارش برای هر اپراتور
+        for test in no_filter:
             date = str(test.date)
             date_str = date[:4] + '_' + date[4:6] + '_' + date[6:8]
 
@@ -205,22 +214,24 @@ class LinerChartView(TemplateView):
                     'irancell': 0,
                     'rightel': 0,
                     'mci': 0,
-                    "tci": 0
+                    'tci': 0
                 }
 
             # افزایش شمارش اپراتور مربوطه
-            if test.oprator.lower() == 'Irancell'.lower():
+            operator = test.oprator.lower()
+            if operator == 'irancell':
                 data_dict[date_str]['irancell'] += 1
-            elif test.oprator.lower() == 'RighTel'.lower():
+            elif operator == 'rightel':
                 data_dict[date_str]['rightel'] += 1
-            elif test.oprator.lower() == 'MCI'.lower():
+            elif operator == 'mci':
                 data_dict[date_str]['mci'] += 1
-            elif test.oprator.lower() == 'TCI'.lower():
+            elif operator == 'tci':
                 data_dict[date_str]['tci'] += 1
 
         # تبدیل دیکشنری به لیست
         results = list(data_dict.values())
 
+        # تعداد اپراتورها بدون فیلتر و با فیلتر
         irancell_no_filter = no_filter.filter(oprator="Irancell").count()
         irancell_filter = all_test.filter(oprator="Irancell").count() - irancell_no_filter
 
@@ -233,22 +244,20 @@ class LinerChartView(TemplateView):
         tci_no_filter = no_filter.filter(oprator="TCI").count()
         tci_filter = all_test.filter(oprator="TCI").count() - rightel_no_filter
 
+        # افزودن داده‌ها به context
         context['data1'] = results
-
         context['irancell_no_filter'] = irancell_no_filter
         context['irancell_filter'] = irancell_filter
-
         context['mci_no_filter'] = mci_no_filter
         context['mci_filter'] = mci_filter
-
         context['rightel_no_filter'] = rightel_no_filter
         context['rightel_filter'] = rightel_filter
-
         context['tci_no_filter'] = tci_no_filter
         context['tci_filter'] = tci_filter
 
+        # اطلاعات فیلترها
         context['vpn'] = vpn
-        context['province'] = province
+        context['province'] = province_ids
         context['country_server'] = country_server
         context['country'] = country
 
@@ -339,11 +348,9 @@ class IspView(TemplateView):
         isp_country = test.values('server_country__persian_name').distinct()
         isp_vpn = test.values('vpn__name').distinct()
 
-
         count_ip = isp_ip.count()
         count_country = isp_country.count()
         count_vpn = isp_vpn.count()
-
 
         context['vpn'] = vpn
         context['country_server'] = country_server
