@@ -564,15 +564,11 @@ class ProcessView(TemplateView):
         vpn = Vpn.objects.filter()
 
         province = list(test.values_list('city', flat=True).distinct())
-        province = [item for item in province if item != 'nan']
-        province = [item for item in province if item != 'تهران']
 
         country_server_id = list(test.values_list('server_country', flat=True).distinct())
-        country_server_id = [item for item in country_server_id if item != 'nan']
         country_server = Country.objects.filter(id__in=country_server_id).order_by('persian_name')
 
         country_id = list(vpn.values_list('vpn_country', flat=True).distinct())
-        country_id = [item for item in country_id if item != 'nan']
         country = Country.objects.filter(id__in=country_id).order_by('persian_name')
 
         selected_date_str = self.request.GET.get('selected_date')
@@ -632,17 +628,14 @@ class ProcessView(TemplateView):
 
         server_ips = set(test.values_list('server_ip', flat=True).distinct())
         server_ips = list(server_ips)
-        server_ips = [ip for ip in server_ips if ip != 'nan']
         server_ip_count = len(server_ips)
 
         server_isps = set(test.values_list('server_isp', flat=True).distinct())
         server_isps = list(server_isps)
-        server_isps = [ip for ip in server_isps if ip != 'nan']
         server_isp_count = len(server_isps)
 
         server_regions = set(test.values_list('server_region', flat=True).distinct())
         server_regions = list(server_regions)
-        server_regions = [ip for ip in server_regions if ip != 'nan']
         server_region_count = len(server_regions)
 
         server_countries_id = list(test.values_list('server_country', flat=True).distinct())
