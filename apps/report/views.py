@@ -31,19 +31,15 @@ def filter_date(date, queryset):
         start_date = convert_date(selected_date_str[0])
         end_date = start_date
 
-    return queryset.filter(date__gte=start_date, date__lte=end_date).order_by('date')
+    return queryset.filter(date__range=(start_date, end_date)).order_by('date')
 
 
 def filter_date_year(date, queryset):
-    print("hello mosi py")
     date = int(date)
     if date == 0:
         return queryset
     start_date = date
     end_date = start_date + 10000
-
-    print("start_date>", start_date)
-    print("end_date>", end_date)
 
     return queryset.filter(date__gte=start_date, date__lte=end_date).order_by('date')
 
