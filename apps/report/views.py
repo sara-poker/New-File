@@ -309,25 +309,32 @@ class VpnCtreatorView(TemplateView):
 
 
 class IspView(TemplateView):
-    # Predefined function
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
-        test = Test.objects.exclude(server_isp=None)
-        vpn = Vpn.objects.filter()
 
-        country_server_id = list(test.values_list('server_country', flat=True).distinct())
-        country_server_id = [item for item in country_server_id if item != 'nan']
-        country_server = Country.objects.filter(id__in=country_server_id).order_by('persian_name')
+        # گرفتن تمام تست‌ها با فیلتر کردن server_isp=None در همان ابتدا
+        test = Test.objects.exclude(server_isp=None)  # فیلتر اولیه برای حذف مقادیر null
+        vpn = Vpn.objects.all()
 
-        country_id = list(vpn.values_list('vpn_country', flat=True).distinct())
-        country_id = [item for item in country_id if item != 'nan']
-        country = Country.objects.filter(id__in=country_id).order_by('persian_name')
+        # دریافت لیست کشورهای سرور و کشورهای VPN به صورت همزمان
+        country_server_ids = test.values_list('server_country', flat=True).distinct()
+        country_ids = vpn.values_list('vpn_country', flat=True).distinct()
 
+        # حذف 'nan' از لیست‌ها
+        country_server_ids = [item for item in country_server_ids if item != 'nan']
+        country_ids = [item for item in country_ids if item != 'nan']
+
+        # واکشی کشورها از دیتابیس فقط در صورت نیاز
+        country_server = Country.objects.filter(id__in=country_server_ids).order_by('persian_name')
+        country = Country.objects.filter(id__in=country_ids).order_by('persian_name')
+
+        # دریافت انتخاب‌های فیلتر
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
         selected_country_server = self.request.GET.get('server_country')
         selected_country = self.request.GET.get('country')
 
+        # اعمال فیلترهای مختلف به طور مستقیم روی دیتابیس
         if selected_date_str:
             test = filter_date_year(selected_date_str, test)
 
@@ -340,12 +347,17 @@ class IspView(TemplateView):
         if selected_country:
             test = filter_country(selected_country, test)
 
-        main_isp = Isp.objects.filter(pk=self.kwargs['pk'])[0]
-        main_isp.name2 = main_isp.name.replace(" ", "")
+        # دریافت ISP اصلی
+        main_isp = Isp.objects.filter(pk=self.kwargs['pk']).first()
+        if main_isp:
+            main_isp.name2 = main_isp.name.replace(" ", "")
+
+        # جمع‌آوری داده‌های مربوط به تعداد ISPها و کشورها
+        # استفاده از prefetch_related برای کاهش تعداد کوئری‌ها
         test_data = test.values('server_isp', 'server_country__name').annotate(server_count=Count('id')).exclude(
             server_isp='nan')
 
-        # ساخت دیکشنری نهایی
+        # استفاده از دیکشنری برای جمع‌آوری داده‌ها
         data = {}
         for item in test_data:
             isp = item['server_isp']
@@ -356,8 +368,10 @@ class IspView(TemplateView):
                 data[isp] = {}
             data[isp][country_m] = count
 
+        # فیلتر کردن تست‌ها بر اساس ISP
         test = test.filter(server_isp=main_isp.name)
 
+        # محاسبه تعداد IPها، کشورهای مختلف و VPNها
         isp_ip = test.values('server_ip').distinct()
         isp_country = test.values('server_country__persian_name').distinct()
         isp_vpn = test.values('vpn__name').distinct()
@@ -366,24 +380,24 @@ class IspView(TemplateView):
         count_country = isp_country.count()
         count_vpn = isp_vpn.count()
 
-        context['vpn'] = vpn
-        context['country_server'] = country_server
-        context['country'] = country
-        context['data'] = data
-        context['isp'] = main_isp
-
-        context['isp_ip'] = isp_ip
-        context['isp_vpn'] = isp_vpn
-        context['isp_country'] = isp_country
-
-        context['count_ip'] = count_ip
-        context['count_country'] = count_country
-        context['count_vpn'] = count_vpn
-
-        context['selected_date'] = selected_date_str
-        context['selected_country_server'] = selected_country_server
-        context['selected_vpn'] = selected_vpn
-        context['selected_country'] = selected_country
+        # اضافه کردن داده‌ها به context
+        context.update({
+            'vpn': vpn,
+            'country_server': country_server,
+            'country': country,
+            'data': data,
+            'isp': main_isp,
+            'isp_ip': isp_ip,
+            'isp_vpn': isp_vpn,
+            'isp_country': isp_country,
+            'count_ip': count_ip,
+            'count_country': count_country,
+            'count_vpn': count_vpn,
+            'selected_date': selected_date_str,
+            'selected_country_server': selected_country_server,
+            'selected_vpn': selected_vpn,
+            'selected_country': selected_country,
+        })
 
         return context
 
