@@ -377,34 +377,32 @@ class IspView(TemplateView):
 class VpnByIdView(TemplateView):
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
-        vpns = Vpn.objects.all()
-        vpn = vpns.filter(pk=self.kwargs['pk'])
-        test = Test.objects.all()
-        tests = test.filter(vpn_id=vpn[0].id, status='Without Filter')
 
-        country_server_id = list(test.values_list('server_country', flat=True).distinct())
-        country_server_id = [item for item in country_server_id if item != 'nan']
+        # انتخاب VPN با استفاده از pk
+        vpn = Vpn.objects.filter(pk=self.kwargs['pk']).only('id', 'name', 'vpn_country').first()
+
+        # دریافت تست‌ها که وضعیت آن‌ها بدون فیلتر است
+        tests = Test.objects.filter(vpn_id=vpn.id, status='Without Filter')
+
+        # دریافت کشورهای سرور
+        country_server_id = tests.values_list('server_country', flat=True).distinct().exclude(
+            server_country__isnull=True)
         country_server = Country.objects.filter(id__in=country_server_id).order_by('persian_name')
 
-        country_id = list(vpns.values_list('vpn_country', flat=True).distinct())
-        country_id = [item for item in country_id if item != 'nan']
+        # دریافت کشورهای VPN
+        country_id = Vpn.objects.filter(id=self.kwargs['pk']).values_list('vpn_country', flat=True).distinct()
         country = Country.objects.filter(id__in=country_id).order_by('persian_name')
 
-        if self.request.GET.get('server_country'):
-            selected_country_server = self.request.GET.get('server_country')
-        else:
-            selected_country_server = 0
-
-        if self.request.GET.get('country'):
-            selected_country = self.request.GET.get('country')
-        else:
-            selected_country = 0
-
+        # فیلتر کردن بر اساس انتخاب‌های کاربر
         selected_date_str = self.request.GET.get('selected_date')
-
         if selected_date_str:
             tests = filter_date(selected_date_str, tests)
 
+        # فیلتر انتخابی بر اساس کشورهای سرور و کشور
+        selected_country_server = self.request.GET.get('server_country', 0)
+        selected_country = self.request.GET.get('country', 0)
+
+        # استفاده از distinct برای دریافت لیست‌های منحصر به فرد
         server_ips = list(tests.values_list('server_ip', flat=True).exclude(server_ip__isnull=True).distinct())
         server_ip_count = len(server_ips)
 
@@ -418,15 +416,14 @@ class VpnByIdView(TemplateView):
         server_countries = Country.objects.filter(id__in=tests.values_list('server_country', flat=True).distinct())
         server_country_count = server_countries.count()
 
-        for item in vpn:
-            original_name = item.name
-            modified_name = original_name.replace(' ', '')
-            item.name2 = modified_name
-        # s
+        # اصلاح نام VPN در صورت نیاز
+        vpn.name2 = vpn.name.replace(' ', '')  # تنها یک بار اصلاح نام انجام می‌شود
+
+        # اضافه کردن اطلاعات به context
+        context['vpn'] = vpn
         context['country_server'] = country_server
         context['country'] = country
 
-        context['vpn'] = vpn[0]
         context['server_ip_count'] = server_ip_count
         context['server_isp_count'] = server_isp_count
         context['server_region_count'] = server_region_count
