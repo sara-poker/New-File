@@ -79,60 +79,64 @@ class LandingView(TemplateView):
 
 
 class ReportDashboardsView(TemplateView):
-    # Predefined function
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
-        test = Test.objects.filter()
+
+        # محدود کردن داده‌های بازیابی شده
+        test = Test.objects.select_related('vpn').only('id', 'date', 'vpn__name', 'status', 'server_isp', 'oprator')
+
+        # آخرین تست‌ها
         last_test = test.order_by('-id')[:12]
         for item in last_test:
             item.date = convert_date2(item.date)
-            # item.time = item.time[:5]
+            item.vpn.name2 = item.vpn.name.replace(' ', '')
 
-        filter = test.values('filter').annotate(count=models.Count('filter'))
-        filter_dict = {}
-        for item in filter:
-            filter_dict[item['filter'].replace(" ", "_")] = item['count']
+        # ساخت فیلترها
+        filter_dict = {
+            item['filter'].replace(" ", "_"): item['count']
+            for item in test.values('filter').annotate(count=Count('filter'))
+        }
 
-        vpn = test.exclude(status="Filter").values('vpn').annotate(count=models.Count('vpn'))
-        vpn_dict = {}
-        for item in vpn:
-            vpn_dict[item['vpn']] = item['count']
+        # VPN
+        vpn_data = test.exclude(status="Filter").values('vpn').annotate(count=Count('vpn'))
+        best_vpn_id = max(vpn_data, key=lambda x: x['count'], default=None)['vpn'] if vpn_data else None
+        best_vpn = Vpn.objects.only('id', 'name').filter(pk=best_vpn_id).first() if best_vpn_id else None
 
-        best_vpn_id = max(vpn_dict, key=vpn_dict.get)
-        best_vpn = Vpn.objects.filter(pk=best_vpn_id).first()
-        best_isp = test.values('server_isp').annotate(count=Count('id')).exclude(server_isp=None).order_by(
-            '-count').first()
+        # ISP و اپراتور
+        best_isp = test.values('server_isp').annotate(count=Count('id')).exclude(server_isp=None).order_by('-count').first()
+        best_oprator = test.values('oprator').annotate(count=Count('id')).exclude(status="Filter").order_by('-count').first()
 
-        best_oprator = test.values('oprator').annotate(count=Count('id')).exclude(status="Filter").order_by(
-            '-count').first()
+        # کشور برتر
+        best_country_data = (
+            test.exclude(status="Filter")
+            .exclude(vpn__vpn_country=None)
+            .values('vpn__vpn_country')
+            .annotate(count=Count('id'))
+            .order_by('-count')
+            .first()
+        )
+        best_country = (
+            Country.objects.only('id', 'name').filter(id=best_country_data['vpn__vpn_country']).first()
+            if best_country_data
+            else None
+        )
 
-        test = test.exclude(vpn__vpn_country=None)
-        best_country_id = test.values('vpn__vpn_country').annotate(count=Count('id')).exclude(
-            status="Filter").order_by(
-            '-count')[0]
+        # نوتیفیکیشن
+        notification_bool = Notification.objects.filter(user=self.request.user, is_read=False).exists()
 
-        best_country = Country.objects.get(id=best_country_id['vpn__vpn_country'])
-
-        for item in last_test:
-            original_name = item.vpn.name
-            modified_name = original_name.replace(' ', '')
-            item.vpn.name2 = modified_name
-
-        notification_bool = False
-
-        notifications = Notification.objects.filter(user=self.request.user, is_read=False)
-        notification_bool = notifications.exists()
-
-        context['filter'] = filter_dict
-        context['last_test'] = last_test
-
-        context['best_vpn'] = best_vpn
-        context['best_isp'] = best_isp
-        context['best_oprator'] = best_oprator
-        context['best_country'] = best_country
-        context['notification_bool'] = notification_bool
+        # اضافه کردن به context
+        context.update({
+            "filter": filter_dict,
+            "last_test": last_test,
+            "best_vpn": best_vpn,
+            "best_isp": best_isp,
+            "best_oprator": best_oprator,
+            "best_country": best_country,
+            "notification_bool": notification_bool,
+        })
 
         return context
+
 
 
 class LinerChartView(TemplateView):
