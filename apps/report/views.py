@@ -138,14 +138,11 @@ class LinerChartView(TemplateView):
 
         # کشور سرور و استان‌ها فقط برای فیلترها
         country_server_ids = list(all_test.values_list('server_country', flat=True).distinct())
-        country_server_ids = [item for item in country_server_ids if item != 'nan']
         country_server = Country.objects.filter(id__in=country_server_ids).order_by('persian_name')
 
         province_ids = list(all_test.values_list('city', flat=True).distinct())
-        province_ids = [item for item in province_ids if item != 'nan' and item != 'تهران']
 
         country_ids = list(vpn.values_list('vpn_country', flat=True).distinct())
-        country_ids = [item for item in country_ids if item != 'nan']
         country = Country.objects.filter(id__in=country_ids).order_by('persian_name')
 
         # دریافت مقادیر فیلتر از URL
@@ -189,14 +186,13 @@ class LinerChartView(TemplateView):
 
         # فیلتر کردن و محاسبه شمارش برای هر اپراتور
         for test in no_filter:
-            date = str(test.date)
-            date_str = date[:4] + '_' + date[4:6] + '_' + date[6:8]
+            date_str = str(test.date)
 
             if date_str not in data_dict:
                 data_dict[date_str] = {
-                    'year': date[:4],
-                    'month': date[4:6],
-                    'day': date[6:8],
+                    'year': date_str[:4],
+                    'month': date_str[4:6],
+                    'day': date_str[6:8],
                     'irancell': 0,
                     'rightel': 0,
                     'mci': 0,
