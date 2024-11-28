@@ -85,21 +85,8 @@ class ReportDashboardsView(TemplateView):
         # محدود کردن داده‌های بازیابی شده
         test = Test.objects.select_related('vpn').only('id', 'date', 'vpn__name', 'status', 'server_isp', 'oprator')
 
-        # آخرین تست‌ها
-        last_test = test.order_by('-id')[:12]
-        for item in last_test:
-            item.date = convert_date2(item.date)
-            item.vpn.name2 = item.vpn.name.replace(' ', '')
-
-        # ساخت فیلترها
-        filter_dict = {
-            item['filter'].replace(" ", "_"): item['count']
-            for item in test.values('filter').annotate(count=Count('filter'))
-        }
-
         # VPN
-        vpn_data = test.exclude(status="Filter").values('vpn').annotate(count=Count('vpn'))
-        best_vpn_id = max(vpn_data, key=lambda x: x['count'], default=None)['vpn'] if vpn_data else None
+        best_vpn_id = test.exclude(status="Filter").values('vpn').annotate(count=Count('vpn')).order_by("-count")[0].get('vpn')
         best_vpn = Vpn.objects.only('id', 'name').filter(pk=best_vpn_id).first() if best_vpn_id else None
 
         # ISP و اپراتور
@@ -112,24 +99,23 @@ class ReportDashboardsView(TemplateView):
         best_country_data = (
             test.exclude(status="Filter")
             .exclude(vpn__vpn_country=None)
-            .values('vpn__vpn_country')
+            .values('vpn__vpn_country', 'vpn__vpn_country__name','vpn__vpn_country__persian_name')  # اضافه کردن name کشور
             .annotate(count=Count('id'))
             .order_by('-count')
             .first()
         )
-        best_country = (
-            Country.objects.only('id', 'name').filter(id=best_country_data['vpn__vpn_country']).first()
-            if best_country_data
-            else None
-        )
+
+        best_country = {
+            'id': best_country_data['vpn__vpn_country'],
+            'name': best_country_data['vpn__vpn_country__name'],
+            'persian_name': best_country_data['vpn__vpn_country__persian_name'],
+        } if best_country_data else None
 
         # نوتیفیکیشن
         notification_bool = Notification.objects.filter(user=self.request.user, is_read=False).exists()
 
         # اضافه کردن به context
         context.update({
-            "filter": filter_dict,
-            "last_test": last_test,
             "best_vpn": best_vpn,
             "best_isp": best_isp,
             "best_oprator": best_oprator,
