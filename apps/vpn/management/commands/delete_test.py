@@ -1,7 +1,6 @@
 from django.core.management import BaseCommand
 from apps.vpn.models import Test
 
-
 class Command(BaseCommand):
     help = 'Delete the specified number of rows from the end of the Test table'
 
@@ -12,17 +11,15 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         count = options['count']  # Getting the input number
 
-        # Get the last 'count' rows from the Test table
-        rows_to_delete = Test.objects.order_by('-id')[:count]
+        # Extract IDs of the last 'count' rows
+        row_ids = list(
+            Test.objects.order_by('-id')
+            .values_list('id', flat=True)[:count]
+        )
 
-        # Extract IDs of rows to delete
-        row_ids = rows_to_delete.values_list('id', flat=True)
-
-        # Delete rows using the IDs
-        deleted_count, _ = Test.objects.filter(id__in=row_ids).delete()
-
-        if deleted_count > 0:
+        if row_ids:
+            # Delete rows using the extracted IDs
+            deleted_count, _ = Test.objects.filter(id__in=row_ids).delete()
             self.stdout.write(f"Successfully deleted {deleted_count} rows from the Test table.")
         else:
             self.stdout.write("No rows to delete in the Test table.")
-
