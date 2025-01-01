@@ -911,7 +911,6 @@
               <label class="form-label" for="select2Success">استان</label>
               <div class="select2-success">
                 <select class="select2 form-select" id="select2Success" name="province">
-                  <option value="تهران">تهران</option>
                   {% for item in province %}
                     <option label="{{ item }}" value="{{ item}}"
                             {% if selected_province == item|stringformat:"s" %}selected{% endif %}>{{ item }}</option>
