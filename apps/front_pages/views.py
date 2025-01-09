@@ -48,7 +48,6 @@ class FrontPagesView(TemplateView):
 
         return context
 
-
 class LandingView(TemplateView):
     # Predefined function
     def get_context_data(self, **kwargs):

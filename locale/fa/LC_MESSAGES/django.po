@@ -833,6 +833,4 @@ msgstr "لیست تراکنش‌ها"
 msgid "Main Page"
 msgstr "صفحه اصلی"
 
-msgid "Mohsen"
-msgstr "محسن"
 
