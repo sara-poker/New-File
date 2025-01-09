@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import (TemplateView)
 from web_project import TemplateLayout
 from apps.vpn.models import *
 from apps.ticket.models import *
@@ -12,14 +12,12 @@ def convert_date(date):
     day = date[8:10]
     return year + month + day
 
-
 def convert_date2(date):
     date = str(date)
     year = date[:4]
     month = date[4:6]
     day = date[6:8]
     return year + "/" + month + "/" + day
-
 
 def filter_date(date, queryset):
     selected_date_str = date.split("تا")
@@ -32,7 +30,6 @@ def filter_date(date, queryset):
 
     return queryset.filter(date__range=(start_date, end_date)).order_by('date')
 
-
 def filter_date_year(date, queryset):
     date = int(date)
     if date == 0:
@@ -42,32 +39,26 @@ def filter_date_year(date, queryset):
 
     return queryset.filter(date__gte=start_date, date__lte=end_date).order_by('date')
 
-
 def filter_vpn(vpn, queryset):
     if vpn == "0":
         return queryset
     return queryset.filter(vpn_id=vpn)
-
 
 def filter_country_server(country_server, queryset):
     if country_server == "0":
         return queryset
     return queryset.filter(server_country=country_server)
 
-
 def filter_province(province, queryset):
     return queryset.filter(city=province)
-
 
 def filter_country(country, queryset):
     if country == "0":
         return queryset
     return queryset.filter(vpn__vpn_country=country)
 
-
 def filter_operator(oprator, queryset):
     return queryset.filter(oprator__in=oprator)
-
 
 # Create your views here.
 class LandingView(TemplateView):
@@ -75,7 +66,6 @@ class LandingView(TemplateView):
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
         return context
-
 
 class ReportDashboardsView(TemplateView):
     def get_context_data(self, **kwargs):
@@ -123,7 +113,6 @@ class ReportDashboardsView(TemplateView):
         })
 
         return context
-
 
 class LinerChartView(TemplateView):
     # Predefined function
@@ -250,7 +239,6 @@ class LinerChartView(TemplateView):
 
         return context
 
-
 class VpnCtreatorView(TemplateView):
     # Predefined function
     def get_context_data(self, **kwargs):
@@ -287,7 +275,6 @@ class VpnCtreatorView(TemplateView):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
         context['country_data'] = country_list
         return context
-
 
 class IspView(TemplateView):
     def get_context_data(self, **kwargs):
@@ -382,7 +369,6 @@ class IspView(TemplateView):
 
         return context
 
-
 class VpnByIdView(TemplateView):
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
@@ -451,8 +437,6 @@ class VpnByIdView(TemplateView):
         context['selected_country'] = selected_country
 
         return context
-
-
 
 class OperatorView(TemplateView):
     # Predefined function
@@ -539,7 +523,6 @@ class OperatorView(TemplateView):
         context['tci_count'] = operator_data["TCI"]['vpn_test_counts']
 
         return context
-
 
 class ProcessView(TemplateView):
 
