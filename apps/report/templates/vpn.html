@@ -190,12 +190,10 @@
       var dt_basic_table = $('.datatables-basic');
 
       // DataTable with buttons
-      // --------------------------------------------------------------------
-
       if (dt_basic_table.length) {
-        dt_basic = dt_basic_table.DataTable({
+        var dt_basic = dt_basic_table.DataTable({
           ajax: {
-            url: window.location.origin + '/api/getAllVpn?country={{ selected_country }}&server_country={{ selected_country_server }}', // لینک API/
+            url: window.location.origin + '/api/getAllVpn?country={{ selected_country }}&server_country={{ selected_country_server }}', // لینک API
             dataSrc: '' // اگر پاسخ API به صورت لیستی از اشیاء JSON است، این گزینه را خالی بگذارید
           },
           language: {
@@ -218,7 +216,7 @@
                     '<a href="/report/vpn/' + id + '">' +
                     '<img src="' + assetsPath + 'img/vpnIcon/' + name2 + '.png' + '" ' +
                     'alt="Avatar" width="60" class="rounded-circle" ' +
-                    'onerror="this.onerror=null; this.src=\'' + assetsPath + 'img/vpnIcon/default.png\';">' +
+                    'loading="lazy" onerror="this.onerror=null; this.src=\'' + assetsPath + 'img/vpnIcon/default.png\';">' +
                     '</a>'
                   );
                 } else {
@@ -236,7 +234,6 @@
           ],
           columnDefs: [
             {
-              // For Responsive
               className: 'control',
               orderable: false,
               searchable: false,
@@ -263,8 +260,7 @@
               renderer: function(api, rowIdx, columns) {
 
                 var data = $.map(columns, function(col, i) {
-                  console.log('col>>', col);
-                  return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+                  return col.title !== ''
                     ? '<tr data-dt-row="' +
                     col.rowIndex +
                     '" data-dt-column="' +
@@ -286,9 +282,20 @@
             }
           }
         });
+
+        // لود کردن تصاویر جدید هنگام تغییر صفحه
+        dt_basic.on('draw', function() {
+          var pageInfo = dt_basic.page.info();
+          var page = pageInfo.page;
+
+          // در اینجا شما می‌توانید سایر کارهایی که نیاز دارید را انجام دهید
+          // مثلا، فقط لود تصاویر مربوط به صفحه جاری
+        });
+
         $('div.head-label').html('<h5 class="card-title mb-0">جدول داده با کلید</h5>');
       }
     });
+
   </script>
 {% endblock vendor_js %}
 

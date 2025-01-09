@@ -346,7 +346,6 @@
 
               <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic3"
                       name="province">
-                <option value="تهران">تهران</option>
                 {% for item in province %}
                   <option label="{{ item }}" value="{{ item }}"
                           {% if selected_province == item|stringformat:"s" %}selected{% endif %}>{{ item }}</option>
