@@ -27,6 +27,21 @@ class StaffRequiredMixin2(AccessMixin):
             return redirect(self.redirect_url)
         return super().dispatch(request, *args, **kwargs)
 
+class StaffRequiredMixin3(AccessMixin):
+    redirect_url = '/report'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect(self.redirect_url)
+        return super().dispatch(request, *args, **kwargs)
+
+
+class DeleteDataView(StaffRequiredMixin3, TemplateView):
+    template_name = "delete_data.html"
+
+    def get_context_data(self, **kwargs):
+        context = TemplateLayout.init(self, super().get_context_data(**kwargs))
+        return context
 
 class SupportView(StaffRequiredMixin, TemplateView):
     template_name = "all_ticket.html"

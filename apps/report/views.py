@@ -288,7 +288,7 @@ class IspView(TemplateView):
         country_server_ids = test.values_list('server_country', flat=True).distinct()
         country_ids = vpn.values_list('vpn_country', flat=True).distinct()
 
-        # حذف 'nan' از لیست‌ها
+        # حذف 'nan' از لیست‌
         country_server_ids = [item for item in country_server_ids if item != 'nan']
         country_ids = [item for item in country_ids if item != 'nan']
 

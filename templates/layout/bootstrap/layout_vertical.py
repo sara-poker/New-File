@@ -121,6 +121,18 @@ menu_file2 = {
             ]
         },
         {
+            "name": "مدیریت دیتا",
+            "icon": "menu-icon tf-icons ti ti-database",
+            "slug": "management",
+            "submenu": [
+                {
+                    "url": "delete-data",
+                    "name": "حدف دیتای اضافی",
+                    "slug": "delete-data"
+                }
+            ]
+        },
+        {
             "name": "پشتیبانی",
             "icon": "menu-icon tf-icons ti ti-help",
             "slug": "support",
