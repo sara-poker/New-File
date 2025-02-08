@@ -74,7 +74,8 @@ class DeleteDataView(StaffRequiredMixin3, TemplateView):
                 return context
 
         test = test.filter(date__range=(selected_startDate, selected_endDate))
-        test = test.filter(oprator=selected_operator)
+        if selected_operator!="all":
+            test = test.filter(oprator=selected_operator)
         test = test.filter(city=selected_province)
 
         deleted_count, _ = test.delete()
