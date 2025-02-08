@@ -9,6 +9,9 @@ from django.db.models import Count
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import AccessMixin
 
+from apps.vpn.models import *
+
+
 
 class StaffRequiredMixin(AccessMixin):
     redirect_url = '/ticket/support'
@@ -41,6 +44,43 @@ class DeleteDataView(StaffRequiredMixin3, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
+        test = Test.objects.filter()
+        province = list(test.values_list('city', flat=True).distinct())
+        context['province'] = province
+
+        selected_startDate = self.request.GET.get('startDate')
+        selected_endDate = self.request.GET.get('endDate')
+        selected_province = self.request.GET.get('province')
+        selected_operator = self.request.GET.get('operator')
+
+        if not selected_startDate:
+                context['success'] = False
+                context['msg'] = "لطفا شروع بازه تاریخ را وارد کنید!"
+                return context
+
+        if not selected_endDate:
+                context['success'] = False
+                context['msg'] = "لطفا پایان  بازه تاریخ را وارد کنید!"
+                return context
+
+        if not selected_province:
+                context['success'] = False
+                context['msg'] = "لطفا استان مورد نظر را وارد کنید!"
+                return context
+
+        if not selected_operator:
+                context['success'] = False
+                context['msg'] = "لطفا اپراتور مورد نظر را وارد کنید!"
+                return context
+
+        test = test.filter(date__range=(selected_startDate, selected_endDate))
+        test = test.filter(oprator=selected_operator)
+        test = test.filter(city=selected_province)
+
+        deleted_count, _ = test.delete()
+
+        context['success'] = True
+        context['msg'] = f" رکورد با موفقیت حذف شد."
         return context
 
 class SupportView(StaffRequiredMixin, TemplateView):
