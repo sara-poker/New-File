@@ -1,0 +1,107 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}حذف دیتا{% endblock %}
+
+{% block vendor_css %}
+  {{ block.super }}
+  <script src="{% static 'js/forms-selects.js' %}"></script>
+  <script src="{% static 'vendor/libs/bootstrap-select/bootstrap-select.js' %}"></script>
+{% endblock vendor_css %}
+
+{% block vendor_js %}
+  {{ block.super }}
+  <script src="{% static 'vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block page_css %}
+  <link rel="stylesheet" href="{% static 'vendor/libs/bootstrap-maxlength/bootstrap-maxlength.css' %}" />
+  <style>
+    .redBox {
+      color: red;
+    }
+
+    .greenBox {
+      color: green;
+    }
+  </style>
+  {{ block.super }}
+{% endblock page_css %}
+
+{% block page_js %}
+  {{ block.super }}
+  <script src="{% static 'js/app-chat.js' %}"></script>
+{% endblock page_js %}
+
+{% block content %}
+  <div class="card h-100 pb-3 ps-4 pe-4">
+    <div class="row">
+      <form class="row g-3" action="{% url 'delete-data' %}" method="get">
+        <div class="col-md-3">
+          <label class="form-label" for="select2Basic4">شروع تاریخ</label>
+
+          <input class="form-control form-control-lg" placeholder="از تاریخ ..." id="select2Basic4" name="startDate"
+                 type="text">
+
+        </div>
+        <div class="col-md-3">
+          <label class="form-label" for="select2Basic3">پایان تاریخ</label>
+
+          <input class="form-control form-control-lg" placeholder="تا تاریخ ..." id="select2Basic3" name="endDate"
+                 type="text">
+
+        </div>
+        <div class="col-md-3">
+          <label class="form-label" for="select2Success">استان</label>
+          <div class="select2-success">
+            <select class="select2 form-select form-select-lg" id="select2Success" name="province">
+              {% for item in province %}
+                <option label="{{ item }}" value="{{ item }}">{{ item }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label" for="select2Basic">اپراتور</label>
+          <select class="select2 form-select form-select-lg" data-allow-clear="true" id="select2Basic" name="operator">
+            <option value="all">همه اپراتور ها</option>
+            <option value="Irancell">ایرانسل</option>
+            <option value="MCI">همراه اول</option>
+            <option value="RighTel">رایتل</option>
+            <option value="TCI">مخابرات</option>
+          </select>
+
+        </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label class="form-label" for="select2Basic3">.</label>
+          <br>
+          <button class="btn btn-danger w-100" type="submit" id="applyFilter">حذف داده ها!</button>
+        </div>
+      </div>
+
+      </form>
+
+    </div>
+    <br>
+    <br>
+    <center>
+      <div class="row">
+      {% if success %}
+        <h4 class="greenBox">
+          {{ msg }}
+        </h4>
+      {% endif %}
+      {% if not success %}
+        <h4 class="redBox">
+          {{ msg }}
+        </h4>
+      {% endif %}
+
+    </div>
+    </center>
+  </div>
+
+{% endblock %}

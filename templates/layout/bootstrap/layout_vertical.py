@@ -54,6 +54,18 @@ menu_file = {
             ]
         },
         {
+            "name": "مدیریت دیتا",
+            "icon": "menu-icon tf-icons ti ti-database",
+            "slug": "management",
+            "submenu": [
+                {
+                    "url": "download-data",
+                    "name": "بارگیری دیتا",
+                    "slug": "download-data"
+                }
+            ]
+        },
+        {
             "name": "پشتیبانی",
             "icon": "menu-icon tf-icons ti ti-help",
             "slug": "support",
@@ -125,6 +137,11 @@ menu_file2 = {
             "icon": "menu-icon tf-icons ti ti-database",
             "slug": "management",
             "submenu": [
+                {
+                    "url": "download-data",
+                    "name": "بارگیری دیتا",
+                    "slug": "download-data"
+                },
                 {
                     "url": "delete-data",
                     "name": "حدف دیتای اضافی",

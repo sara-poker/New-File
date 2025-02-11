@@ -29,6 +29,10 @@ urlpatterns = [
          name='update_notification_status'),
     path(
         'management/delete-data',
-         login_required(DeleteDataView.as_view(template_name="delete_data.html")),
-         name='delete-data')
+        login_required(DeleteDataView.as_view(template_name="delete_data.html")),
+        name='delete-data'),
+    path(
+        'management/download-data',
+        login_required(DownloadDataView.as_view(template_name="download_data.html")),
+        name='download-data')
 ]

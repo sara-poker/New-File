@@ -186,7 +186,6 @@ class AddRecord(APIView):
 
     def post(self, request):
         data = request.data
-
         test_data = {
             "vpn_name": data['vpn_name'],
             "date": data['date'],
