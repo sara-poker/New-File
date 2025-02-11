@@ -136,15 +136,15 @@ class AddItem(APIView):
                 return Response(isp_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         # Ping and TTL
-        if data['ping_speed'] == "failed" or math.isnan(data['ping_speed']):
-            ping = -1
-        else:
-            ping = int(data['ping_speed'])
-
-        if data['ttl'] == "failed" or math.isnan(data['ttl']):
-            ttl = -1
-        else:
-            ttl = int(data['ttl'])
+        # if data['ping_speed'] == "failed" or math.isnan(data['ping_speed']):
+        #     ping = -1
+        # else:
+        #     ping = int(data['ping_speed'])
+        #
+        # if data['ttl'] == "failed" or math.isnan(data['ttl']):
+        #     ttl = -1
+        # else:
+        #     ttl = int(data['ttl'])
 
         # Server Country
         server_country_obj = Country.objects.filter(name=data['server_country']).first()
@@ -167,8 +167,8 @@ class AddItem(APIView):
             "server_city": data['server_city'],
             "server_Latitude": data['server_Latitude'],
             "server_Longitude": data['server_Longitude'],
-            "ping_speed": ping,
-            "ttl": ttl,
+            # "ping_speed": ping,
+            # "ttl": ttl,
             "proxy_port": data['proxy_port'],
             "proxy_secret": data['proxy_secret'],
         }

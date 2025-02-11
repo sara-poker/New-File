@@ -47,7 +47,7 @@ class TestSerializer(serializers.ModelSerializer):
         fields = ['id', 'date', 'time', 'city', 'vpn', 'oprator', 'status', 'filter', 'server_ip',
                   'server_host',
                   'server_isp', 'server_country', 'server_region', 'server_city', 'server_Latitude',
-                  'server_Longitude', 'ping_speed', 'ttl', 'proxy_port', 'proxy_secret']
+                  'server_Longitude', 'proxy_port', 'proxy_secret']
 
 class OnlineTestSerializer(serializers.ModelSerializer):
     class Meta:
