@@ -4,7 +4,6 @@ from web_project.template_helpers.theme import TemplateHelper
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from apps.vpn.models import *
 from apps.front_pages.serializers import *
 from rest_framework import status
 import math
