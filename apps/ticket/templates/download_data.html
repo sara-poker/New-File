@@ -3,7 +3,7 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}حذف دیتا{% endblock %}
+{% block title %}بارگیری دیتا{% endblock %}
 
 {% block vendor_css %}
   {{ block.super }}
@@ -38,7 +38,7 @@
 {% block content %}
   <div class="card h-100 pb-3 ps-4 pe-4">
     <div class="row">
-      <form class="row g-3" action="{% url 'delete-data' %}" method="get">
+      <form class="row g-3" action="{% url 'download-data' %}" method="get">
         <div class="col-md-3">
           <label class="form-label" for="select2Basic4">شروع تاریخ</label>
 
@@ -74,13 +74,14 @@
           </select>
 
         </div>
-      <div class="row">
-        <div class="col-md-12">
-          <label class="form-label" for="select2Basic3">.</label>
-          <br>
-          <button class="btn btn-danger w-100" type="submit" id="applyFilter">حذف داده ها!</button>
+        <div class="row">
+          <div class="col-md-12">
+            <label class="form-label" for="select2Basic3">.</label>
+            <br>
+            <input type="hidden" name="download" value="1">
+            <button class="btn btn-success w-100" type="submit">دانلود اکسل</button>
+          </div>
         </div>
-      </div>
 
       </form>
 
@@ -89,18 +90,18 @@
     <br>
     <center>
       <div class="row">
-      {% if success %}
-        <h4 class="greenBox">
-          {{ msg }}
-        </h4>
-      {% endif %}
-      {% if not success %}
-        <h4 class="redBox">
-          {{ msg }}
-        </h4>
-      {% endif %}
+        {% if success %}
+          <h4 class="greenBox">
+            {{ msg }}
+          </h4>
+        {% endif %}
+        {% if not success %}
+          <h4 class="redBox">
+            {{ msg }}
+          </h4>
+        {% endif %}
 
-    </div>
+      </div>
     </center>
   </div>
 
