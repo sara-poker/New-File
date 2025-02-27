@@ -5,6 +5,7 @@ from django.http import HttpResponse
 import pandas as pd
 from django.http import JsonResponse
 from django.views import View
+import jdatetime
 
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import AccessMixin
@@ -87,6 +88,21 @@ class DownloadDataView(TemplateView):
             return self.export_excel(request)
         return super().get(request, *args, **kwargs)
 
+    def get_weekday(self, test_date: str):
+        year = int(test_date[:4])
+        month = int(test_date[4:6])
+        day = int(test_date[6:8])
+
+        jalali_date = jdatetime.date(year, month, day)
+
+        weekdays = [
+            "شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه"
+        ]
+
+        print("jalali_date.weekday()>>",jalali_date.weekday())
+
+        return weekdays[jalali_date.weekday()]
+
     def export_excel(self, request):
         selected_startDate = request.GET.get('startDate')
         selected_endDate = request.GET.get('endDate')
@@ -108,7 +124,7 @@ class DownloadDataView(TemplateView):
                 "Month1": int(str(test.date)[4:6]),
                 "Month2": convert_month(str(test.date)[4:6]),
                 "Day": int(str(test.date)[6:8]),
-                "DaysOfTheWeek": None,
+                "DaysOfTheWeek": self.get_weekday(str(test.date)),
                 "clock": test.time,
                 "Event": test.city,
                 "Holiday": None,
@@ -132,7 +148,7 @@ class DownloadDataView(TemplateView):
                 "NumberOfTest": None,
                 "vpn maker": test.vpn.vpn_maker if test.vpn else None,
                 "vpn Country": test.vpn.vpn_country.name if test.vpn and test.vpn.vpn_country else None,
-                "vpn normal user fee":None,
+                "vpn normal user fee": None,
                 "Proxy Port": test.proxy_port,
                 "Proxy Secret": test.proxy_secret,
             }
