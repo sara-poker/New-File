@@ -62,7 +62,6 @@ def filter_operator(oprator, queryset):
 
 # Create your views here.
 class LandingView(TemplateView):
-    # Predefined function
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
         return context
@@ -71,24 +70,19 @@ class ReportDashboardsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
 
-        # محدود کردن داده‌های بازیابی شده
         test = Test.objects.select_related('vpn').only('id', 'date', 'vpn__name', 'status', 'server_isp', 'oprator')
 
-        # VPN
         best_vpn_id = test.exclude(status="Filter").values('vpn').annotate(count=Count('vpn')).order_by("-count")[0].get('vpn')
         best_vpn = Vpn.objects.only('id', 'name').filter(pk=best_vpn_id).first() if best_vpn_id else None
-
-        # ISP و اپراتور
         best_isp = test.values('server_isp').annotate(count=Count('id')).exclude(server_isp=None).order_by(
             '-count').first()
         best_oprator = test.values('oprator').annotate(count=Count('id')).exclude(status="Filter").order_by(
             '-count').first()
 
-        # کشور برتر
         best_country_data = (
             test.exclude(status="Filter")
             .exclude(vpn__vpn_country=None)
-            .values('vpn__vpn_country', 'vpn__vpn_country__name','vpn__vpn_country__persian_name')  # اضافه کردن name کشور
+            .values('vpn__vpn_country', 'vpn__vpn_country__name','vpn__vpn_country__persian_name')
             .annotate(count=Count('id'))
             .order_by('-count')
             .first()
@@ -100,10 +94,8 @@ class ReportDashboardsView(TemplateView):
             'persian_name': best_country_data['vpn__vpn_country__persian_name'],
         } if best_country_data else None
 
-        # نوتیفیکیشن
         notification_bool = Notification.objects.filter(user=self.request.user, is_read=False).exists()
 
-        # اضافه کردن به context
         context.update({
             "best_vpn": best_vpn,
             "best_isp": best_isp,
@@ -115,35 +107,26 @@ class ReportDashboardsView(TemplateView):
         return context
 
 class LinerChartView(TemplateView):
-    # Predefined function
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
 
-        # استفاده از only() برای کاهش مقدار داده‌ها
-        vpn = Vpn.objects.only('id', 'vpn_country')  # تنها فیلدهای مورد نیاز را بارگذاری می‌کنیم
-        all_test = Test.objects.only('date', 'oprator', 'status', 'city',
-                                     'server_country')  # فیلترهای محدودتر برای کاهش بار
-
-        # کشور سرور و استان‌ها فقط برای فیلترها
+        vpn = Vpn.objects.only('id', 'vpn_country')
+        all_test = Test.objects.only('date', 'oprator', 'status', 'city','server_country')
         country_server_ids = list(all_test.values_list('server_country', flat=True).distinct())
         country_server = Country.objects.filter(id__in=country_server_ids).order_by('persian_name')
-
         province_ids = list(all_test.values_list('city', flat=True).distinct())
 
         country_ids = list(vpn.values_list('vpn_country', flat=True).distinct())
         country = Country.objects.filter(id__in=country_ids).order_by('persian_name')
 
-        # دریافت مقادیر فیلتر از URL
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
         selected_province = self.request.GET.get('province')
         selected_country_server = self.request.GET.get('server_country')
         selected_country = self.request.GET.get('country')
 
-        # بدون فیلتر
         no_filter = all_test.filter(status='Without Filter').order_by('date')
 
-        # اعمال فیلترها
         if selected_date_str:
             all_test = filter_date(selected_date_str, all_test)
             no_filter = filter_date(selected_date_str, no_filter)
@@ -168,11 +151,9 @@ class LinerChartView(TemplateView):
             no_filter = filter_province(selected_province, no_filter)
             all_test = filter_province(selected_province, all_test)
 
-        # کاهش زمان با استفاده از groupby و تجمیع داده‌ها به صورت مستقیم
         results = []
         data_dict = {}
 
-        # فیلتر کردن و محاسبه شمارش برای هر اپراتور
         for test in no_filter:
             date_str = str(test.date)
 
@@ -187,7 +168,6 @@ class LinerChartView(TemplateView):
                     'tci': 0
                 }
 
-            # افزایش شمارش اپراتور مربوطه
             operator = test.oprator.lower()
             if operator == 'irancell':
                 data_dict[date_str]['irancell'] += 1
@@ -198,10 +178,7 @@ class LinerChartView(TemplateView):
             elif operator == 'tci':
                 data_dict[date_str]['tci'] += 1
 
-        # تبدیل دیکشنری به لیست
         results = list(data_dict.values())
-
-        # تعداد اپراتورها بدون فیلتر و با فیلتر
         irancell_no_filter = no_filter.filter(oprator="Irancell").count()
         irancell_filter = all_test.filter(oprator="Irancell").count() - irancell_no_filter
 
@@ -214,7 +191,6 @@ class LinerChartView(TemplateView):
         tci_no_filter = no_filter.filter(oprator="TCI").count()
         tci_filter = all_test.filter(oprator="TCI").count() - rightel_no_filter
 
-        # افزودن داده‌ها به context
         context['data1'] = results
         context['irancell_no_filter'] = irancell_no_filter
         context['irancell_filter'] = irancell_filter
@@ -225,7 +201,6 @@ class LinerChartView(TemplateView):
         context['tci_no_filter'] = tci_no_filter
         context['tci_filter'] = tci_filter
 
-        # اطلاعات فیلترها
         context['vpn'] = vpn
         context['province'] = province_ids
         context['country_server'] = country_server
@@ -240,23 +215,14 @@ class LinerChartView(TemplateView):
         return context
 
 class VpnCtreatorView(TemplateView):
-    # Predefined function
     def get_context_data(self, **kwargs):
-        # دریافت تعداد VPN‌ها بر اساس کشور به صورت مستقیم
         vpn_counts_by_country = Vpn.objects.values('vpn_country').annotate(count=Count('vpn_country')).order_by(
             '-count')
 
-        # استخراج شناسه‌های کشورها
         country_ids = [item['vpn_country'] for item in vpn_counts_by_country]
-
-        # واکشی تمام کشورها به صورت یکجا
-        countries = Country.objects.filter(id__in=country_ids).only('id', 'name', 'country_id', 'continent',
-                                                                    'persian_name')
-
-        # ساخت دیکشنری برای جستجو سریع کشورها بر اساس id
+        countries = Country.objects.filter(id__in=country_ids).only('id', 'name', 'country_id', 'continent','persian_name')
         country_dict = {country.id: country for country in countries}
 
-        # ایجاد لیست داده‌ها بر اساس اطلاعات موجود در country_dict
         country_list = []
         for item in vpn_counts_by_country:
             country_id = item['vpn_country']
@@ -271,7 +237,6 @@ class VpnCtreatorView(TemplateView):
                 }
                 country_list.append(data)
 
-        # اضافه کردن داده‌ها به context
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
         context['country_data'] = country_list
         return context
@@ -280,29 +245,23 @@ class IspView(TemplateView):
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
 
-        # گرفتن تمام تست‌ها با فیلتر کردن server_isp=None در همان ابتدا
         test = Test.objects.exclude(server_isp=None)  # فیلتر اولیه برای حذف مقادیر null
         vpn = Vpn.objects.all()
 
-        # دریافت لیست کشورهای سرور و کشورهای VPN به صورت همزمان
         country_server_ids = test.values_list('server_country', flat=True).distinct()
         country_ids = vpn.values_list('vpn_country', flat=True).distinct()
 
-        # حذف 'nan' از لیست‌
         country_server_ids = [item for item in country_server_ids if item != 'nan']
         country_ids = [item for item in country_ids if item != 'nan']
 
-        # واکشی کشورها از دیتابیس فقط در صورت نیاز
         country_server = Country.objects.filter(id__in=country_server_ids).order_by('persian_name')
         country = Country.objects.filter(id__in=country_ids).order_by('persian_name')
 
-        # دریافت انتخاب‌های فیلتر
         selected_date_str = self.request.GET.get('selected_date')
         selected_vpn = self.request.GET.get('vpn')
         selected_country_server = self.request.GET.get('server_country')
         selected_country = self.request.GET.get('country')
 
-        # اعمال فیلترهای مختلف به طور مستقیم روی دیتابیس
         if selected_date_str:
             test = filter_date_year(selected_date_str, test)
 
@@ -315,17 +274,13 @@ class IspView(TemplateView):
         if selected_country:
             test = filter_country(selected_country, test)
 
-        # دریافت ISP اصلی
         main_isp = Isp.objects.filter(pk=self.kwargs['pk']).first()
         if main_isp:
             main_isp.name2 = main_isp.name.replace(" ", "")
 
-        # جمع‌آوری داده‌های مربوط به تعداد ISPها و کشورها
-        # استفاده از prefetch_related برای کاهش تعداد کوئری‌ها
         test_data = test.values('server_isp', 'server_country__name').annotate(server_count=Count('id')).exclude(
             server_isp='nan')
 
-        # استفاده از دیکشنری برای جمع‌آوری داده‌ها
         data = {}
         for item in test_data:
             isp = item['server_isp']
@@ -336,10 +291,8 @@ class IspView(TemplateView):
                 data[isp] = {}
             data[isp][country_m] = count
 
-        # فیلتر کردن تست‌ها بر اساس ISP
         test = test.filter(server_isp=main_isp.name)
 
-        # محاسبه تعداد IPها، کشورهای مختلف و VPNها
         isp_ip = test.values('server_ip').distinct()
         isp_country = test.values('server_country__persian_name').distinct()
         isp_vpn = test.values('vpn__name').distinct()
@@ -348,7 +301,6 @@ class IspView(TemplateView):
         count_country = isp_country.count()
         count_vpn = isp_vpn.count()
 
-        # اضافه کردن داده‌ها به context
         context.update({
             'vpn': vpn,
             'country_server': country_server,
@@ -439,7 +391,6 @@ class VpnByIdView(TemplateView):
         return context
 
 class OperatorView(TemplateView):
-    # Predefined function
     def get_context_data(self, **kwargs):
         context = TemplateLayout.init(self, super().get_context_data(**kwargs))
         test = Test.objects
