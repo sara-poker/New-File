@@ -2,7 +2,7 @@ from django.views.generic import (TemplateView)
 from web_project import TemplateLayout
 from apps.vpn.models import *
 from apps.ticket.models import *
-from django.db.models import Count, Q
+from django.db.models import Count
 
 
 def convert_date(date):
